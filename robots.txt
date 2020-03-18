@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /about/
+Allow: /tags/
+Allow: /links/
+
+Sitemap: https://www.zjun.info/sitemap.xml
+Sitemap: https://www.zjun.info/baidusitemap.xml
+
+cqcetsec{wellc0me_Cqcet_sEc}
