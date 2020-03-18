@@ -27,27 +27,27 @@
   <meta name="description" content="解题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆叠注入">
-<meta property="og:url" content="https://www.wafer.org.cn/2019/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8.html">
+<meta property="og:url" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/index.html">
 <meta property="og:site_name" content="wafのblog">
 <meta property="og:description" content="解题">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.wafer.org.cn/2.png">
-<meta property="og:image" content="https://www.wafer.org.cn/4.png">
-<meta property="og:image" content="https://www.wafer.org.cn/3.png">
-<meta property="og:image" content="https://www.wafer.org.cn/5.png">
-<meta property="og:image" content="https://www.wafer.org.cn/6.png">
-<meta property="og:image" content="https://www.wafer.org.cn/7.png">
-<meta property="og:image" content="https://www.wafer.org.cn/8.png">
-<meta property="og:image" content="https://www.wafer.org.cn/9.png">
-<meta property="og:image" content="https://www.wafer.org.cn/10.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/2.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/4.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/3.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/5.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/6.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/7.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/8.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/9.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/10.png">
 <meta property="article:published_time" content="2019-11-06T07:42:38.160Z">
 <meta property="article:modified_time" content="2019-10-15T08:25:44.530Z">
 <meta property="article:author" content="waf&#39;s blog">
 <meta property="article:tag" content="sql注入">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.wafer.org.cn/2.png">
+<meta name="twitter:image" content="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/2.png">
 
-<link rel="canonical" href="https://www.wafer.org.cn/2019/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8.html">
+<link rel="canonical" href="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/">
 
 
 <script id="page-configurations">
@@ -224,7 +224,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2019/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8.html">
+    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -275,8 +275,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8.html" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -291,15 +291,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h1><p><img data-src="/2.png" alt="2.png"></p>
+        <h1 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h1><p><img data-src="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/2.png" alt="2.png"></p>
 <a id="more"></a>
 
-<p>打开页面就是就数字为1的id，提示说是随便注,我就是输入单引号发现报错，我就行常规sql注入测试。<br><img data-src="/4.png" alt="4.png"><br><img data-src="/3.png" alt="3.png"><br>通过order by 查询到二列，通过联合查询，发现过滤了很多<br><img data-src="/5.png" alt="5.png"><br><img data-src="/6.png" alt="6.png"></p>
+<p>打开页面就是就数字为1的id，提示说是随便注,我就是输入单引号发现报错，我就行常规sql注入测试。<br><img data-src="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/4.png" alt="4.png"><br><img data-src="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/3.png" alt="3.png"><br>通过order by 查询到二列，通过联合查询，发现过滤了很多<br><img data-src="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/5.png" alt="5.png"><br><img data-src="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/6.png" alt="6.png"></p>
 <p>这是时候，他说随便注，我们换思路尝试一下堆叠注入.<br>所谓堆叠注入就是：<br>在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products服务器端生成的sql语句为：（因未对输入的参数进行过滤）Select * from products where productid=1;DELETE FROM products当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。<br>现在通过</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;<span class="keyword">show</span> <span class="keyword">databases</span>();<span class="comment">#</span></span><br><span class="line">;<span class="keyword">show</span> <span class="keyword">tables</span>();<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="/7.png" alt="7.png"><br><img data-src="/8.png" alt="8.png"><br>发现一个可疑的表 1919810931114514<br>通过查看表名发现flag字样<br><img data-src="/9.png" alt="9.png"></p>
+<p><img data-src="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/7.png" alt="7.png"><br><img data-src="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/8.png" alt="8.png"><br>发现一个可疑的表 1919810931114514<br>通过查看表名发现flag字样<br><img data-src="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/9.png" alt="9.png"></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">;<span class="keyword">show</span> <span class="keyword">columns</span> <span class="keyword">from</span> <span class="string">`1919810931114514`</span></span><br></pre></td></tr></table></figure>
-<p>通过发现估计后台是查询的是words表,由于发现没有禁用rename,alter我们可以改表，改表列构造payload<br>把1919810931114514改为words<br>把words改为任意一个名字<br>将words表名改为flag,id表列<br><img data-src="/10.png" alt="10.png"><br>然后用 1’  or ‘1’ =’1 成功读取flag<br>这篇文章比较水，将就着看下<br>这里还有个经常用的堆叠注入就不写了附上一位师傅的链接<a href="https://www.cnblogs.com/wfzWebSecuity/p/11334800.html" target="_blank" rel="noopener">堆叠注入</a></p>
+<p>通过发现估计后台是查询的是words表,由于发现没有禁用rename,alter我们可以改表，改表列构造payload<br>把1919810931114514改为words<br>把words改为任意一个名字<br>将words表名改为flag,id表列<br><img data-src="/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/10.png" alt="10.png"><br>然后用 1’  or ‘1’ =’1 成功读取flag<br>这篇文章比较水，将就着看下<br>这里还有个经常用的堆叠注入就不写了附上一位师傅的链接<a href="https://www.cnblogs.com/wfzWebSecuity/p/11334800.html" target="_blank" rel="noopener">堆叠注入</a></p>
 
     </div>
 
@@ -337,7 +337,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.wafer.org.cn/2019/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8.html" title="堆叠注入">https://www.wafer.org.cn/2019/buuctf 随便注.html</a>
+    <a href="https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/" title="堆叠注入">https://www.wafer.org.cn/2019/11/06/buuctf 随便注/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -388,7 +388,7 @@
     <div class="post-nav">
       <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2019/babyphp.html" rel="next" title="babyphp">
+    <a href="/2019/11/06/babyphp/" rel="next" title="babyphp">
       babyphp <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
