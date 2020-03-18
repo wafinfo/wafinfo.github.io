@@ -3,7 +3,7 @@
   <entry>
     <title>xss-javascript</title>
     <url>/2019/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF.html</url>
-    <content><![CDATA[<h1 id="xss-javascript"><a href="#xss-javascript" class="headerlink" title="xss-javascript"></a>xss-javascript</h1><p><img data-src="/1.png" alt="1.png"><br><img data-src="/2.png" alt="2.png"><br> 这个是某一位师傅博客写的文章,xss成功弹窗打了自己,xss凶起来连自己人都打….其他不多说,进入正题<br> <a id="more"></a></p>
+    <content><![CDATA[<h1 id="xss-javascript"><a href="#xss-javascript" class="headerlink" title="xss-javascript"></a>xss-javascript</h1><p><img data-src="/1.png" alt="1.png"><br><img data-src="/2.png" alt="2.png"><br> 这个是某一位师傅博客写的文章,闭合了标签,导致xss产生<br> <a id="more"></a></p>
 <h2 id="xss-javascript编码绕过"><a href="#xss-javascript编码绕过" class="headerlink" title="xss-javascript编码绕过"></a>xss-javascript编码绕过</h2><p>原始payload</p>
 <figure class="highlight isbl"><table><tr><td class="code"><pre><span class="line"><span class="variable">javascript</span>:<span class="function"><span class="title">alert</span>(<span class="string">'waf'</span>)</span></span><br></pre></td></tr></table></figure>
 <p>alert经过unicode编码后</p>
