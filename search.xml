@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>一次asp+access手工注入实战渗透</title>
+    <url>/2020/03/20/asp%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<p>附上简书的地址<a href="https://www.jianshu.com/p/b2da19279f1f" target="_blank" rel="noopener">一次asp+access手工注入实战渗透</a></p>
+]]></content>
+      <categories>
+        <category>渗透</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>xss-javascript</title>
     <url>/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/</url>
     <content><![CDATA[<h1 id="xss-javascript"><a href="#xss-javascript" class="headerlink" title="xss-javascript"></a>xss-javascript</h1><p><img data-src="/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/1.png" alt="1.png"><br><img data-src="/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/2.png" alt="2.png"><br> 这个是某一位师傅博客写的文章,一不小心xss产生<br> <a id="more"></a></p>

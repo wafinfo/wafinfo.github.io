@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.wafer.org.cn/2020/03/20/asp%E6%B3%A8%E5%85%A5/</loc>
+    
+    <lastmod>2020-03-20T09:54:50.741Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.wafer.org.cn/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/</loc>
     
     <lastmod>2020-03-20T09:46:03.937Z</lastmod>
@@ -37,14 +44,14 @@
   </url>
   
   <url>
-    <loc>https://www.wafer.org.cn/categories/index.html</loc>
+    <loc>https://www.wafer.org.cn/archives/index.html</loc>
     
     <lastmod>2020-03-18T14:32:13.342Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.wafer.org.cn/archives/index.html</loc>
+    <loc>https://www.wafer.org.cn/categories/index.html</loc>
     
     <lastmod>2020-03-18T14:32:13.342Z</lastmod>
     

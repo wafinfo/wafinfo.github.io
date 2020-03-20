@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-03-18T16:20:44.290Z</updated>
+  <updated>2020-03-20T09:54:50.741Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一次asp+access手工注入实战渗透</title>
+    <link href="https://www.wafer.org.cn/2020/03/20/asp%E6%B3%A8%E5%85%A5/"/>
+    <id>https://www.wafer.org.cn/2020/03/20/asp%E6%B3%A8%E5%85%A5/</id>
+    <published>2020-03-20T09:53:28.696Z</published>
+    <updated>2020-03-20T09:54:50.741Z</updated>
+    
+    <content type="html"><![CDATA[<p>附上简书的地址<a href="https://www.jianshu.com/p/b2da19279f1f" target="_blank" rel="noopener">一次asp+access手工注入实战渗透</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;附上简书的地址&lt;a href=&quot;https://www.jianshu.com/p/b2da19279f1f&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;一次asp+access手工注入实战渗透&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="渗透" scheme="https://www.wafer.org.cn/categories/%E6%B8%97%E9%80%8F/"/>
+    
+    
+      <category term="渗透" scheme="https://www.wafer.org.cn/tags/%E6%B8%97%E9%80%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>xss-javascript</title>
