@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.wafer.org.cn/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/</loc>
+    <lastmod>2020-03-20</lastmod>
+  </url>  <url>
     <loc>https://www.wafer.org.cn/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/</loc>
     <lastmod>2020-03-18</lastmod>
   </url>  <url>
@@ -9,9 +12,6 @@
   </url>  <url>
     <loc>https://www.wafer.org.cn/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/</loc>
     <lastmod>2019-10-18</lastmod>
-  </url>  <url>
-    <loc>https://www.wafer.org.cn/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/</loc>
-    <lastmod>2019-10-17</lastmod>
   </url>  <url>
     <loc>https://www.wafer.org.cn/2019/11/06/buuctf%20%E9%9A%8F%E4%BE%BF%E6%B3%A8/</loc>
     <lastmod>2019-10-15</lastmod>

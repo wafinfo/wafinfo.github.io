@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/4.png">
 <meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/5.png">
 <meta property="article:published_time" content="2019-11-06T07:42:38.194Z">
-<meta property="article:modified_time" content="2019-10-17T08:05:27.411Z">
+<meta property="article:modified_time" content="2020-03-20T09:46:03.937Z">
 <meta property="article:author" content="waf&#39;s blog">
 <meta property="article:tag" content="http走私">
 <meta name="twitter:card" content="summary">
@@ -291,7 +291,7 @@
 <a id="more"></a>
 
 
-<h2 id="吐槽会"><a href="#吐槽会" class="headerlink" title="吐槽会"></a>吐槽会</h2><p>今天写这篇文章就是要吐槽下自己,怪自己能力太弱了,这次就是因为这个http走私,把唯一能做出来的的web题给我卡掉了，这个http走私我了解过两次一次是老师口头提了一下，一个是在无意间瞄了一下，最终让我遇见了难受….题的质量还是很好，废话不多说进入正题</p>
+
 <h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><h3 id="http请求走私？"><a href="#http请求走私？" class="headerlink" title="http请求走私？"></a>http请求走私？</h3><p>前端服务器（cdn）和后端服务器接收数据不同步，引起对客户端传入的数据理解不一致，从而导致漏洞；为什么会不一致呢？<br>主要是处理Content-Length和Transfer-Encoding不一致，原则上同时使用两者时，Content-Length是无效的，当单个服务器时，没有任何问题，但当多个服务器时，理解的数据不一致时，就会出现有些服务器认为Content-Length的长度有效，有些以Transfer-Encoding有效，这样超出的长度就会拼接到下一次请求，从而导致漏洞。<br>攻击方法：<br>CL-TE(Content-Length,Transfer-Encoding)<br>TE-CL(Transfer-Encoding,Content-Length)<br>TE-TE(Transfer-Encoding,Transfer-Encoding)<br>详细请了解<a href="https://paper.seebug.org/1048/" target="_blank" rel="noopener">协议层攻击</a></p>
 <h3 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h3><p>base_convert() 函数在任意进制之间转换数字。<br>dechex() 函数把十进制数转换为十六进制数。<br>hex2bin() 函数把十六进制值的字符串转换为 ASCII 字符。</p>
 <h4 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h4><p>直接进入正题通过寻找发现一处calc.php文件<br><img data-src="/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/2.png" alt="2.png"><br>通过对代码分析就是传入num参数值不能存在$blacklist黑名单里，如果存在就结束输出“what are you want to do?”<br>经过测试还发现他存在waf，通过http走私来绕过waf。<br><img data-src="/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/3.png" alt="3.png"><br>现在我们通过参看phpinfo里面禁用函数得知我们可以利用var_dump(scandir(‘/‘));来找出我们想要的flag位置<br>现在就要利用到数学函数来构造payload<br>用数学函数把var_dump(scandir(‘/‘))</p>
@@ -455,7 +455,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#考点"><span class="nav-number">1.</span> <span class="nav-text">考点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#吐槽会"><span class="nav-number">1.1.</span> <span class="nav-text">吐槽会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题"><span class="nav-number">1.2.</span> <span class="nav-text">解题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http请求走私？"><span class="nav-number">1.2.1.</span> <span class="nav-text">http请求走私？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">数学函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解题过程"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">解题过程</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#考点"><span class="nav-number">1.</span> <span class="nav-text">考点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解题"><span class="nav-number">1.1.</span> <span class="nav-text">解题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http请求走私？"><span class="nav-number">1.1.1.</span> <span class="nav-text">http请求走私？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学函数"><span class="nav-number">1.1.2.</span> <span class="nav-text">数学函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解题过程"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">解题过程</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
