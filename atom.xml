@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-03-27T09:49:49.525Z</updated>
+  <updated>2020-03-27T10:17:40.401Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -17,13 +17,13 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>sql注入到通用</title>
-    <link href="https://www.wafer.org.cn/2020/03/20/%20sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8/"/>
-    <id>https://www.wafer.org.cn/2020/03/20/%20sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8/</id>
-    <published>2020-03-20T10:30:00.682Z</published>
-    <updated>2020-03-27T09:49:49.525Z</updated>
+    <title>sql注入到通用漏洞</title>
+    <link href="https://www.wafer.org.cn/2020/03/27/sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8%E6%BC%8F%E6%B4%9E/"/>
+    <id>https://www.wafer.org.cn/2020/03/27/sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8%E6%BC%8F%E6%B4%9E/</id>
+    <published>2020-03-27T10:16:41.897Z</published>
+    <updated>2020-03-27T10:17:40.401Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>水文一篇还请各位师傅手下留情.</p><a id="more"></a><p>最近有空来整理下这千年不更新的博客.这次通用是在完成上海站的任务一次发现的,一次发现两个通用,感觉一天还是没有白忙活.<br>这里还是进行的常规手工注入,发现不是dba权限就没有继续往下测试,进行寻找其他漏洞点.<br><img data-src="/2020/03/20/%20sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8/1.png" alt="1.png"><br>我在最下面底部发现了”技术支持”这几个字,就用百度简单检索了下,发现还存在大量这样站于是开起深度挖掘<br><img data-src="/2020/03/20/%20sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8/2.png" alt="2.png"><br><img data-src="/2020/03/20/%20sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8/3.png" alt="3.png"><br>我在对路径进行fuzz的时候发现一个编辑器,由于只能上传jpg文件和html文件,尝试去找文件包含漏洞,有开始在前台fuzz,结果也是意料之中,没能找到,翻了下以前的这个编辑器漏洞,均无法复现,主要这个是php环境而且感觉还是最新版编辑器.<br><img data-src="/2020/03/20/%20sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8/4.png" alt="4.png"><br>这里我按着网上漏洞复现,发现他把.变成了下划线…<br><img data-src="/2020/03/20/%20sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8/5.png" alt="5.png"><br>最后拿着一丝希望测试了任意文件下载…结果也不说了<br>最后以上传html文件实现官方调用提交了通用.</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>挖洞尽量慢一点,仔细点,挖洞是为了学的新的技巧,而不是一味的为了漏洞数量,来干起老本生意.</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>水文一篇还请各位师傅手下留情.</p><a id="more"></a><p>最近有空来整理下这千年不更新的博客.这次通用是在完成上海站的任务一次发现的,一次发现两个通用,感觉一天还是没有白忙活.<br>这里还是进行的常规手工注入,发现不是dba权限就没有继续往下测试,进行寻找其他漏洞点.<br><img data-src="/2020/03/27/sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8%E6%BC%8F%E6%B4%9E/1.png" alt="1.png"><br>我在最下面底部发现了”技术支持”这几个字,就用百度简单检索了下,发现还存在大量这样站于是开起深度挖掘<br><img data-src="/2020/03/27/sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8%E6%BC%8F%E6%B4%9E/2.png" alt="2.png"><br><img data-src="/2020/03/27/sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8%E6%BC%8F%E6%B4%9E/3.png" alt="3.png"><br>我在对路径进行fuzz的时候发现一个编辑器,由于只能上传jpg文件和html文件,尝试去找文件包含漏洞,有开始在前台fuzz,结果也是意料之中,没能找到,翻了下以前的这个编辑器漏洞,均无法复现,主要这个是php环境而且感觉还是最新版编辑器.<br><img data-src="/2020/03/27/sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8%E6%BC%8F%E6%B4%9E/4.png" alt="4.png"><br>这里我按着网上漏洞复现,发现他把.变成了下划线…<br><img data-src="/2020/03/27/sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8%E6%BC%8F%E6%B4%9E/5.png" alt="5.png"><br>最后拿着一丝希望测试了任意文件下载…结果也不说了<br>最后以上传html文件实现官方调用提交了通用.</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>挖洞尽量慢一点,仔细点,挖洞是为了学的新的技巧,而不是一味的为了漏洞数量,来干起老本生意.</p>]]></content>
     
     <summary type="html">
     
