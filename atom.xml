@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-04-29T02:57:32.018Z</updated>
+  <updated>2020-04-29T03:05:02.647Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -21,13 +21,21 @@
     <link href="https://www.wafer.org.cn/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/"/>
     <id>https://www.wafer.org.cn/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/</id>
     <published>2020-04-29T02:57:24.349Z</published>
-    <updated>2020-04-29T02:57:32.018Z</updated>
+    <updated>2020-04-29T03:05:02.647Z</updated>
+    
+    <content type="html"><![CDATA[<p><img data-src="/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7641" target="_blank" rel="noopener">bypass云锁注入第二集</a></p>]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     
     
+      <category term="web安全" scheme="https://www.wafer.org.cn/categories/web%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="bypass" scheme="https://www.wafer.org.cn/tags/bypass/"/>
     
   </entry>
   
@@ -83,9 +91,9 @@
     <link href="https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/"/>
     <id>https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/</id>
     <published>2020-03-27T13:27:17.000Z</published>
-    <updated>2020-04-15T11:46:33.902Z</updated>
+    <updated>2020-04-29T03:05:05.866Z</updated>
     
-    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p><a id="more"></a><p><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">实战sql注入bypass某狗</a></p>]]></content>
+    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">实战sql注入bypass某狗</a></p>]]></content>
     
     <summary type="html">
     
@@ -106,7 +114,7 @@
     <link href="https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/"/>
     <id>https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/</id>
     <published>2020-03-27T13:27:17.000Z</published>
-    <updated>2020-04-29T03:01:13.761Z</updated>
+    <updated>2020-04-29T03:05:01.481Z</updated>
     
     <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7522" target="_blank" rel="noopener">一次实战sql注入bypass云锁</a></p>]]></content>
     

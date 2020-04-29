@@ -3,7 +3,16 @@
   <entry>
     <title>bypass云锁第二集</title>
     <url>/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p><img data-src="/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/1.png" alt="1.png"></p>
+<a id="more"></a>
+<p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7641" target="_blank" rel="noopener">bypass云锁注入第二集</a></p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>bypass</tag>
+      </tags>
   </entry>
   <entry>
     <title>ASPX+MSSQL注入</title>
@@ -70,8 +79,7 @@
     <url>/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/</url>
     <content><![CDATA[<p><img data-src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p>
 <a id="more"></a>
-
-<p><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">实战sql注入bypass某狗</a></p>
+<p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">实战sql注入bypass某狗</a></p>
 ]]></content>
       <categories>
         <category>漏洞</category>
