@@ -4,7 +4,6 @@ Allow: /about/
 Allow: /tags/
 Allow: /links/
 
-Sitemap: https://www.zjun.info/sitemap.xml
-Sitemap: https://www.zjun.info/baidusitemap.xml
+Sitemap: https://www.wafer.org.cn/sitemap.xml
+Sitemap: https://www.wafer.org.cn/baidusitemap.xml
 
-cqcetsec{wellc0me_Cqcet_sEc}
