@@ -216,6 +216,143 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/05/07/%E4%B8%80%E4%B8%AA%E6%8E%88%E6%9D%83%E7%BD%91%E7%AB%99%E5%A6%82%E4%BD%95%E6%B8%97%E9%80%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="waf's blog">
+      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wafのblog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/07/%E4%B8%80%E4%B8%AA%E6%8E%88%E6%9D%83%E7%BD%91%E7%AB%99%E5%A6%82%E4%BD%95%E6%B8%97%E9%80%8F/" class="post-title-link" itemprop="url">一个授权网站如何渗透</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-07 11:36:07" itemprop="dateCreated datePublished" datetime="2020-05-07T11:36:07+08:00">2020-05-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">渗透</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近面试的时候经常被问着如果拿着一个授权网站你渗透的思路是什么,我一般都是按着我平常的思路进行讲解,感觉很含糊今天这里就打算来总结下.</p>
+<h1 id="一个授权网站如何渗透如何下手"><a href="#一个授权网站如何渗透如何下手" class="headerlink" title="一个授权网站如何渗透如何下手"></a>一个授权网站如何渗透如何下手</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>一个网站你能获取最大效果就是你信息收集的如何,这个也是一个站你拿不拿的下的关键因素</p>
+<p>1，获取域名的whois信息,获取注册者邮箱姓名电话等,然后进一步社工获取更多敏感信息,这个为后面挖逻辑漏洞和登录做准备<br>一般都在站长之家(<a href="http://whois.chinaz.com/baidu.com" target="_blank" rel="noopener">http://whois.chinaz.com/baidu.com</a>)</p>
+<p>2.查询服务器旁站以及C段和子域名站点，因为主站一般比较难，所以先看看旁站,C段或者子域名有没有通用性的cms或者其他漏洞。<br>很多情况主战部署了waf而子域名或者旁站并没有部署导致存在一些sql注入漏洞或者其他漏洞进行bypass<br>查询链接云溪(<a href="http://www.yunsee.cn/" target="_blank" rel="noopener">http://www.yunsee.cn/</a>)</p>
+<p>3.查看服务器操作系统版本，web中间件，看看是否存在已知的漏洞，比如<br>IIS: PUT漏洞 短文件名猜解 远程代码执行 解析漏洞<br>apache:  解析漏洞 目录遍历<br>Nginx: 文件解析 目录遍历 CRLF注入 目录穿越<br>Tomcat: 远程代码执行 war后门文件部署  文件包含 文件上传漏洞<br>WebLogic: 反序列化漏洞 SSRF 任意文件上传 弱口令war后门文件部署</p>
+<p>4 查看IP，判断是否存在CDN,如果存在就可以通过证书进行进行寻常真实ip或者fofa等一些搜索引擎来查找,最后通过获取真实IP地址进行端口扫描，对响应的端口进行漏洞探测，比如 rsync,心脏出血,mysql,ftp,ssh,mssql弱口令,7001(weblogic)等等漏洞</p>
+<p>5.扫描网站目录结构，看看是否可以遍历目录，或者敏感文件泄漏，比如php探针,接口泄露</p>
+<p>6，google hack 进一步探测网站的信息，后台，敏感文件</p>
+<h2 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title="漏洞挖掘"></a>漏洞挖掘</h2><p>开始检测漏洞，如XSS,XSRF,sql注入，代码执行，命令执行，越权访问，目录读取，任意文件读取，下载，文件包含，<br>远程命令执行，弱口令，上传，编辑器漏洞，暴力破解,以及各种建站系统通用漏洞进行组合拳攻击.</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>后面就涉及到拿shell后渗透这里就看自己经验不早描述,其实主要对信息收集做一个总结.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/05/07/thinkphp3.23%E7%BC%93%E5%AD%98getshell/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="waf's blog">
+      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wafのblog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/07/thinkphp3.23%E7%BC%93%E5%AD%98getshell/" class="post-title-link" itemprop="url">thinkphp3.23缓存getshell</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-07 11:23:10" itemprop="dateCreated datePublished" datetime="2020-05-07T11:23:10+08:00">2020-05-07</time>
+            </span>
+
+          
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -445,82 +582,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="waf's blog">
-      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wafのblog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/" class="post-title-link" itemprop="url">实战sql注入bypass某狗</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-27 21:27:17" itemprop="dateCreated datePublished" datetime="2020-03-27T21:27:17+08:00">2020-03-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index"><span itemprop="name">漏洞</span></a>
-                </span>
-            </span>
-
-          
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -574,6 +635,82 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="waf's blog">
+      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wafのblog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/" class="post-title-link" itemprop="url">实战sql注入bypass某狗</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-27 21:27:17" itemprop="dateCreated datePublished" datetime="2020-03-27T21:27:17+08:00">2020-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index"><span itemprop="name">漏洞</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -814,158 +951,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2019/11/06/Love%20math/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="waf's blog">
-      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wafのblog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/06/Love%20math/" class="post-title-link" itemprop="url">Love math</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-06 15:42:38" itemprop="dateCreated datePublished" datetime="2019-11-06T15:42:38+08:00">2019-11-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
-                </span>
-            </span>
-
-          
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p><img src="/2019/11/06/Love%20math/1.png" alt="1.png"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/06/Love%20math/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="waf's blog">
-      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wafのblog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/" class="post-title-link" itemprop="url">Phpstduy后门复现</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-06 15:42:38" itemprop="dateCreated datePublished" datetime="2019-11-06T15:42:38+08:00">2019-11-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index"><span itemprop="name">漏洞</span></a>
-                </span>
-            </span>
-
-          
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="复现环境"><a href="#复现环境" class="headerlink" title="复现环境"></a>复现环境</h2><p>win7+phpStudy 2018(php-5.4.45+Apache)<br><img src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/2.png" alt="2.png"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1038,7 +1023,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
