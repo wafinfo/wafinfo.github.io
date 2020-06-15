@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="hKQCu7Og3wHfS5QXsISK7u8dUF3AVK6h5ZQ8GAat-h8" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wafer.org.cn","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SRC接口注入到伪造登录">
+<meta property="og:url" content="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/index.html">
+<meta property="og:site_name" content="wafのblog">
+<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-15T09:31:55.013Z">
+<meta property="article:modified_time" content="2020-06-15T12:09:31.950Z">
+<meta property="article:author" content="waf&#39;s blog">
+<meta property="article:tag" content="SRC">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>SRC接口注入到伪造登录 | wafのblog</title>
+  
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0cd5040ee06d448277107c65b7165a12";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="wafのblog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wafのblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">专业捡垃圾</h1>
+      
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-fw fa-link"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="search-pop-overlay">
+  <div class="popup search-popup">
+      <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/waf" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="waf's blog">
+      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wafのblog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          SRC接口注入到伪造登录
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-15 17:31:55" itemprop="dateCreated datePublished" datetime="2020-06-15T17:31:55+08:00">2020-06-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/" itemprop="url" rel="index"><span itemprop="name">漏洞挖掘</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">Hey, password is required here.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="cb857fd377a62833115a33cb89e0ae0af0f0060c2d06ccf866b49ccc681306e4">d3e32a3374481e313ba6af1317ddf6b6febd0408877a347808aa43c17644b4022a0c3d30cd13584417805e77d4f95dea35d87c6053ce6eaa8d7b8e55d5aa568fdbec8d971bea79b7c435b7b8b43f43fab7c21ba772dae128aeb1286553edb4e624c46071a23839d78d0487712e608c1981c9391bb2ad7a05119a405af0a8b197d325b5ea0d7bd9407193038ab3c2f4232af70abb9b5ce0c688c3bfee760735fd0b1e47189524867fc3c7fd53f04915db398164fe4623d0fcbdd78a8daca215341d70a8bbcd282a7b5a74846a5eebefb675b282ad0aa32e2e8a903665772419b4d0c2f3741556a62255d4235f9f9a3b57fc4b2a5b9d39d2267cbfa41b14ae5e3139e24cf59aaca8c7aabc32775ebcba9e1da7af857c6202e45da67ae6437e0ab6fb10d176da5f312eb5ee3bc84d5534459f9d711ab41b4d872d8f35388dc0807c799166a47fdf89bd35e598c3e91cb881f0b66048016c21c5cdeae9d63ebb202a11e59a60e3db7c75b7122c0cdeee4f2dfef0e5b1a3f98b088755bc6aff7afa6ea84137eaa1369c6f7d4c9437b960ccf86e37aa56f72dab343b0bf984358bcd3b25c3ef358bbf988c572119b7ae126917e47602b78686bd835603e9784ef46bc7d91f6595f208186da3db8f79d6ca5f5559bc097cd8f22452b90a62b921f3dcd7a24e48af636ccab33f634edefba4f0d50d2ee75bc7b8c688469d7c3a0790450f539661fa493702710d93999d9090203cd47134fe0002c2350a54b68630e5f2f4f0a27ed7d0ca9a514e5b51e711343413bd11a79479bae007e1578d7b5ea3a87522531c93c5ea8a29e709cd61077c3741804d32e3a499d7969a1cf93ea82f6129d5960318accef14568321399ff0d5908b7dd087dff2a149689629f42b93954ffa5f461b40a3be196256a4834fc614fbf38447c40d7f7d458a5444d0fdbe940382c4cc3579e5d857a5e2697e953720d906451a4802b128db3ed797bb8a0ef817b246fa1b788367bee1d9b573c62f1e34fedadc1a69a525f4b54ffea75dc0e3f1074f3361666b8f233719bb92096e7f1db302ab9b9d4d8d1b4cef3981ed7dd4ba35862c7dcb17d905b2d3b2756d18ff4b4b590d4e6c0048e95d38a6200466b1b56ecb05c949f41b1b9dcf7215cec7bae2db81d9421b57b030a67ce3c4099b49a84f04e40965cd67a33c1a57b13b392ede78e6200bd8662f79c4cf1b9ea88cd1b213fbba30dc1fd179b2324db6276bb536196d0da069ca37d48b17e2b1308cf194474413b63f07160dd862acb6bb30b4a2e44b70cc3fc3c8ea885fcef7b7f2aa71617ad6740ef947b998943fa866e0c4bb3eb2fba7c66218fcdaeaa39eba460c47e20bec63d2434825b9b75508ea5ef7b62760125db8a843da7f1804bc7f7e4bd13b0d2e1a347e9e1216103c6f91a0f61c4fde6188e510b0901f8ff0746e77ee427e5c4d73d8a3a25528623fab4aefa8619c0cc1fb945b9134bc27741ed97376f3b2956ec747580dbbffd25124c169c4e116e0ebb66b3d0978c49fa4cb6a99e75b08114e17bfd9530ff5c312f0bfbf16ce05a65a2d16f6fd22aa26f284d9669f25ca867f20331b65ca31f8df4f226861c0496483dc6305ce6ea1ee851eb4747ad92a2e3867e13a8c2bd5389fd9b69f1cb3e1aa929be4307ef57f4e145222463b45c1c61c454ac8fe0d5caa95e626169563a4981de08e0449e69754d57447e038022ce93b9943bab947897c3fc239e8b87b0ca6836e9062f9609b83b6a30efc5ad38be9363c8c6ab4bddc588b806778082f457b758d894bf3ecf4f54be800481c5c7965c5039e43ef254799dc088da0ad8c2c2cba8112322fac4da45ffd4f2e61c90a191666f4faf9e56b37673dbc1deea19a2b178c1b784d6d86719734d8cc4d98db2ac6e6944028059609f0b341e79544fa1abf98aa2a160f7a86bd1fb32ec2f4b2a884ad264455d050f0998e53b698ab41104b7f892507e599754ee8795f190859d3db4040eb9ed7f15ae17d4bb54061ee9cd0b9aabcd9abd38a405eb54f7da16f1285bc6cf0f51e41990cbfbf90f42c97c74a6281454d45478d19063456f88e96a34539ecb28f8ce34c44c8a9cc90c0d7ca7d2dc6824498d2838a7730a4c1250b5d3014600daa49bd18c2f1cee9860d8b88bcd79d2d1f6294295a09d49cec9688d0170315f1001864eafdc47dcca08bc4a6a8190ebb96340b7cd4fec5ba4acf56a5d523df2c77e87b178d81d64bc161e8582d153972024f60a9f2a7333892d471d2a2d826cb6d4008f5af0a0c0e27e5c5a09f21b6963164400b7263596f4d936571ac42bfc611c6f8a74bb025a3e1e7d0e750489c2e7df97d1ab54aa852337db900b4aa9754612878295a684e298480c96d84c1277f9841971d7d5292016dd92bfe8f4823628c811603dba9469d4bca2423b11bd2098391053b8cbc02bc80f58a5a332d943d3deaee027f4319a7cec255eb4446fa1771a905ffe1678013086ecdbee1dd48f4e3f8aabc37ea1dc571e9a83cbabf3cc03de8da7a887cef8ba1db0a1ed03134ab837952e86b178153f50f0a786b176442b2575b60edf7bbd13ead741810f28128edd356bb28137d9d262ebbc1f0b370f2c2e38886caa38b37a9a15ab77a52a2b846ab5dea73d3674fc9184897896e86c34f8491c22cc639cac135772961b5eebecc00113148c29cf848096f198b0c3bf1e76a268eb1b03cee96ce09302bad5c665be978cd37895385bd04abe130e48003d5ff7a60ad1cf0b14fbde177c10d8395b2972ce2261c88238f72a652eb297d8afafceb8e320bcc26ad7ff2199e85766fded768f664240a48e8b49b560ac1b4edf06e296051b2a6a69a4de2d5628ade85102b09017e93115314f72f69c8430838ee426e382717c6052e74e49cd769c9d240568c305538007621543ea18a3f992277ea0beb2f8dc3e543b6825b8e437d17f27740f54ade1d53842afc06d199671751cf9d397158076703d0d0182f7682b800e26d98743ebf38784b8cda699d993ffefd932ede064190c0f79fe3ec302c8f6f987038d75a468cef26d2a7a0ead6729886e496a5943d6468135705a5bbc818213120c875d4ea0f585d33dfae49b0e4f828450cc986c8a130fef698525c6484b6afdc80e4f94976b5c9d7b7c089baa61ad263f5e9bc387bcba93cae260d1bc1044b4ebd7db305c742de9bf3a77c12f1c2290df4c37377321f2b77dffcdf543fe8c56d60ca20cad3810fb2d06b298946e0cae1e1be819ba96bce1d617c9a495fd527c981cdbd1b4c31c8d99eba5a662e97e3d36a0052784cf4b7a1d83378cd8ae634750968226dc77eb2540aebc6b4c738e7516976508835ed32f1f3864757fd7671dd69a2d81a4956ccb44e0b7e6abb739ef34caacdc535fb05572fd7b090e746ebd157920d9f24370d7ff9672485eb04aec6a5b33739b80e25cbce6efa30c9c96aa56dbba831525d3599b2cc68d3b1f291acc046dc2c5a69e6fc45b14197baf3836f9613837c798aff183c46aad850c9dcf38e4942c841eb0e80373c2c85225f746924289603bc409e3a255480231223353cff46a67b356151db7415984e211d378c659adc86f74954cf77fa64626f468d9cb8c617075b67d28dd9aeb4bcaa9c1d46e69c70d4bc9681f77ed25d7207b32efcd6ffaa35b9ae2e2cf5d5fb491e7bc71cea0b79d240dbc0cf2c07946760d732829996efd2ead453028987b218c4d3dd157b90760ad11435e78b998ab882cb0d6ac66532889b15d24aa1da16213e6e4d0ed45fd23bac5d287cbbec144b74d4b5cb8f9ac3f20bc88b9a37f369258896bc12c80e137064d79d382b13def37efe4f9acebc56e32840206fece991ac2043bfa885134b2ee59f33650b9054197ed7faaaa0511cddd35abc4a3c4c2c5cc85447be0acabaf7c8d5112486b7655f1bbce261e57da03c5b0e5a0b13317bc1a8e910f4e5862d0fd6bef69edfd85a9dc3183877f7639ed2ed9d315b90282f2cf0011d97edd0dffb18c9a9e276fb989975baa3ea11b55198916bdc98f9c0c79efb649ab50582b76a64c97ccd2d9a4c2ee45b02d0222a3eeb6bcc8af9590f38d2c8affbe7552463d6c8a42768f48429289484a24d836ec2e3a009b0ee041499b684f9c1a10fb7c9ed0514a42a44842750ff51f5c5ef6342a63873b049e9b86385caccaff8f59346f218ada90e230537ad5e3e8fb2d06ff00d284067e211cf13e4b2f5034612f40d89d4a87a126e7a02922752895ab8d3e4946aa2ae4bd36687af74d8eb23754f50efa4ea23955c1d1e8123d5ca78e4a1606e54e04d84ec190b0e0504140b50d2a84a67bf2321463b44166deb5009786eefd9a5589925224603cef04963f75e25f82c6f4c8aa7aa1521fdb3e893d682997993f79a139be125bcc491908ec247e5126fb0f9dc37968408910c95f6eb836212f82454323fac0bf1fb32110e1d0903aa1347cab0bf0d2a3585ea2ed00cfd1b27ecba9a0927e8f11a654f6de3ae526671be544ec5d4db68b005688ebff765fe39ee930c9d76006acf36b81b63a81085ced50329f260ee87ca2b3e9ca49a875c7c9db6514fc44f515b7ce039c89aab815dfa5d729539025541ba0fcdd83cfa070138a7bb207548f9309f80024cf5ad3600203c6bea4c9540be00b264696c1559469dc8d2dd12c48ed61b75e50c4482a7763d636ed175fb63af759c2ef67acf7a0ab7ac2f06b09047a4f9366798401279c8dc02ff76d9488a15399c4d515d1fb8b73d13b434f</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+    </div>
+
+    
+    
+    
+      
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>waf's blog
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/" title="SRC接口注入到伪造登录">https://www.wafer.org.cn/2020/06/15/SRC接口注入到伪造登录/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="https://github.com/waf">
+                <span class="icon">
+                  <i class="fa fa-github"></i>
+                </span>
+
+                <span class="label">GitHub</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
+                </span>
+
+                <span class="label">RSS</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/SRC/" rel="tag"><i class="fa fa-tag"></i> SRC</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/15/Bypass%E9%80%9A%E6%9D%80YxlinkWAF/" rel="prev" title="Bypass 通杀YxlinkWAF 注入">
+      <i class="fa fa-chevron-left"></i> Bypass 通杀YxlinkWAF 注入
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/15/%E5%AE%9E%E6%88%98bypass%E5%AE%9D%E5%A1%94%E6%B3%A8%E5%85%A5/" rel="next" title="实战bypass宝塔注入">
+      实战bypass宝塔注入 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="waf's blog"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">waf's blog</p>
+  <div class="site-description" itemprop="description">一位行走在捡垃圾的行业专业人士。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/waf" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;waf" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.wafer.org.cn/" title="http:&#x2F;&#x2F;www.wafer.org.cn&#x2F;">Waf</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Copyright by Waf</span>
+</div>
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("08/08/2019 13:14:21");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="240" alpha="0.4" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+  </script>
+
+
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'wNJT9FIL2AXSGAxVUdBI0z4s-gzGzoHsz',
+      appKey     : 'RJJjFDgp5GwTtjn0dWjKVR6G',
+      placeholder: "Just go go",
+      avatar     : '',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div>
+</body>
+</html>
