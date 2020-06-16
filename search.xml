@@ -238,15 +238,43 @@
       </tags>
   </entry>
   <entry>
-    <title>一次asp+access手工注入实战渗透</title>
+    <title>一次asp+access手工注入</title>
     <url>/2020/03/20/asp%E6%B3%A8%E5%85%A5/</url>
-    <content><![CDATA[<p>附上简书的地址<a href="https://www.jianshu.com/p/b2da19279f1f" target="_blank" rel="noopener">一次asp+access手工注入实战渗透</a></p>
+    <content><![CDATA[<p><strong>基本信息:</strong></p>
+<p>1.存在WTS  WAF</p>
+<p>2.asp+access数据库</p>
+<p>3.注入点id</p>
+<a id="more"></a>
+
+<p><strong>1.找注入点</strong></p>
+<p>先加个.0这里就是为了绕过waf不要直接上来就是and 1=1…..</p>
+<p><a href="http://xxxxxx/about_list.asp?id=143.0" target="_blank" rel="noopener">http://xxxxxx/about_list.asp?id=143.0</a></p>
+<p>页面正常</p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-da499ae87a0a3d7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>测试 .1 </p>
+<p><a href="http://xxxxxx/about_list.asp?id=143.1" target="_blank" rel="noopener">http://xxxxxx/about_list.asp?id=143.1</a></p>
+<p>页面报错,内容看到800a0bcd就舒服了.正常的话 asp站基本上是access,Sqlserver这两种数据库</p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-0404db41980e15c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>2.绕过WTS—WAF</p>
+<p>我们测试order by 5或100的时候都出现缺少分号,这里卡了半天(就是太垃圾了),然后在一位师傅指点了下,我们来理解下.</p>
+<p>他后端把参数带进去是直接拼接对吧,正常来说他后端执行的句子是这样</p>
+<p>select columns from tables where id = ? ;</p>
+<p>但有可能问号后还有句子,正常来说先判断布尔值对吧</p>
+<p>比如刚开始你payload是and 1 like 1这样拼接进去只是给where加了一个条件,问号后有没有执行其他句子都无所谓对吧,但是如果问号后还有句子要执行,你payload又提前order by可能就导致句子没闭合了,所以这里order by 失效 我们只能猜表.</p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-e25688dda06e8a74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>然后就开始猜表,然后WTS-WAF出现,出现不要惊慌,吃个橘子,一顿毛操作 一个”%”绕过,因为这种waf(几年前的waf)很好绕过在加上asp的特性%完全能过绕过WTS.还有多种绕过WTS方法以及后续文章绕过安全狗和云锁方法都会提到</p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-99787aa180742308.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-1184e835e49f3144.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>发现admin表不在,直接burp一开字典一扔manager表出来了</p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-aa6b710d08de71a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>接下来就是跑字段,一样重复操作就不再放出来了…</p>
+<p>睡觉了<a href="https://www.jianshu.com/p/b2da19279f1f" target="_blank" rel="noopener">https://www.jianshu.com/p/b2da19279f1f</a>)</p>
 ]]></content>
       <categories>
-        <category>渗透</category>
+        <category>漏洞挖掘</category>
       </categories>
       <tags>
-        <tag>渗透</tag>
+        <tag>Bypass</tag>
       </tags>
   </entry>
   <entry>
