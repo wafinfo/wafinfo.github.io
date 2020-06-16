@@ -10,6 +10,8 @@
     <url>/2020/06/16/Linux%20%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%A0%B4%E8%A7%A3%E7%89%88awvs%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<p>AWVS简介：</p>
 <p>Acunetix Web Vulnerability Scanner（简称AWVS）是一款知名的网络漏洞扫描工具，它通过网络爬虫测试你的网站安全，检测流行安全漏洞，如交叉站点脚本,sql 注入等。在被黑客攻击前扫描购物车，表格、安全区域和其他Web应用程序。75% 的互联网攻击目标是基于Web的应用程序。因为他们时常接触机密数据并且被放置在防火墙之前。</p>
+<a id="more"></a>
+
 <p>安装第一步：</p>
 <p>安装环境所需要的依赖 sudo apt-get install libxdamage1 libgtk-3-0 libasound2 libnss3 libxss1 -y</p>
 <p>安装第二步：</p>
