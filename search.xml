@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Untitled</title>
+    <url>/2020/06/16/Untitled/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>linux版本AWVS破解版</title>
+    <url>/2020/06/16/Linux%20%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%A0%B4%E8%A7%A3%E7%89%88awvs%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p>AWVS简介：</p>
+<p>Acunetix Web Vulnerability Scanner（简称AWVS）是一款知名的网络漏洞扫描工具，它通过网络爬虫测试你的网站安全，检测流行安全漏洞，如交叉站点脚本,sql 注入等。在被黑客攻击前扫描购物车，表格、安全区域和其他Web应用程序。75% 的互联网攻击目标是基于Web的应用程序。因为他们时常接触机密数据并且被放置在防火墙之前。</p>
+<p>安装第一步：</p>
+<p>安装环境所需要的依赖 sudo apt-get install libxdamage1 libgtk-3-0 libasound2 libnss3 libxss1 -y</p>
+<p>安装第二步：</p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-3b537a22e344d944.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>运行./acunetix_trial.sh</p>
+<p>安装第三步:</p>
+<p>这一步需要就行四样确认</p>
+<p>*<em>是否同意协议:yes<br>*</em></p>
+<hr>
+<p><strong>输入主机名: xxx</strong></p>
+<hr>
+<p><strong>输入管理员邮箱:<a href="mailto:xxx@xxx.com">xxx@xxx.com</a> 就是用户名</strong></p>
+<hr>
+<p><strong>输入密码:要存在字母，数字，符号3种组合</strong></p>
+<p>安装结束后访问:</p>
+<p><a href="https://ip:13443/" target="_blank" rel="noopener">https://ip:13443/</a> ip地址就是本机ip</p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-991bb74e26c2c5b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>现在进行破解</p>
+<p>将文件中的 patch_awvs拷贝到安装目录下：</p>
+<p>cp patch_awvs /home/acunetix/.acunetix_trial/v_190325161/scanner/</p>
+<p>然后进入到所安装目录下</p>
+<p>cd patch_awvs /home/acunetix/.acunetix_trial/v_190325161/scanner/ </p>
+<p>然后在运行</p>
+<p>./patch_awvs</p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-0147d1d7f6896709.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>如果出现以下界面就代表破解成功。</p>
+<p>然后去登录awvs在右上角的”Administrator-&gt;Profile-&gt;License”,如果看到99999就说明成功激活</p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-e9a2ae057b1b4b1e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p><strong>下载资源</strong></p>
+<p>百度网盘：<a href="https://pan.baidu.com/s/1hUFISunnBcnL0nV33cib9g" target="_blank" rel="noopener">https://pan.baidu.com/s/1hUFISunnBcnL0nV33cib9g</a></p>
+<p>提取码：192u</p>
+<p>由于这些都是我从我自己的简书搬过来的文章所以时间有点晚.</p>
+]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>正义制裁-看直播被勒索</title>
     <url>/2020/06/15/%E6%AD%A3%E4%B9%89%E5%88%B6%E8%A3%81-%E7%9C%8B%E7%9B%B4%E6%92%AD%E8%A2%AB%E5%8B%92%E7%B4%A2/</url>
     <content><![CDATA[<p>由于本人比较懒就附上链接.<br><a href="https://mp.weixin.qq.com/s?__biz=MzI5NTQ1MTI3MQ==&mid=2247484182&idx=1&sn=7f1d97104f1d4e0fa9c4b9056af0bfa0&chksm=ec522cfedb25a5e8be1dda823f7c50a632a9af476628679b6bed8322ccb55de7dbc607b1de25&mpshare=1&scene=23&srcid&sharer_sharetime=1592224413539&sharer_shareid=1d856175a36c81255db9e3c88a0b9519%23rd" target="_blank" rel="noopener">WAF</a></p>
@@ -268,7 +318,7 @@
 <p>发现admin表不在,直接burp一开字典一扔manager表出来了</p>
 <p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-aa6b710d08de71a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
 <p>接下来就是跑字段,一样重复操作就不再放出来了…</p>
-<p>睡觉了<a href="https://www.jianshu.com/p/b2da19279f1f" target="_blank" rel="noopener">https://www.jianshu.com/p/b2da19279f1f</a>)</p>
+<p>睡觉了</p>
 ]]></content>
       <categories>
         <category>漏洞挖掘</category>
