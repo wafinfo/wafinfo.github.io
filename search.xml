@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Untitled</title>
-    <url>/2020/06/16/Untitled/</url>
-    <content><![CDATA[]]></content>
+    <title>某银行hw总结</title>
+    <url>/2020/06/16/%E6%9F%90%E9%93%B6%E8%A1%8Chw%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">Hey, password is required here.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="d49f30fed236b148d6db9b72f3aad911e63f49992c762f0d468bffefc4ea5019">d8b912eb1ba166e82b26659e1284b16b9dfaf1667486321499483c29b194e9a6c9ca3dbf79279fc5c192e2c306b479fa61cf696547dcf99f6480b1a7ac92aaa3443671bbc6888490613361a51491ac98c0a18f7c14427f662bf38e101b28366f761682dddeb63aea7479900c310d0d52a610dc49aacd6824439f726476bf3ccb1662a42d5adb7f3653beab284e9dd09be85d2f4f9a71732910360f3882a69d914f286dad5d3808aa936bf33423cae0b9d0a6541d34c6b5229c880076bf96bfeb676b54f5d62d15f592381b64c10c9ac44573bf0e59b48003083aed8eb6c91204da8bae9a536d8a0b6d509258bc481f8ef75812fa4a6f74b9aa5e47aba3467a8ae3db00e2d92bca58abe689b103af9331795e05c3659d01d52e7264cc129f0b726bedc174059ab5c5381194371c2f94ace3c4e0f9e1890d2394b3e4473d754f117a82909be37f8d81723919265f84c2d9d2ea59a96d9b21622c1714cf5126934e87961da6bb81d86f861c549eefd857fb16e0e582e03cbb35818bce54c80e9ab8a9135d085ecc66c22b8bbb789a7f4a0ab4dd6f43c4fd38ea0bb87cecfd95fba9507f1eff67f27476097235d4a60f910c7e294a6ff4fba93dc8b0d8f61c467abb9d7e08ab6ee2c26fd6700939cb2a7b7aea8fd06c465cedfc8427c194d2d11e24cd78b45974eae2df9b7927013f3e002eaa11f9bd0f86e2ba7c4fa04e981e15d4490f564dee50b2dc66200c6dedd052f154b5afb6f08c7b222cb82b78b82cb1975748740b9c230db024bcb3c74d35ff360d60264ccf4bc45586e21d96649d76b69eab44f616429a6ad1b291a582f8fd3b9a48cb6dfa46914cbb261e5aaba8302e5ed28b19440884d6ad5598ec0f77d2f78317dd5aa0ba0dff590178eb37b68106747ed218bacefbd7ad4b83bcdd76d6be3124a4d0c19baf88146fd82d697a4fc9bd7c48b0b31d608a35270baa9c6fc21c</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>HW</category>
+      </categories>
+      <tags>
+        <tag>HW</tag>
+      </tags>
   </entry>
   <entry>
     <title>linux版本AWVS破解版</title>
@@ -186,7 +200,21 @@
   <entry>
     <title>thinkphp3.23缓存getshell</title>
     <url>/2020/05/07/thinkphp3.23%E7%BC%93%E5%AD%98getshell/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">Hey, password is required here.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="da9a88c482008f8249b453084a1f017c52928a92f820e159ae891e862e3e87af">f576a9d8ceddc614fe0cee8f7485aa42</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>代码审计</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+      </tags>
   </entry>
   <entry>
     <title>bypass云锁第二集</title>
@@ -423,38 +451,6 @@
       </tags>
   </entry>
   <entry>
-    <title>一道php反序列化的ctf题</title>
-    <url>/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</url>
-    <content><![CDATA[<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>环境：phpstduy index.php class.php f1a9.php</p>
-<a id="more"></a>
-
-
-<p>index.php</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$user = $_GET[<span class="string">"user"</span>];</span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];</span><br><span class="line">$pass = $_GET[<span class="string">"pass"</span>];</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"admin"</span>))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/f1a9/"</span>,$file))&#123;</span><br><span class="line">        <span class="keyword">exit</span>();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">include</span>($file); <span class="comment">//class.php</span></span><br><span class="line">        $pass = unserialize($pass);</span><br><span class="line">        <span class="keyword">echo</span> $pass;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"> </span><br><span class="line">&lt;!--</span><br><span class="line">$user = $_GET[<span class="string">"user"</span>];</span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];</span><br><span class="line">$pass = $_GET[<span class="string">"pass"</span>];</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"admin"</span>))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">include</span>($file); <span class="comment">//class.php</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;</span><br><span class="line">&#125;</span><br><span class="line"> --&gt;</span><br></pre></td></tr></table></figure>
-<p>class.php</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Read</span></span>&#123;<span class="comment">//f1a9.php</span></span><br><span class="line">    <span class="keyword">public</span> $file;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;file))&#123;</span><br><span class="line">            <span class="keyword">echo</span> file_get_contents(<span class="keyword">$this</span>-&gt;file);    </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"__toString was called!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>f1a9.php</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(E_ALL &amp; ~E_NOTICE);</span><br><span class="line"><span class="comment">//flag_Xd&#123;hSh_ctf:e@syt0g3t&#125;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>把这些文件放在phpstduy www目录下。</p>
-<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>我们打开网页显示我不是admin右键查看网站源码得到</p>
-<p><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/1.png" alt="1.png"><br>大概意思就是传入3个变量，$user不能为null，并且通过file_get_contents()函数读取判断值是否为admin，并且包含一个class.php文件.<br>代码很明确就是我们要传一个值为admin的$user，<br>通过php伪协议: php://filter来读取class.php文件   php://input 是个可以访问请求的原始数据的只读流，这里用来输入admin值。</p>
-<p>什么是php伪协议这里很好解释了<a href="https://www.php.net/manual/zh/wrappers.php.php" target="_blank" rel="noopener">php</a>这里就不在讲述了。<br>就是可以通过php://filter读取任意文件为base64编码的内容</p>
-<p>现在我们使用hackbar来执行我们代码，成功读取内容为base64编码class.php文件<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2.png" alt="2.png"><br>进行解码得<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3.png" alt="3.png"><br>这里值得关注就是_toString():<br>_toString() 是魔术方法的一种，具体用途是当一个对象被当作字符串对待的时候，会触发这个魔术方法.<br>现在我们想办法触发这个方法，但是这里没有其他代码，我就尝试用php://filter来读取index.php文件看有没有什么，惊奇发现出现一个反序列化函数unserialize() 现在我们通过来echo($pass)来触发_toString()<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/4.png" alt="4.png"><br>于是我们构造反序列化的参数：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">O</span><span class="selector-pseudo">:4</span><span class="selector-pseudo">:"Read"</span><span class="selector-pseudo">:1</span>:&#123;<span class="attribute">s</span>:<span class="number">4</span>:<span class="string">"file"</span>;<span class="attribute">s</span>:<span class="number">57</span>:<span class="string">"php://filter/read=convert.base64-encode/resource=f1a9.php"</span>;&#125;</span><br></pre></td></tr></table></figure>
-<p>最终payload:</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">?<span class="keyword">user</span>=php://<span class="keyword">input</span>&amp;file=<span class="keyword">class</span>.php&amp;pass=O:<span class="number">4</span>:"Read":<span class="number">1</span>:&#123;s:<span class="number">4</span>:"file";s:<span class="number">57</span>:"php://filter/read=convert.base64-encode/resource=f1a9.php";&#125;</span><br></pre></td></tr></table></figure>
-<p>成功读取<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/7.png" alt="7.png"><br>base64解码的flag<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/6.png" alt="6.png"></p>
-<p>这里附上php反序列化讲解连接<a href="https://blog.csdn.net/cliffordr/article/details/829751" target="_blank" rel="noopener">php反序列化</a></p>
-<p>总体来说这题ctf还是比较简单，以后会一直出代码审计的题，欢迎大佬来斧正。</p>
-]]></content>
-      <categories>
-        <category>ctf</category>
-      </categories>
-      <tags>
-        <tag>php代码审计</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>redis未授权访问利用复现</title>
     <url>/2019/11/06/redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/</url>
     <content><![CDATA[<h1 id="redis介绍"><a href="#redis介绍" class="headerlink" title="redis介绍"></a>redis介绍</h1><p>Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的config 命令，可以进行写文件操作，攻击者可以成功将自己的ssh公钥写入目标服务器的 /root/.ssh 文件夹的authotrized_keys 文件中，进而可以使用对应私钥直接使用ssh服务登录目标服务器。</p>
@@ -493,6 +489,38 @@
       </categories>
       <tags>
         <tag>漏洞复现</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一道php反序列化的ctf题</title>
+    <url>/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</url>
+    <content><![CDATA[<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>环境：phpstduy index.php class.php f1a9.php</p>
+<a id="more"></a>
+
+
+<p>index.php</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$user = $_GET[<span class="string">"user"</span>];</span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];</span><br><span class="line">$pass = $_GET[<span class="string">"pass"</span>];</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"admin"</span>))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/f1a9/"</span>,$file))&#123;</span><br><span class="line">        <span class="keyword">exit</span>();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">include</span>($file); <span class="comment">//class.php</span></span><br><span class="line">        $pass = unserialize($pass);</span><br><span class="line">        <span class="keyword">echo</span> $pass;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"> </span><br><span class="line">&lt;!--</span><br><span class="line">$user = $_GET[<span class="string">"user"</span>];</span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];</span><br><span class="line">$pass = $_GET[<span class="string">"pass"</span>];</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"admin"</span>))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">include</span>($file); <span class="comment">//class.php</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;</span><br><span class="line">&#125;</span><br><span class="line"> --&gt;</span><br></pre></td></tr></table></figure>
+<p>class.php</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Read</span></span>&#123;<span class="comment">//f1a9.php</span></span><br><span class="line">    <span class="keyword">public</span> $file;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;file))&#123;</span><br><span class="line">            <span class="keyword">echo</span> file_get_contents(<span class="keyword">$this</span>-&gt;file);    </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"__toString was called!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>f1a9.php</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(E_ALL &amp; ~E_NOTICE);</span><br><span class="line"><span class="comment">//flag_Xd&#123;hSh_ctf:e@syt0g3t&#125;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>把这些文件放在phpstduy www目录下。</p>
+<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>我们打开网页显示我不是admin右键查看网站源码得到</p>
+<p><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/1.png" alt="1.png"><br>大概意思就是传入3个变量，$user不能为null，并且通过file_get_contents()函数读取判断值是否为admin，并且包含一个class.php文件.<br>代码很明确就是我们要传一个值为admin的$user，<br>通过php伪协议: php://filter来读取class.php文件   php://input 是个可以访问请求的原始数据的只读流，这里用来输入admin值。</p>
+<p>什么是php伪协议这里很好解释了<a href="https://www.php.net/manual/zh/wrappers.php.php" target="_blank" rel="noopener">php</a>这里就不在讲述了。<br>就是可以通过php://filter读取任意文件为base64编码的内容</p>
+<p>现在我们使用hackbar来执行我们代码，成功读取内容为base64编码class.php文件<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2.png" alt="2.png"><br>进行解码得<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3.png" alt="3.png"><br>这里值得关注就是_toString():<br>_toString() 是魔术方法的一种，具体用途是当一个对象被当作字符串对待的时候，会触发这个魔术方法.<br>现在我们想办法触发这个方法，但是这里没有其他代码，我就尝试用php://filter来读取index.php文件看有没有什么，惊奇发现出现一个反序列化函数unserialize() 现在我们通过来echo($pass)来触发_toString()<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/4.png" alt="4.png"><br>于是我们构造反序列化的参数：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">O</span><span class="selector-pseudo">:4</span><span class="selector-pseudo">:"Read"</span><span class="selector-pseudo">:1</span>:&#123;<span class="attribute">s</span>:<span class="number">4</span>:<span class="string">"file"</span>;<span class="attribute">s</span>:<span class="number">57</span>:<span class="string">"php://filter/read=convert.base64-encode/resource=f1a9.php"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>最终payload:</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">?<span class="keyword">user</span>=php://<span class="keyword">input</span>&amp;file=<span class="keyword">class</span>.php&amp;pass=O:<span class="number">4</span>:"Read":<span class="number">1</span>:&#123;s:<span class="number">4</span>:"file";s:<span class="number">57</span>:"php://filter/read=convert.base64-encode/resource=f1a9.php";&#125;</span><br></pre></td></tr></table></figure>
+<p>成功读取<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/7.png" alt="7.png"><br>base64解码的flag<br><img data-src="/2019/11/06/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/6.png" alt="6.png"></p>
+<p>这里附上php反序列化讲解连接<a href="https://blog.csdn.net/cliffordr/article/details/829751" target="_blank" rel="noopener">php反序列化</a></p>
+<p>总体来说这题ctf还是比较简单，以后会一直出代码审计的题，欢迎大佬来斧正。</p>
+]]></content>
+      <categories>
+        <category>ctf</category>
+      </categories>
+      <tags>
+        <tag>php代码审计</tag>
       </tags>
   </entry>
   <entry>
