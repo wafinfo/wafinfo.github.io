@@ -24,18 +24,25 @@
     var CONFIG = {"hostname":"www.wafer.org.cn","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
+  <meta name="description" content="是不是看到这种统一身份认证中心是不是感觉无从下手. 这里接口从js里面找到,其实我后面扫了下目录发现也可以找到. 由于这里漏洞被修复就没办法截图了,漏洞报告里面看不清楚,就只能描述下,这里毫无防护直接丢进sqlmap跑 由于我询问了下审核人员这里能否深入,他说到表就行了,只能放弃从注入登录后台在这个测出注入前我发现这个站是spring boot框架,测试发现存在Spring Boot Actua">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SRC接口注入到伪造登录">
 <meta property="og:url" content="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/index.html">
 <meta property="og:site_name" content="wafのblog">
-<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
+<meta property="og:description" content="是不是看到这种统一身份认证中心是不是感觉无从下手. 这里接口从js里面找到,其实我后面扫了下目录发现也可以找到. 由于这里漏洞被修复就没办法截图了,漏洞报告里面看不清楚,就只能描述下,这里毫无防护直接丢进sqlmap跑 由于我询问了下审核人员这里能否深入,他说到表就行了,只能放弃从注入登录后台在这个测出注入前我发现这个站是spring boot框架,测试发现存在Spring Boot Actua">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/1.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/3.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/4.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/5.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/6.png">
 <meta property="article:published_time" content="2020-06-15T09:31:55.013Z">
-<meta property="article:modified_time" content="2020-06-15T12:09:31.950Z">
+<meta property="article:modified_time" content="2020-06-30T06:38:18.693Z">
 <meta property="article:author" content="waf&#39;s blog">
 <meta property="article:tag" content="SRC">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png">
 
 <link rel="canonical" href="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/">
 
@@ -281,21 +288,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">Hey, password is required here.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="cb857fd377a62833115a33cb89e0ae0af0f0060c2d06ccf866b49ccc681306e4">d3e32a3374481e313ba6af1317ddf6b6febd0408877a347808aa43c17644b4022a0c3d30cd13584417805e77d4f95dea35d87c6053ce6eaa8d7b8e55d5aa568fdbec8d971bea79b7c435b7b8b43f43fab7c21ba772dae128aeb1286553edb4e624c46071a23839d78d0487712e608c1981c9391bb2ad7a05119a405af0a8b197d325b5ea0d7bd9407193038ab3c2f4232af70abb9b5ce0c688c3bfee760735fd0b1e47189524867fc3c7fd53f04915db398164fe4623d0fcbdd78a8daca215341d70a8bbcd282a7b5a74846a5eebefb675b282ad0aa32e2e8a903665772419b4d0c2f3741556a62255d4235f9f9a3b57fc4b2a5b9d39d2267cbfa41b14ae5e3139e24cf59aaca8c7aabc32775ebcba9e1da7af857c6202e45da67ae6437e0ab6fb10d176da5f312eb5ee3bc84d5534459f9d711ab41b4d872d8f35388dc0807c799166a47fdf89bd35e598c3e91cb881f0b66048016c21c5cdeae9d63ebb202a11e59a60e3db7c75b7122c0cdeee4f2dfef0e5b1a3f98b088755bc6aff7afa6ea84137eaa1369c6f7d4c9437b960ccf86e37aa56f72dab343b0bf984358bcd3b25c3ef358bbf988c572119b7ae126917e47602b78686bd835603e9784ef46bc7d91f6595f208186da3db8f79d6ca5f5559bc097cd8f22452b90a62b921f3dcd7a24e48af636ccab33f634edefba4f0d50d2ee75bc7b8c688469d7c3a0790450f539661fa493702710d93999d9090203cd47134fe0002c2350a54b68630e5f2f4f0a27ed7d0ca9a514e5b51e711343413bd11a79479bae007e1578d7b5ea3a87522531c93c5ea8a29e709cd61077c3741804d32e3a499d7969a1cf93ea82f6129d5960318accef14568321399ff0d5908b7dd087dff2a149689629f42b93954ffa5f461b40a3be196256a4834fc614fbf38447c40d7f7d458a5444d0fdbe940382c4cc3579e5d857a5e2697e953720d906451a4802b128db3ed797bb8a0ef817b246fa1b788367bee1d9b573c62f1e34fedadc1a69a525f4b54ffea75dc0e3f1074f3361666b8f233719bb92096e7f1db302ab9b9d4d8d1b4cef3981ed7dd4ba35862c7dcb17d905b2d3b2756d18ff4b4b590d4e6c0048e95d38a6200466b1b56ecb05c949f41b1b9dcf7215cec7bae2db81d9421b57b030a67ce3c4099b49a84f04e40965cd67a33c1a57b13b392ede78e6200bd8662f79c4cf1b9ea88cd1b213fbba30dc1fd179b2324db6276bb536196d0da069ca37d48b17e2b1308cf194474413b63f07160dd862acb6bb30b4a2e44b70cc3fc3c8ea885fcef7b7f2aa71617ad6740ef947b998943fa866e0c4bb3eb2fba7c66218fcdaeaa39eba460c47e20bec63d2434825b9b75508ea5ef7b62760125db8a843da7f1804bc7f7e4bd13b0d2e1a347e9e1216103c6f91a0f61c4fde6188e510b0901f8ff0746e77ee427e5c4d73d8a3a25528623fab4aefa8619c0cc1fb945b9134bc27741ed97376f3b2956ec747580dbbffd25124c169c4e116e0ebb66b3d0978c49fa4cb6a99e75b08114e17bfd9530ff5c312f0bfbf16ce05a65a2d16f6fd22aa26f284d9669f25ca867f20331b65ca31f8df4f226861c0496483dc6305ce6ea1ee851eb4747ad92a2e3867e13a8c2bd5389fd9b69f1cb3e1aa929be4307ef57f4e145222463b45c1c61c454ac8fe0d5caa95e626169563a4981de08e0449e69754d57447e038022ce93b9943bab947897c3fc239e8b87b0ca6836e9062f9609b83b6a30efc5ad38be9363c8c6ab4bddc588b806778082f457b758d894bf3ecf4f54be800481c5c7965c5039e43ef254799dc088da0ad8c2c2cba8112322fac4da45ffd4f2e61c90a191666f4faf9e56b37673dbc1deea19a2b178c1b784d6d86719734d8cc4d98db2ac6e6944028059609f0b341e79544fa1abf98aa2a160f7a86bd1fb32ec2f4b2a884ad264455d050f0998e53b698ab41104b7f892507e599754ee8795f190859d3db4040eb9ed7f15ae17d4bb54061ee9cd0b9aabcd9abd38a405eb54f7da16f1285bc6cf0f51e41990cbfbf90f42c97c74a6281454d45478d19063456f88e96a34539ecb28f8ce34c44c8a9cc90c0d7ca7d2dc6824498d2838a7730a4c1250b5d3014600daa49bd18c2f1cee9860d8b88bcd79d2d1f6294295a09d49cec9688d0170315f1001864eafdc47dcca08bc4a6a8190ebb96340b7cd4fec5ba4acf56a5d523df2c77e87b178d81d64bc161e8582d153972024f60a9f2a7333892d471d2a2d826cb6d4008f5af0a0c0e27e5c5a09f21b6963164400b7263596f4d936571ac42bfc611c6f8a74bb025a3e1e7d0e750489c2e7df97d1ab54aa852337db900b4aa9754612878295a684e298480c96d84c1277f9841971d7d5292016dd92bfe8f4823628c811603dba9469d4bca2423b11bd2098391053b8cbc02bc80f58a5a332d943d3deaee027f4319a7cec255eb4446fa1771a905ffe1678013086ecdbee1dd48f4e3f8aabc37ea1dc571e9a83cbabf3cc03de8da7a887cef8ba1db0a1ed03134ab837952e86b178153f50f0a786b176442b2575b60edf7bbd13ead741810f28128edd356bb28137d9d262ebbc1f0b370f2c2e38886caa38b37a9a15ab77a52a2b846ab5dea73d3674fc9184897896e86c34f8491c22cc639cac135772961b5eebecc00113148c29cf848096f198b0c3bf1e76a268eb1b03cee96ce09302bad5c665be978cd37895385bd04abe130e48003d5ff7a60ad1cf0b14fbde177c10d8395b2972ce2261c88238f72a652eb297d8afafceb8e320bcc26ad7ff2199e85766fded768f664240a48e8b49b560ac1b4edf06e296051b2a6a69a4de2d5628ade85102b09017e93115314f72f69c8430838ee426e382717c6052e74e49cd769c9d240568c305538007621543ea18a3f992277ea0beb2f8dc3e543b6825b8e437d17f27740f54ade1d53842afc06d199671751cf9d397158076703d0d0182f7682b800e26d98743ebf38784b8cda699d993ffefd932ede064190c0f79fe3ec302c8f6f987038d75a468cef26d2a7a0ead6729886e496a5943d6468135705a5bbc818213120c875d4ea0f585d33dfae49b0e4f828450cc986c8a130fef698525c6484b6afdc80e4f94976b5c9d7b7c089baa61ad263f5e9bc387bcba93cae260d1bc1044b4ebd7db305c742de9bf3a77c12f1c2290df4c37377321f2b77dffcdf543fe8c56d60ca20cad3810fb2d06b298946e0cae1e1be819ba96bce1d617c9a495fd527c981cdbd1b4c31c8d99eba5a662e97e3d36a0052784cf4b7a1d83378cd8ae634750968226dc77eb2540aebc6b4c738e7516976508835ed32f1f3864757fd7671dd69a2d81a4956ccb44e0b7e6abb739ef34caacdc535fb05572fd7b090e746ebd157920d9f24370d7ff9672485eb04aec6a5b33739b80e25cbce6efa30c9c96aa56dbba831525d3599b2cc68d3b1f291acc046dc2c5a69e6fc45b14197baf3836f9613837c798aff183c46aad850c9dcf38e4942c841eb0e80373c2c85225f746924289603bc409e3a255480231223353cff46a67b356151db7415984e211d378c659adc86f74954cf77fa64626f468d9cb8c617075b67d28dd9aeb4bcaa9c1d46e69c70d4bc9681f77ed25d7207b32efcd6ffaa35b9ae2e2cf5d5fb491e7bc71cea0b79d240dbc0cf2c07946760d732829996efd2ead453028987b218c4d3dd157b90760ad11435e78b998ab882cb0d6ac66532889b15d24aa1da16213e6e4d0ed45fd23bac5d287cbbec144b74d4b5cb8f9ac3f20bc88b9a37f369258896bc12c80e137064d79d382b13def37efe4f9acebc56e32840206fece991ac2043bfa885134b2ee59f33650b9054197ed7faaaa0511cddd35abc4a3c4c2c5cc85447be0acabaf7c8d5112486b7655f1bbce261e57da03c5b0e5a0b13317bc1a8e910f4e5862d0fd6bef69edfd85a9dc3183877f7639ed2ed9d315b90282f2cf0011d97edd0dffb18c9a9e276fb989975baa3ea11b55198916bdc98f9c0c79efb649ab50582b76a64c97ccd2d9a4c2ee45b02d0222a3eeb6bcc8af9590f38d2c8affbe7552463d6c8a42768f48429289484a24d836ec2e3a009b0ee041499b684f9c1a10fb7c9ed0514a42a44842750ff51f5c5ef6342a63873b049e9b86385caccaff8f59346f218ada90e230537ad5e3e8fb2d06ff00d284067e211cf13e4b2f5034612f40d89d4a87a126e7a02922752895ab8d3e4946aa2ae4bd36687af74d8eb23754f50efa4ea23955c1d1e8123d5ca78e4a1606e54e04d84ec190b0e0504140b50d2a84a67bf2321463b44166deb5009786eefd9a5589925224603cef04963f75e25f82c6f4c8aa7aa1521fdb3e893d682997993f79a139be125bcc491908ec247e5126fb0f9dc37968408910c95f6eb836212f82454323fac0bf1fb32110e1d0903aa1347cab0bf0d2a3585ea2ed00cfd1b27ecba9a0927e8f11a654f6de3ae526671be544ec5d4db68b005688ebff765fe39ee930c9d76006acf36b81b63a81085ced50329f260ee87ca2b3e9ca49a875c7c9db6514fc44f515b7ce039c89aab815dfa5d729539025541ba0fcdd83cfa070138a7bb207548f9309f80024cf5ad3600203c6bea4c9540be00b264696c1559469dc8d2dd12c48ed61b75e50c4482a7763d636ed175fb63af759c2ef67acf7a0ab7ac2f06b09047a4f9366798401279c8dc02ff76d9488a15399c4d515d1fb8b73d13b434f</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+        <a id="more"></a>
+<p>是不是看到这种统一身份认证中心是不是感觉无从下手.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png" alt="2.png"></p>
+<p>这里接口从js里面找到,其实我后面扫了下目录发现也可以找到.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/1.png" alt="1.png"></p>
+<p>由于这里漏洞被修复就没办法截图了,漏洞报告里面看不清楚,就只能描述下,这里毫无防护直接丢进sqlmap跑<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/3.png" alt="3.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/4.png" alt="4.png"></p>
+<p>由于我询问了下审核人员这里能否深入,他说到表就行了,只能放弃从注入登录后台<br>在这个测出注入前我发现这个站是spring boot框架,测试发现存在Spring Boot Actuator未授权访问<br>这里简单讲下Springboot的actuator配置</p>
+<p>/autoconfig    提供了一份自动配置报告，记录哪些自动配置条件通过了，哪些没通过<br>/configprops    描述配置属性（包含默认值）如何注入 Bean<br>/beans    描述应用程序上下文里全部的 Bean，以及它们的关系<br>/dump    获取线程活动的快照<br>/env    获取全部环境属性<br>/env/{name}    根据名称获取特定的环境属性值<br>/health    报告应用程序的健康指标，这些值由 HealthIndicator 的实现类提供<br>/info    获取应用程序的定制信息，这些信息由 info 打头的属性提供<br>/mappings    描述全部的 URI 路径，以及它们和控制器（包含 Actuator 端点）的映射关系<br>/metrics    报告各种应用程序度量信息，比如内存用量和 HTTP 请求计数<br>/metrics/{name}    报告指定名称的应用程序度量值<br>post    /shutdown    关闭应用程序，要求 endpoints.shutdown.enabled 设置为 true（默认为 false）<br>/trace    提供基本的 HTTP 请求跟踪信息（时间戳、HTTP 头等）<br>/auditevents    显示应用暴露的审计事件 (比如认证进入、订单失败)<br>/loggers    显示和修改配置的loggers<br>/flyway    显示数据库迁移路径的详细信息<br>/liquidbase    显示Liquibase 数据库迁移的纤细信息<br>/scheduledtasks    显示应用中的调度任务<br>/threaddump    执行一个线程dump<br>/heapdump    返回一个GZip压缩的JVM堆dump<br>/logfile    返回log file中的内容(如果logging.file或者logging.path被设置)</p>
+<p><a href="http://xxxx/esc-sso/actuator/trace" target="_blank" rel="noopener">http://xxxx/esc-sso/actuator/trace</a> 运气也好蹲着一个员工未失效的cookie直接替换登录<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/5.png" alt="5.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/6.png" alt="6.png"><br>这里还存在获取被星号脱敏的密码的明文由于没有截图就不讲了放下连接<br><a href="https://github.com/LandGrey/SpringBootVulExploit" target="_blank" rel="noopener">github</a></p>
+
     </div>
 
     
     
     
       
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/06/30/Spring_Boot_Actuator(XStream反序列化RCE)/" rel="bookmark">Spring Boot Actuator(XStream反序列化RCE)</a></div>
+    </li>
+  </ul>
 
         
 
@@ -438,7 +450,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

