@@ -109,7 +109,9 @@
   <entry>
     <title>bypass360 SQL注入</title>
     <url>/2020/06/15/bypass360%20SQL%E6%B3%A8%E5%85%A5/</url>
-    <content><![CDATA[<p>由于本人比较懒就附上链接.<br><a href="https://www.t00ls.net/thread-55980-1-1.html" target="_blank" rel="noopener">Tools</a></p>
+    <content><![CDATA[<p><img data-src="/2020/06/15/bypass360%20SQL%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p>
+<a id="more"></a>
+<p>由于本人比较懒就附上链接.<br><a href="https://www.t00ls.net/thread-55980-1-1.html" target="_blank" rel="noopener">Tools</a></p>
 ]]></content>
       <categories>
         <category>漏洞挖掘</category>
@@ -285,12 +287,11 @@
       </tags>
   </entry>
   <entry>
-    <title>实战bypass云锁</title>
-    <url>/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/</url>
-    <content><![CDATA[<p><img data-src="/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png" alt="1.png"></p>
+    <title>实战sql注入bypass某狗</title>
+    <url>/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/</url>
+    <content><![CDATA[<p><img data-src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p>
 <a id="more"></a>
-
-<p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7522" target="_blank" rel="noopener">一次实战sql注入bypass云锁</a></p>
+<p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">实战sql注入bypass某狗</a></p>
 ]]></content>
       <categories>
         <category>漏洞</category>
@@ -300,11 +301,12 @@
       </tags>
   </entry>
   <entry>
-    <title>实战sql注入bypass某狗</title>
-    <url>/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/</url>
-    <content><![CDATA[<p><img data-src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p>
+    <title>实战bypass云锁</title>
+    <url>/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/</url>
+    <content><![CDATA[<p><img data-src="/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png" alt="1.png"></p>
 <a id="more"></a>
-<p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">实战sql注入bypass某狗</a></p>
+
+<p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7522" target="_blank" rel="noopener">一次实战sql注入bypass云锁</a></p>
 ]]></content>
       <categories>
         <category>漏洞</category>
