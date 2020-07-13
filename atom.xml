@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-07-11T11:41:28.805Z</updated>
+  <updated>2020-07-13T11:31:50.851Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次帮朋友面试代码审计</title>
+    <link href="https://www.wafer.org.cn/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+    <id>https://www.wafer.org.cn/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</id>
+    <published>2020-07-13T11:18:37.234Z</published>
+    <updated>2020-07-13T11:31:50.851Z</updated>
+    
+    <content type="html"><![CDATA[<p><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/1.png" alt="1.png"></p><a id="more"></a><h2 id="前台任意文件删除"><a href="#前台任意文件删除" class="headerlink" title="前台任意文件删除"></a>前台任意文件删除</h2><p>由于给的源码就有问题无法进入后台,就审计了一部分.    </p><p>这里想要任意文件删除就必须构造get传入进来nonce值绕过CSRF detected才行,这个值构成就是由sha1加密,而这里的 $SALT就是固定,action又是可控,file就是这个PHP文件位置,后面date其实可以简单计算出得.这样就可以伪造nonce来绕过csrf包含造成任意文件删除.<br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2.png" alt="2.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3.png" alt="3.png"><br>这里就是sha1加密前的拼接,这里拿去sha1加密.重新赋值.就可以越级造成任意文件删除<br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/4.png" alt="4.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/5.png" alt="5.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/6.png" alt="6.png"></p><h2 id="任意文件下载"><a href="#任意文件下载" class="headerlink" title="任意文件下载"></a>任意文件下载</h2><p>很简单的绕过这里只是进行替换将传入的参数../替换为空但是这里绕过可以使用..\进行绕过最后paylaod构造</p><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="string">//127.0.0.1/web/admin/download.php</span>?file=<span class="string">..</span>\<span class="string">..</span>\waf.php</span><br></pre></td></tr></table></figure><p><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/7.png" alt="7.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/8.png" alt="8.png"></p><h2 id="模版写入getshell"><a href="#模版写入getshell" class="headerlink" title="模版写入getshell"></a>模版写入getshell</h2><p>这里一样要构造nonce但是这里有个地方他已经帮你构造好了只管写入php代码,或者像之前一样构造也可以.<br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/9.png" alt="9.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/10.png" alt="10.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/11.png" alt="11.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/12.png" alt="12.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="web" scheme="https://www.wafer.org.cn/categories/web/"/>
+    
+    
+      <category term="web" scheme="https://www.wafer.org.cn/tags/web/"/>
+    
+  </entry>
   
   <entry>
     <title>Bypass 网防G01 注入</title>
@@ -466,29 +489,6 @@
     
     
       <category term="xss" scheme="https://www.wafer.org.cn/tags/xss/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Love math</title>
-    <link href="https://www.wafer.org.cn/2019/11/06/Love%20math/"/>
-    <id>https://www.wafer.org.cn/2019/11/06/Love%20math/</id>
-    <published>2019-11-06T07:42:38.204Z</published>
-    <updated>2019-10-19T13:44:23.632Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p><img data-src="/2019/11/06/Love%20math/1.png" alt="1.png"></p><a id="more"></a><p>这题主要通过数学函数来构造payload<br><img data-src="/2019/11/06/Love%20math/2.png" alt="2.png"></p><h3 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h3><p>base_convert()<br><img data-src="/2019/11/06/Love%20math/3.png" alt="3.png"></p><p>hex2bin()<br>函数把十六进制值的字符串转换为 ASCII 字符。<br>dechex()<br>函数把十进制转换为十六进制。</p><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>传入的参数长读不能大于80，而且内容里面不能存在有$blacklist，然后就是通过一个正则匹配，这个正则匹配就是匹配英文字母和数字，然后通过一个foreach遍历我们传入值在不在白名单,如果不在就执行输出内容。<br>我们可以通过base_convert()函数来构造一个hex2bin函数，然后通过hex2bin()函数来调用dechex()来构造一个_GET，从而达到绕过白名单，黑名单，现在我们先来看一下payload</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$pi=base_convert(<span class="number">37907361743</span>,<span class="number">10</span>,<span class="number">36</span>)(dechex(<span class="number">1598506324</span>));($$pi)&#123;pi&#125;(($$pi&#123;abs&#125;))</span><br><span class="line">base_convert(<span class="number">37907361743</span>,<span class="number">10</span>,<span class="number">36</span>):转为<span class="number">36</span>进制的hex2bin</span><br><span class="line">base_convert(<span class="number">37907361743</span>,<span class="number">10</span>,<span class="number">36</span>)(dechex(<span class="number">1598506324</span>)):这里就构造处 _GET </span><br><span class="line">($$pi)&#123;pi&#125;(($$pi&#123;abs&#125;)) 这里相当于传入两个参数，这里尽可能选在白名单字符最短的，要不然会超过<span class="number">80</span>长度。</span><br></pre></td></tr></table></figure><p>这里就通过我自己一个小脚本来实现进制转换，网上也有在线的,这里放个<a href="http://www.leixuesong.cn/tools/length.html" target="_blank" rel="noopener">字符串长度检测</a>一遍以后检测长度。<br><img data-src="/2019/11/06/Love%20math/4.png" alt="4.png"><br><img data-src="/2019/11/06/Love%20math/6.png" alt="6.png"><br>现在来看看执行下payload是什么效果，可以达到任意执行命令。<br><img data-src="/2019/11/06/Love%20math/7.png" alt="7.png"><br>现在尝试读取flag<br><img data-src="/2019/11/06/Love%20math/8.png" alt="8.png"></p><p>这题还可以通过异或来构造payload，这里就不讲了附上一位师傅链接<a href="https://www.smi1e.top/%E5%9B%BD%E8%B5%9Blove_math%E9%A2%98%E8%A7%A3/" target="_blank" rel="noopener">love math</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;解题&quot;&gt;&lt;a href=&quot;#解题&quot; class=&quot;headerlink&quot; title=&quot;解题&quot;&gt;&lt;/a&gt;解题&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2019/11/06/Love%20math/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="ctf" scheme="https://www.wafer.org.cn/categories/ctf/"/>
-    
-    
-      <category term="代码审计" scheme="https://www.wafer.org.cn/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   

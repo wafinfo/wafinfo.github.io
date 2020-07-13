@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>记一次帮朋友面试代码审计</title>
+    <url>/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</url>
+    <content><![CDATA[<p><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/1.png" alt="1.png"></p>
+<a id="more"></a>
+<h2 id="前台任意文件删除"><a href="#前台任意文件删除" class="headerlink" title="前台任意文件删除"></a>前台任意文件删除</h2><p>由于给的源码就有问题无法进入后台,就审计了一部分.    </p>
+<p>这里想要任意文件删除就必须构造get传入进来nonce值绕过CSRF detected才行,这个值构成就是由sha1加密,而这里的 $SALT就是固定,action又是可控,file就是这个PHP文件位置,后面date其实可以简单计算出得.这样就可以伪造nonce来绕过csrf包含造成任意文件删除.<br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2.png" alt="2.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3.png" alt="3.png"><br>这里就是sha1加密前的拼接,这里拿去sha1加密.重新赋值.就可以越级造成任意文件删除<br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/4.png" alt="4.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/5.png" alt="5.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/6.png" alt="6.png"></p>
+<h2 id="任意文件下载"><a href="#任意文件下载" class="headerlink" title="任意文件下载"></a>任意文件下载</h2><p>很简单的绕过这里只是进行替换将传入的参数../替换为空但是这里绕过可以使用..\进行绕过最后paylaod构造</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">http:<span class="string">//127.0.0.1/web/admin/download.php</span>?file=<span class="string">..</span>\<span class="string">..</span>\waf.php</span><br></pre></td></tr></table></figure>
+<p><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/7.png" alt="7.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/8.png" alt="8.png"></p>
+<h2 id="模版写入getshell"><a href="#模版写入getshell" class="headerlink" title="模版写入getshell"></a>模版写入getshell</h2><p>这里一样要构造nonce但是这里有个地方他已经帮你构造好了只管写入php代码,或者像之前一样构造也可以.<br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/9.png" alt="9.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/10.png" alt="10.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/11.png" alt="11.png"><br><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/12.png" alt="12.png"></p>
+]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Bypass 网防G01 注入</title>
     <url>/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<p><img data-src="/2020/07/11/Bypass%E7%BD%91%E9%98%B2G01%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p>
