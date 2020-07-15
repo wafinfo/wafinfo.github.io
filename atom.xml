@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-07-13T11:31:50.851Z</updated>
+  <updated>2020-07-15T16:49:44.616Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Druid未授权(某接口敏感信息泄漏导致sql注入)</title>
+    <link href="https://www.wafer.org.cn/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/"/>
+    <id>https://www.wafer.org.cn/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/</id>
+    <published>2020-07-15T16:02:32.243Z</published>
+    <updated>2020-07-15T16:49:44.616Z</updated>
+    
+    <content type="html"><![CDATA[<p><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p><a id="more"></a><p>这个页面一看就是spring-boot框架<br>这里用工具尝试了下看能不能找到未授权访问,这里工具本来不支持检测这个项目由于之前我改了下,这次派上用场<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br>这里存在swagger和druid未授权访问但是swagger无法访问<br>就只能看看druid,由于有的Druid可能Session监控处没有东西比如这个站，可以通过URI监控测试未授权越权或者接口敏感信息泄漏或者注入.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/3.png" alt="3.png"><br>但是这里通过druid一个接口找到了敏感信息泄漏.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/4.png" alt="4.png"><br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/5.png" alt="5.png"><br>一般存在接口这些sql注入测试必不可少的,果不其然在参数为search找到注入<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/6.png" alt="6.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
+    
+    
+      <category term="sql注入" scheme="https://www.wafer.org.cn/tags/sql%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>asp.net环境bypass waf注入</title>
+    <link href="https://www.wafer.org.cn/2020/07/15/%E5%B8%B8%E8%A7%84iis%E7%8E%AF%E5%A2%83bypass%E6%B3%A8%E5%85%A5/"/>
+    <id>https://www.wafer.org.cn/2020/07/15/%E5%B8%B8%E8%A7%84iis%E7%8E%AF%E5%A2%83bypass%E6%B3%A8%E5%85%A5/</id>
+    <published>2020-07-15T15:12:33.554Z</published>
+    <updated>2020-07-15T15:35:52.200Z</updated>
+    
+    <content type="html"><![CDATA[<p><img data-src="/2020/07/15/%E5%B8%B8%E8%A7%84iis%E7%8E%AF%E5%A2%83bypass%E6%B3%A8%E5%85%A5/2.png" alt="2.png"></p><a id="more"></a><p>在这里感谢f0ng师傅给的教材</p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">http</span>://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>/Ardsadaxxx.asp?menu2=<span class="number">149</span><span class="keyword">and</span><span class="comment">/*&amp;menu2=*/</span><span class="built_in">len</span><span class="comment">/**/</span>%<span class="number">0</span><span class="keyword">a</span><span class="comment">--+aaaaa%0a(db_name%0a--+aaaa%0a())=13</span></span><br></pre></td></tr></table></figure><p><img data-src="/2020/07/15/%E5%B8%B8%E8%A7%84iis%E7%8E%AF%E5%A2%83bypass%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2020/07/15/%E5%B8%B8%E8%A7%84iis%E7%8E%AF%E5%A2%83bypass%E6%B3%A8%E5%85%A5/2.png&quot; alt=&quot;2.png&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="漏洞挖掘" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"/>
+    
+    
+      <category term="SRC" scheme="https://www.wafer.org.cn/tags/SRC/"/>
+    
+  </entry>
   
   <entry>
     <title>记一次帮朋友面试代码审计</title>
@@ -213,17 +259,13 @@
     <link href="https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/"/>
     <id>https://www.wafer.org.cn/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/</id>
     <published>2020-06-15T09:31:55.013Z</published>
-    <updated>2020-06-30T06:38:18.693Z</updated>
+    <updated>2020-07-15T15:13:45.386Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><p>是不是看到这种统一身份认证中心是不是感觉无从下手.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png" alt="2.png"></p><p>这里接口从js里面找到,其实我后面扫了下目录发现也可以找到.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/1.png" alt="1.png"></p><p>由于这里漏洞被修复就没办法截图了,漏洞报告里面看不清楚,就只能描述下,这里毫无防护直接丢进sqlmap跑<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/3.png" alt="3.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/4.png" alt="4.png"></p><p>由于我询问了下审核人员这里能否深入,他说到表就行了,只能放弃从注入登录后台<br>在这个测出注入前我发现这个站是spring boot框架,测试发现存在Spring Boot Actuator未授权访问<br>这里简单讲下Springboot的actuator配置</p><p>/autoconfig    提供了一份自动配置报告，记录哪些自动配置条件通过了，哪些没通过<br>/configprops    描述配置属性（包含默认值）如何注入 Bean<br>/beans    描述应用程序上下文里全部的 Bean，以及它们的关系<br>/dump    获取线程活动的快照<br>/env    获取全部环境属性<br>/env/{name}    根据名称获取特定的环境属性值<br>/health    报告应用程序的健康指标，这些值由 HealthIndicator 的实现类提供<br>/info    获取应用程序的定制信息，这些信息由 info 打头的属性提供<br>/mappings    描述全部的 URI 路径，以及它们和控制器（包含 Actuator 端点）的映射关系<br>/metrics    报告各种应用程序度量信息，比如内存用量和 HTTP 请求计数<br>/metrics/{name}    报告指定名称的应用程序度量值<br>post    /shutdown    关闭应用程序，要求 endpoints.shutdown.enabled 设置为 true（默认为 false）<br>/trace    提供基本的 HTTP 请求跟踪信息（时间戳、HTTP 头等）<br>/auditevents    显示应用暴露的审计事件 (比如认证进入、订单失败)<br>/loggers    显示和修改配置的loggers<br>/flyway    显示数据库迁移路径的详细信息<br>/liquidbase    显示Liquibase 数据库迁移的纤细信息<br>/scheduledtasks    显示应用中的调度任务<br>/threaddump    执行一个线程dump<br>/heapdump    返回一个GZip压缩的JVM堆dump<br>/logfile    返回log file中的内容(如果logging.file或者logging.path被设置)</p><p><a href="http://xxxx/esc-sso/actuator/trace" target="_blank" rel="noopener">http://xxxx/esc-sso/actuator/trace</a> 运气也好蹲着一个员工未失效的cookie直接替换登录<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/5.png" alt="5.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/6.png" alt="6.png"><br>这里还存在获取被星号脱敏的密码的明文由于没有截图就不讲了放下连接<br><a href="https://github.com/LandGrey/SpringBootVulExploit" target="_blank" rel="noopener">github</a></p>]]></content>
+    <content type="html"><![CDATA[<p><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png" alt="2.png"></p><a id="more"></a><p>开局登录框,漏洞全靠爆.<br>这里接口从js里面找到,其实我后面扫了下目录发现也可以找到.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/1.png" alt="1.png"></p><p>由于这里漏洞被修复就没办法截图了,漏洞报告里面看不清楚,就只能描述下,这里毫无防护直接丢进sqlmap跑<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/3.png" alt="3.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/4.png" alt="4.png"></p><p>由于我询问了下审核人员这里能否深入,他说到表就行了,只能放弃从注入登录后台<br>在这个测出注入前我发现这个站是spring boot框架,测试发现存在Spring Boot Actuator未授权访问<br>这里简单讲下Springboot的actuator配置</p><p>/autoconfig    提供了一份自动配置报告，记录哪些自动配置条件通过了，哪些没通过<br>/configprops    描述配置属性（包含默认值）如何注入 Bean<br>/beans    描述应用程序上下文里全部的 Bean，以及它们的关系<br>/dump    获取线程活动的快照<br>/env    获取全部环境属性<br>/env/{name}    根据名称获取特定的环境属性值<br>/health    报告应用程序的健康指标，这些值由 HealthIndicator 的实现类提供<br>/info    获取应用程序的定制信息，这些信息由 info 打头的属性提供<br>/mappings    描述全部的 URI 路径，以及它们和控制器（包含 Actuator 端点）的映射关系<br>/metrics    报告各种应用程序度量信息，比如内存用量和 HTTP 请求计数<br>/metrics/{name}    报告指定名称的应用程序度量值<br>post    /shutdown    关闭应用程序，要求 endpoints.shutdown.enabled 设置为 true（默认为 false）<br>/trace    提供基本的 HTTP 请求跟踪信息（时间戳、HTTP 头等）<br>/auditevents    显示应用暴露的审计事件 (比如认证进入、订单失败)<br>/loggers    显示和修改配置的loggers<br>/flyway    显示数据库迁移路径的详细信息<br>/liquidbase    显示Liquibase 数据库迁移的纤细信息<br>/scheduledtasks    显示应用中的调度任务<br>/threaddump    执行一个线程dump<br>/heapdump    返回一个GZip压缩的JVM堆dump<br>/logfile    返回log file中的内容(如果logging.file或者logging.path被设置)</p><p><a href="http://xxxx/esc-sso/actuator/trace" target="_blank" rel="noopener">http://xxxx/esc-sso/actuator/trace</a> 运气也好蹲着一个员工未失效的cookie直接替换登录<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/5.png" alt="5.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/6.png" alt="6.png"><br>这里还存在获取被星号脱敏的密码的明文由于没有截图就不讲了放下连接<br><a href="https://github.com/LandGrey/SpringBootVulExploit" target="_blank" rel="noopener">github</a></p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;是不是看到这种统一身份认证中心是不是感觉无从下手.&lt;br&gt;&lt;img data-src=&quot;/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80
-      
+      &lt;p&gt;&lt;img src=&quot;/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png&quot; alt=&quot;2.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -440,55 +482,6 @@
     
     
       <category term="sql注入" scheme="https://www.wafer.org.cn/tags/sql%E6%B3%A8%E5%85%A5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一次asp+access手工注入</title>
-    <link href="https://www.wafer.org.cn/2020/03/20/asp%E6%B3%A8%E5%85%A5/"/>
-    <id>https://www.wafer.org.cn/2020/03/20/asp%E6%B3%A8%E5%85%A5/</id>
-    <published>2020-03-20T09:53:28.696Z</published>
-    <updated>2020-06-16T04:19:21.287Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>基本信息:</strong></p><p>1.存在WTS  WAF</p><p>2.asp+access数据库</p><p>3.注入点id</p><a id="more"></a><p><strong>1.找注入点</strong></p><p>先加个.0这里就是为了绕过waf不要直接上来就是and 1=1…..</p><p><a href="http://xxxxxx/about_list.asp?id=143.0" target="_blank" rel="noopener">http://xxxxxx/about_list.asp?id=143.0</a></p><p>页面正常</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-da499ae87a0a3d7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>测试 .1 </p><p><a href="http://xxxxxx/about_list.asp?id=143.1" target="_blank" rel="noopener">http://xxxxxx/about_list.asp?id=143.1</a></p><p>页面报错,内容看到800a0bcd就舒服了.正常的话 asp站基本上是access,Sqlserver这两种数据库</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-0404db41980e15c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>2.绕过WTS—WAF</p><p>我们测试order by 5或100的时候都出现缺少分号,这里卡了半天(就是太垃圾了),然后在一位师傅指点了下,我们来理解下.</p><p>他后端把参数带进去是直接拼接对吧,正常来说他后端执行的句子是这样</p><p>select columns from tables where id = ? ;</p><p>但有可能问号后还有句子,正常来说先判断布尔值对吧</p><p>比如刚开始你payload是and 1 like 1这样拼接进去只是给where加了一个条件,问号后有没有执行其他句子都无所谓对吧,但是如果问号后还有句子要执行,你payload又提前order by可能就导致句子没闭合了,所以这里order by 失效 我们只能猜表.</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-e25688dda06e8a74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>然后就开始猜表,然后WTS-WAF出现,出现不要惊慌,吃个橘子,一顿毛操作 一个”%”绕过,因为这种waf(几年前的waf)很好绕过在加上asp的特性%完全能过绕过WTS.还有多种绕过WTS方法以及后续文章绕过安全狗和云锁方法都会提到</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-99787aa180742308.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-1184e835e49f3144.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>发现admin表不在,直接burp一开字典一扔manager表出来了</p><p><img data-src="https://upload-images.jianshu.io/upload_images/18085116-aa6b710d08de71a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p><p>接下来就是跑字段,一样重复操作就不再放出来了…</p><p>睡觉了</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;基本信息:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;1.存在WTS  WAF&lt;/p&gt;
-&lt;p&gt;2.asp+access数据库&lt;/p&gt;
-&lt;p&gt;3.注入点id&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="漏洞挖掘" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"/>
-    
-    
-      <category term="Bypass" scheme="https://www.wafer.org.cn/tags/Bypass/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>xss-javascript</title>
-    <link href="https://www.wafer.org.cn/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/"/>
-    <id>https://www.wafer.org.cn/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/</id>
-    <published>2019-11-15T08:21:45.360Z</published>
-    <updated>2020-03-18T16:20:44.290Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="xss-javascript"><a href="#xss-javascript" class="headerlink" title="xss-javascript"></a>xss-javascript</h1><p><img data-src="/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/1.png" alt="1.png"><br><img data-src="/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/2.png" alt="2.png"><br> 这个是某一位师傅博客写的文章,一不小心xss产生<br> <a id="more"></a></p><h2 id="xss-javascript编码绕过"><a href="#xss-javascript编码绕过" class="headerlink" title="xss-javascript编码绕过"></a>xss-javascript编码绕过</h2><p>原始payload</p><figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">javascript</span>:<span class="function"><span class="title">alert</span>(<span class="string">'waf'</span>)</span></span><br></pre></td></tr></table></figure><p>alert经过unicode编码后</p><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">\u</span>0061<span class="symbol">\u</span>006c<span class="symbol">\u</span>0065<span class="symbol">\u</span>0072<span class="symbol">\u</span>0074</span><br></pre></td></tr></table></figure><p>alert经过url编码后</p><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">%5</span><span class="keyword">c</span><span class="symbol">%75</span><span class="symbol">%30</span><span class="symbol">%30</span><span class="symbol">%36</span><span class="symbol">%31</span><span class="symbol">%5</span><span class="keyword">c</span><span class="symbol">%75</span><span class="symbol">%30</span><span class="symbol">%30</span><span class="symbol">%36</span><span class="symbol">%63</span><span class="symbol">%5</span><span class="keyword">c</span><span class="symbol">%75</span><span class="symbol">%30</span><span class="symbol">%30</span><span class="symbol">%36</span><span class="symbol">%35</span><span class="symbol">%5</span><span class="keyword">c</span><span class="symbol">%75</span><span class="symbol">%30</span><span class="symbol">%30</span><span class="symbol">%37</span><span class="symbol">%32</span><span class="symbol">%5</span><span class="keyword">c</span><span class="symbol">%75</span><span class="symbol">%30</span><span class="symbol">%30</span><span class="symbol">%37</span><span class="symbol">%34</span></span><br></pre></td></tr></table></figure><p>最后在html编码全部</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"<span class="symbol">&amp;#106;</span><span class="symbol">&amp;#97;</span><span class="symbol">&amp;#118;</span><span class="symbol">&amp;#97;</span><span class="symbol">&amp;#115;</span><span class="symbol">&amp;#99;</span><span class="symbol">&amp;#114;</span><span class="symbol">&amp;#105;</span><span class="symbol">&amp;#112;</span><span class="symbol">&amp;#116;</span><span class="symbol">&amp;#58;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#99;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#55;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#54;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#49;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#99;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#55;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#54;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#54;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#99;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#55;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#54;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#99;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#55;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#55;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#50;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#99;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#55;</span><span class="symbol">&amp;#53;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#48;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#55;</span><span class="symbol">&amp;#37;</span><span class="symbol">&amp;#51;</span><span class="symbol">&amp;#52;</span><span class="symbol">&amp;#40;</span><span class="symbol">&amp;#39;</span><span class="symbol">&amp;#119;</span><span class="symbol">&amp;#97;</span><span class="symbol">&amp;#102;</span><span class="symbol">&amp;#39;</span><span class="symbol">&amp;#41;</span>"</span>&gt;</span>waf<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure><p>最后payload编译过程</p><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">payload</span>-&gt;</span><span class="function"><span class="title">unicode</span>编码处理-&gt;</span><span class="function"><span class="title">url</span>编码处理-&gt;</span>html编码处理</span><br></pre></td></tr></table></figure><p>最终构造成xss paylaod</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:alert('waf')"</span>&gt;</span>waf<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure><p>解码过程</p><p>先是html解析器进行解析,在解析完后url解析器在进行解析,进行url解码,最重要的来了由于javascript协议,他本身引擎会对unicode编码的字符串进行解码,最终变为原始payload.<br>顺便提一句这个编码过程在360杯复赛签到题就是经过这三种编码后的flag.</p><p>上面提到了javascript,现在我们来理解下什么是javacript<br>javascript:伪协议<br>我们可以在浏览地址栏里输入”javascript:alert(‘waf’);”,点转到后会发现,实际上是把javascript:后面的代码当JavaScript来执行,并将结果值返回给当前页面<br>类似,我们可以在a标签的href属性中使用javascript伪协议</p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">a</span> href=<span class="string">"javascript:alert('waf');"</span>&gt;&lt;/<span class="keyword">a</span>&gt;<span class="comment"> //点击这面的链接,浏览器并不会跳转到任何页面,而是显示一个弹窗,值为waf.</span></span><br></pre></td></tr></table></figure><p>但javascript:伪协议有个问题,它会将执行结果返回给当然的页面</p><figure class="highlight csp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href="javascript:window.prompt(<span class="string">'waf come here'</span>,<span class="string">''</span>);</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;xss-javascript&quot;&gt;&lt;a href=&quot;#xss-javascript&quot; class=&quot;headerlink&quot; title=&quot;xss-javascript&quot;&gt;&lt;/a&gt;xss-javascript&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;br&gt;&lt;img src=&quot;/2019/11/15/xss%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/2.png&quot; alt=&quot;2.png&quot;&gt;&lt;br&gt; 这个是某一位师傅博客写的文章,一不小心xss产生&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
-    
-    
-      <category term="xss" scheme="https://www.wafer.org.cn/tags/xss/"/>
     
   </entry>
   

