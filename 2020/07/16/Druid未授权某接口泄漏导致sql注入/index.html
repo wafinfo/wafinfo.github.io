@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://www.wafer.org.cn/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/5.png">
 <meta property="og:image" content="https://www.wafer.org.cn/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/6.png">
 <meta property="article:published_time" content="2020-07-15T16:02:32.243Z">
-<meta property="article:modified_time" content="2020-07-24T03:00:45.012Z">
+<meta property="article:modified_time" content="2020-07-24T03:06:12.440Z">
 <meta property="article:author" content="waf&#39;s blog">
 <meta property="article:tag" content="sql注入">
 <meta name="twitter:card" content="summary">
@@ -289,7 +289,7 @@
         <p><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p>
 <a id="more"></a>
 
-<p>开局404,装备全靠爆<br>这里用工具尝试了下看能不能找到未授权访问,这里工具本来不支持检测这个项目由于之前我改了下,这次派上用场<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br>这里存在swagger和druid未授权访问但是swagger无法访问<br>就只能看看druid,由于有的Druid可能Session监控处没有东西比如这个站，可以通过URI监控测试未授权越权或者接口敏感信息泄漏或者注入.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/3.png" alt="3.png"><br>但是这里通过druid一个接口找到了敏感信息泄漏.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/4.png" alt="4.png"><br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/5.png" alt="5.png"><br>一般存在接口这些sql注入测试必不可少的,果不其然在参数为search找到注入<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/6.png" alt="6.png"></p>
+<p>开局404,装备全靠爆<br>这里用工具尝试了下看能不能找到未授权访问,这里工具本来不支持检测这个项目由于之前我改了下,这次派上用场<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br>这里存在swagger和druid未授权访问但是swagger无法访问<br>就只能看看druid,由于有的Druid可能Session监控处没有东西比如这个站，可以通过URI监控测试未授权越权或者接口敏感信息泄漏或者注入.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/3.png" alt="3.png"><br>但是这里通过druid一个接口找到了敏感信息泄漏.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/4.png" alt="4.png"><br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/5.png" alt="5.png"><br>一般存在接口这些sql注入测试必不可少的,效果如下图.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/6.png" alt="6.png"></p>
 
     </div>
 
@@ -448,7 +448,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

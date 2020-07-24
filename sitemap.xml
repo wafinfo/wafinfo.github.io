@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.wafer.org.cn/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/</loc>
+    
+    <lastmod>2020-07-24T04:00:21.909Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.wafer.org.cn/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/</loc>
     
-    <lastmod>2020-07-24T03:00:45.012Z</lastmod>
+    <lastmod>2020-07-24T03:06:12.440Z</lastmod>
     
   </url>
   
@@ -198,14 +205,14 @@
   </url>
   
   <url>
-    <loc>https://www.wafer.org.cn/categories/index.html</loc>
+    <loc>https://www.wafer.org.cn/archives/index.html</loc>
     
     <lastmod>2020-03-18T14:32:13.342Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.wafer.org.cn/archives/index.html</loc>
+    <loc>https://www.wafer.org.cn/categories/index.html</loc>
     
     <lastmod>2020-03-18T14:32:13.342Z</lastmod>
     

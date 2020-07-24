@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-07-24T02:54:17.222Z</updated>
+  <updated>2020-07-24T04:00:21.909Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>内网无密码认证远程直连MSSQL</title>
+    <link href="https://www.wafer.org.cn/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/"/>
+    <id>https://www.wafer.org.cn/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/</id>
+    <published>2020-07-24T03:08:03.423Z</published>
+    <updated>2020-07-24T04:00:21.909Z</updated>
+    
+    <content type="html"><![CDATA[<p>这里就不多介绍,为什么这里可以无密码就可以远程连接内网另外一台主机mssql数据库,直接上图(这里借用下百度照片之前的图没有保存)</p><h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><p>一台2003(域成员)主机装有2008sql server     ip: 192.168.151.150<br>一台2008(域控)主机装有2008sql server       ip: 192.168.151.155<br>cobaltstrike4.0 mimikatz.exe SocksCap64.exe</p><h2 id="开始实验"><a href="#开始实验" class="headerlink" title="开始实验"></a>开始实验</h2><p>这里起cobaltstrike4,前提我们获取了管理员用户权限,用mimikatz读取Administrator的hash,由于之前知道就没有截图,然后利用cs开启一个sock4a代理<br>这里我多说两句如果要进行内网扫描和爆破等等多线程操作都不要使用cs和msf代理,那个只适合代理工具进行访问,不稳定,不精确.<br><img data-src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/2.png" alt="2.png"><br><img data-src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/3.png" alt="3.png"><br><img data-src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/4.png" alt="4.png"><br>这边看Scokscap也代理成功了<br><img data-src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/5.png" alt="5.png"><br>这里把SSMS客服端加入到Scokscap里面,使他走隧道<br><img data-src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/6.png" alt="6.png"></p><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe "privilege::debug" "sekurlsa::pth /user:Administrator /domain:. /ntlm:3c5b60c44e045458d1545471e68a32 /run:<span class="symbol">\"</span>C:<span class="symbol">\U</span>sers<span class="symbol">\w</span>af<span class="symbol">\A</span>ppData<span class="symbol">\L</span>ocal<span class="symbol">\S</span>ocksCap64<span class="symbol">\S</span>ocksCap64_RunAsAdmin.exe<span class="symbol">\"</span>" "exit"</span><br></pre></td></tr></table></figure><p><img data-src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/7.png" alt="7.png"><br>接着，指定目标内网Mssql的ip，选择使用Windows 身份认证进行连接<br><img data-src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/8.png" alt="8.png"><br><img data-src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/9.png" alt="9.png"><br>至此已经无需密码成功连接.</p><p>实战也可以不用这么麻烦,当我们控制的主机如果也安装mssql,在能够远程登录情况下,可以使用Administrator用户直接进行远程登录,启用SSMS选择使用Windows 身份认证进行登录就行,<br>就可以省略hash注入那部操作,方便许多.</p><p>本文参考<a href="https://mp.weixin.qq.com/s?__biz=MzI0OTkzOTc2Nw==&mid=2247484697&idx=1&sn=0726ccbfa00174b7428ec15b7ceb8900&chksm=e9889741deff1e5776276911b2deb3adee70f0500640b83deda5761cb874c11db1842c850188&mpshare=1&scene=23&srcid=0723YXPrPpxAqtTrTYqaQlnA&sharer_sharetime=1595477301705&sharer_shareid=1d856175a36c81255db9e3c88a0b9519%2523rd" target="_blank" rel="noopener">红队攻防揭秘</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这里就不多介绍,为什么这里可以无密码就可以远程连接内网另外一台主机mssql数据库,直接上图(这里借用下百度照片之前的图没有保存)&lt;/p&gt;
+&lt;h2 id=&quot;实验环境&quot;&gt;&lt;a href=&quot;#实验环境&quot; class=&quot;headerlink&quot; title=&quot;实验环境&quot;&gt;&lt;/a&gt;实
+      
+    
+    </summary>
+    
+    
+      <category term="内网横向渗透" scheme="https://www.wafer.org.cn/categories/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E6%B8%97%E9%80%8F/"/>
+    
+    
+      <category term="内网" scheme="https://www.wafer.org.cn/tags/%E5%86%85%E7%BD%91/"/>
+    
+  </entry>
   
   <entry>
     <title>PTH的限制条件</title>
@@ -50,9 +77,9 @@
     <link href="https://www.wafer.org.cn/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/"/>
     <id>https://www.wafer.org.cn/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/</id>
     <published>2020-07-15T16:02:32.243Z</published>
-    <updated>2020-07-24T03:00:45.012Z</updated>
+    <updated>2020-07-24T03:06:12.440Z</updated>
     
-    <content type="html"><![CDATA[<p><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p><a id="more"></a><p>开局404,装备全靠爆<br>这里用工具尝试了下看能不能找到未授权访问,这里工具本来不支持检测这个项目由于之前我改了下,这次派上用场<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br>这里存在swagger和druid未授权访问但是swagger无法访问<br>就只能看看druid,由于有的Druid可能Session监控处没有东西比如这个站，可以通过URI监控测试未授权越权或者接口敏感信息泄漏或者注入.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/3.png" alt="3.png"><br>但是这里通过druid一个接口找到了敏感信息泄漏.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/4.png" alt="4.png"><br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/5.png" alt="5.png"><br>一般存在接口这些sql注入测试必不可少的,果不其然在参数为search找到注入<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/6.png" alt="6.png"></p>]]></content>
+    <content type="html"><![CDATA[<p><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p><a id="more"></a><p>开局404,装备全靠爆<br>这里用工具尝试了下看能不能找到未授权访问,这里工具本来不支持检测这个项目由于之前我改了下,这次派上用场<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br>这里存在swagger和druid未授权访问但是swagger无法访问<br>就只能看看druid,由于有的Druid可能Session监控处没有东西比如这个站，可以通过URI监控测试未授权越权或者接口敏感信息泄漏或者注入.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/3.png" alt="3.png"><br>但是这里通过druid一个接口找到了敏感信息泄漏.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/4.png" alt="4.png"><br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/5.png" alt="5.png"><br>一般存在接口这些sql注入测试必不可少的,效果如下图.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/6.png" alt="6.png"></p>]]></content>
     
     <summary type="html">
     
@@ -457,29 +484,6 @@
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>实战bypass云锁</title>
-    <link href="https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/"/>
-    <id>https://www.wafer.org.cn/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/</id>
-    <published>2020-03-27T13:27:17.000Z</published>
-    <updated>2020-04-29T03:05:01.481Z</updated>
-    
-    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7522" target="_blank" rel="noopener">一次实战sql注入bypass云锁</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/2020/03/27/%E5%AE%9E%E6%88%98bypass%E4%BA%91%E9%94%81/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     
