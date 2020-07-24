@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-07-15T16:49:44.616Z</updated>
+  <updated>2020-07-24T02:54:17.222Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -17,13 +17,42 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>PTH的限制条件</title>
+    <link href="https://www.wafer.org.cn/2020/07/24/PTH%E7%9A%84%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6/"/>
+    <id>https://www.wafer.org.cn/2020/07/24/PTH%E7%9A%84%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6/</id>
+    <published>2020-07-24T02:43:43.754Z</published>
+    <updated>2020-07-24T02:54:17.222Z</updated>
+    
+    <content type="html"><![CDATA[<p>哈希传递攻击适用情况：</p><p>在工作组环境中：</p><p>Windows Vista 之前的机器，可以使用本地管理员组内用户进行攻击。</p><p>Windows Vista 之后的机器，只能是administrator用户(也就是SID为500,administrator改名也是一样只要SID为500即可)的哈希值才能进行哈希传递攻击，其他用户(包括管理员用户但是非administrator(SID为500))也不能使用哈希传递攻击，会提示拒绝访问。</p><p>在域环境中：</p><p>只能是域管理员组内用户(可以是域管理员组内非administrator用户)的哈希值才能进行哈希传递攻击，攻击成功后，可以访问域内任何一台机器。</p><p>kb2871997补丁<br>微软在2014年5月13日发布了针对Pass The Hash的更新补丁kb2871997,禁止本地管理员账户用于远程连接，这样就无法以本地管理员用户的权限执行wmi、PSEXEC、schtasks、at和访问文件共享<br>但是SID为500的用户不受kb2871997补丁影响,打了补丁主机,攻击方式一样有效如果非SID为500的用户在打了这个补丁就会无效.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;哈希传递攻击适用情况：&lt;/p&gt;
+&lt;p&gt;在工作组环境中：&lt;/p&gt;
+&lt;p&gt;Windows Vista 之前的机器，可以使用本地管理员组内用户进行攻击。&lt;/p&gt;
+&lt;p&gt;Windows Vista 之后的机器，只能是administrator用户(也就是SID为500,admini
+      
+    
+    </summary>
+    
+    
+      <category term="内网横向渗透" scheme="https://www.wafer.org.cn/categories/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E6%B8%97%E9%80%8F/"/>
+    
+    
+      <category term="内网" scheme="https://www.wafer.org.cn/tags/%E5%86%85%E7%BD%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Druid未授权(某接口敏感信息泄漏导致sql注入)</title>
     <link href="https://www.wafer.org.cn/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/"/>
     <id>https://www.wafer.org.cn/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/</id>
     <published>2020-07-15T16:02:32.243Z</published>
-    <updated>2020-07-15T16:49:44.616Z</updated>
+    <updated>2020-07-24T03:00:45.012Z</updated>
     
-    <content type="html"><![CDATA[<p><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p><a id="more"></a><p>这个页面一看就是spring-boot框架<br>这里用工具尝试了下看能不能找到未授权访问,这里工具本来不支持检测这个项目由于之前我改了下,这次派上用场<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br>这里存在swagger和druid未授权访问但是swagger无法访问<br>就只能看看druid,由于有的Druid可能Session监控处没有东西比如这个站，可以通过URI监控测试未授权越权或者接口敏感信息泄漏或者注入.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/3.png" alt="3.png"><br>但是这里通过druid一个接口找到了敏感信息泄漏.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/4.png" alt="4.png"><br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/5.png" alt="5.png"><br>一般存在接口这些sql注入测试必不可少的,果不其然在参数为search找到注入<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/6.png" alt="6.png"></p>]]></content>
+    <content type="html"><![CDATA[<p><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/1.png" alt="1.png"></p><a id="more"></a><p>开局404,装备全靠爆<br>这里用工具尝试了下看能不能找到未授权访问,这里工具本来不支持检测这个项目由于之前我改了下,这次派上用场<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/2.png" alt="2.png"><br>这里存在swagger和druid未授权访问但是swagger无法访问<br>就只能看看druid,由于有的Druid可能Session监控处没有东西比如这个站，可以通过URI监控测试未授权越权或者接口敏感信息泄漏或者注入.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/3.png" alt="3.png"><br>但是这里通过druid一个接口找到了敏感信息泄漏.<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/4.png" alt="4.png"><br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/5.png" alt="5.png"><br>一般存在接口这些sql注入测试必不可少的,果不其然在参数为search找到注入<br><img data-src="/2020/07/16/Druid%E6%9C%AA%E6%8E%88%E6%9D%83%E6%9F%90%E6%8E%A5%E5%8F%A3%E6%B3%84%E6%BC%8F%E5%AF%BC%E8%87%B4sql%E6%B3%A8%E5%85%A5/6.png" alt="6.png"></p>]]></content>
     
     <summary type="html">
     
@@ -459,29 +488,6 @@
     
     
       <category term="漏洞" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sql注入到通用漏洞</title>
-    <link href="https://www.wafer.org.cn/2020/03/27/sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8%E6%BC%8F%E6%B4%9E/"/>
-    <id>https://www.wafer.org.cn/2020/03/27/sql%E6%B3%A8%E5%85%A5%E5%88%B0%E9%80%9A%E7%94%A8%E6%BC%8F%E6%B4%9E/</id>
-    <published>2020-03-27T10:16:41.897Z</published>
-    <updated>2020-06-15T12:09:37.376Z</updated>
-    
-    <content type="html"><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <div class="hbe-input-container">  <input type="password" id="hbePass" placeholder="" />    <label for="hbePass">Hey, password is required here.</label>    <div class="bottom-line"></div>  </div>  <script id="hbeData" type="hbeData" data-hmacdigest="957a8f6cdfa3f1fad3551eff1f51bf40fc3f11f4309874cb81f8d3b997854ab1">12ff3a31a48d5771ba867e175f31f627ac92250e1b197dbd1f79225805241eea68dc3d65d3d6a502bb01d898d50fbed581ea8d0a4b6008a3280c9d6df38ecb19d24eb37945c95d417f17c9b01af80f8d988c778a0dc4b4560fdfb18dccc732e38c64afedd2716d2e3b997ade63955fcbd882371ed186a8a0b21a9ddbca1b1e8f75cf01664c3e1487c33ec62c862dfdb15e44f18ef81a45afdcd9c95af92cfd7ff7a0e2dad9776d3102cc7f98d66accf3e5bcfbeabccbfaf30147c776208b52eb6374a4451ae2e17b7c166a78dc520a868721de2f41016a1e637abbbfd952423cf7c87071a82171375b60c204b86136bd2b381ff01fc939b60213a99777da5ab73d2c75de4cb44256a9dacb6331c41860782c1db734079377a226bd4d5341fcdd7dd9f06ef698e68357f858f18871f48431c954d9c8e55de71d0c39ac9a94f731d8dab55d06e459dc8710c22074322fc90a0e036fdf46efd9e7bb752af87e8cf8db32a6d63d5afc8bc8c45ece947fd98a85a3660e8c37e3588fc43903659927a08bf250746c9f38d0b55a857396083cb2db194b15b8e645bd3da1334053dc455c177f2985007abc3550eb953ab49e6d146c510447573a75d48868a2c8bf2101a30abb05d4b411af05ac02ef38dcfd35fa30ef6b37701d010eb2aa39eb41e1eea1a27520f983512396831b3e5b4a8d437977abca9bb0988615b6810f8f1745c05f0504148fc84b14d82e8c0d0bfac840da971d2d2a6e925d09f386f6b7ce838f708c69fde5105e9d310a2953f208fd6bdfb71781f98a07f1fe2a9ede81610af9d0b570ed704eb8ae6e0a0fbfe693addad517f09afaea19619af9b598b7f0c4b8d7c23d3e62d147c3417ea37979418d4bff12d894f56e67f4560f2285219846f95a26c2473a49ff94b0a59b9bc312ffd27080fd528c72f40d552afe3622c9c8ec944c3f211a076e82423b704e314a8285037d27a4539b2ed750f806d716f51daf08bc4d8f6e81faef46d4884fbacc15bf2e67ba959569e3f77d1d5c501ef8d5754436be6336a00a3fa5fc0cd0afc10909b2046a1f0bde45b6360104dc4f2f81dae5d0ebed256b51d5a3b6e6fce5d1531f0f18d986db8846b6a98060451c681f8b3764bbdc5fef5abdc59bc3456d8ceab69d7642fef1388b4e51f8bf5145baf555909dd7771fd852ab77bc427fea68537193895056e9917849f471189562825419d37e4161f239c9a75d87c3c2e35931962bfebb26f3ef1c840a806a2cca75fa6dde5cad408b2dc61def396634cce0f9b900ceda03044b09935e654f4598e6e22d0108d3f8ab1105a026d64fb7c0b91033e8cc3a16e602aa974333b6b4f698be2faeea9e7d59bb79d805c9728c41105875e54eff11738e11d1c95e2070f9524d65140939799921a2e674a1f1ef21d2a7162335f28ad6d7bfda568cfe942e97bb939e35c25e7360cdda55a66acd0c39b7636ea84ded775d723a41e633e2a63e8994518c75a1f10f36c5cbed4519e00af6d7cd102fb05176d5f86eacee6c57cd44bcec215d3771663d063d8671cbdceac5ec96a8654e868feddbd7d2f44812d4355232f5c0257b053f19ef94768b2b3cd931e471af3fe6bd9b6d930e4673382f234c92d35e70a4bed9d69aea63e523be4652f409747c3b1722369f15e145d4168fbf108809540ad8fb6a48fc6f6f31cbc10ce9e934e0fec6fd13ea1960cc8bcb61fd9487a5b77aa25b0242649dc0d727cc7758ba2f0c02639605bdbe2876bae1380cca0f1fb45d8b2b533321787009ab18540b932e4b7795f0d05c1c632f679c0d10aff95a94f42937df640572a5dbc47f7b139cb9d505e94254d3b0c6afcebafbb3650c3f8bea43634bac5d7d8d4cbd51b439c10a56324ee41911377330df7224af5445bbd4a8eba3309485671fc168443fd14de4ac71c1c01c57cf39999a4e67b89f59820d128ef4f6d889a307744eef74d8f4ce67e3dcf6eae12871abfad75137c86850902e14615a5c5462aeffdee194a57a1a9a3a2f6a5226ce9a74b5711888db8f888ff7a35ff410a9363b718d242d10fc16653ac52ec800d4b50a38ff03de2b1affbcf88cd769f4040879e12984c5cc8e606884c54a7a8bf274041d3e5a591f72f31cf3a588222f15e5358a71c234eb233942e6f5f6c89316d129005689111f856c8ea724a6450510b42cbedafc9b1cbf475641266cdda798cd708eee13a84d1ea2e391438c1b26b96b970898f77fce77a216e18aaf9cb726b0d06b30ae6d0b87d256100e8ce04b86f7338b471dd7cabf023d923886f52e4c0a1a647ef7edf5c91b16e74eb4f3784bbd0554f5abb4b5c976f951d8e85e5d1e8b6212245e03b13b355694737ec2e1ad2fd7c611eb5558b05717621c71efbc736f6c33468c2ad3f3e2c9afc759617b0dce2c28367ab22d79c325c884476af505c654b4a9e79978d8eb4f4a93ff2e2892f4b17cd570a678d8bef771993b2f584f157aad583a72a7b6baa23654875de68ed963f51723ac02ce3ebb1b4ddb29451dcb48e25b947efe4a64907cd6cc54e314b19e58a23adf063e0188085f1d881d00e10ae13dc346c11a51c198e82653154047a1580d20a0955461cad902e2763da6b46238bb94d7e87f35777708f68bc948f6dfd8ee3c3bac274bfecf6b98d3634caa250e57c7b574679b7f0f54e3e321865ee4a43c1de5a635621a5917edc1e9165ff0b4a69460b67a184fa169bf8d7211959496e27185755e873329d7f0d94b0b38b9d02d6038d26873a2ca7b7a38f0618cc0b50902f3f76018e89370b6b2287a36a983290edc652a2c0c69184b3f35cb474a756c6a7b678fb1fef79cc3e1d0f272a57493c4b3a45d5170ac27fad44dc5ccfc56f0ca57b56a6e433990c1febe5d4ad9c416a468b101fcf689ab2c88312bc1d3c8f5a66e2a40045054e0e5d5bcf60188d13251e98411dbaac8a2f56c952ad51f29e6214dc2a5e72c01fc4b4a95a22718697048b029</script></div><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
-    
-    <summary type="html">
-    
-      Here&#39;s something encrypted, password is required to continue reading.
-    
-    </summary>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
-    
-    
-      <category term="sql注入" scheme="https://www.wafer.org.cn/tags/sql%E6%B3%A8%E5%85%A5/"/>
     
   </entry>
   
