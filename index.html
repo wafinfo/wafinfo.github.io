@@ -265,7 +265,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>这里就不多介绍,为什么这里可以无密码就可以远程连接内网另外一台主机mssql数据库,直接上图(这里借用下百度照片之前的图没有保存)<br><img src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/1.png" alt="1.png"></p>
+          <p>mssql是支持直接Window认证登录的，而且很多Win服务器上的Mssql默认都是用administrator用户去安装的，也就是说，只要能拿到目标系统administrator的密码hash [ntlm hash]，就可以利用本地hash注入.<br>这里就不多介绍,直接上图(这里借用下百度照片之前的图没有保存)<br><img src="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/1.png" alt="1.png"></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/24/%E5%86%85%E7%BD%91%E6%97%A0%E5%AF%86%E7%A0%81%E8%AE%A4%E8%AF%81%E8%BF%9C%E7%A8%8B%E7%9B%B4%E8%BF%9Emssql/#more" rel="contents">
