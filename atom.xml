@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-07-24T06:19:44.641Z</updated>
+  <updated>2020-07-28T09:35:27.317Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>内网端口复用</title>
+    <link href="https://www.wafer.org.cn/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/"/>
+    <id>https://www.wafer.org.cn/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/</id>
+    <published>2020-07-28T07:16:31.082Z</published>
+    <updated>2020-07-28T09:35:27.317Z</updated>
+    
+    <content type="html"><![CDATA[<p>端口复用目的是为了躲避防火墙或者服务器只对外开放某一端口(80端口或其他任意少量端口)，其他端口全部被封死.最终目的就是躲避waf检测</p><a id="more"></a><p>本篇文章是根据<a href="https://uknowsec.cn/posts/notes/frsocks+protoplex+%E6%B5%81%E9%87%8F%E9%87%8D%E5%AE%9A%E5%90%91%E5%AE%9E%E7%8E%B0%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8.html" target="_blank" rel="noopener">uknowsec</a>写的文章进行自我理解复现写的一篇文章<br>工具<a href="https://github.com/idlefire/ew" target="_blank" rel="noopener">EW</a>+<a href="https://github.com/Pandentia/protoplex" target="_blank" rel="noopener">protoplex</a>+目标主机(192.168.151.160)</p><h2 id="EarthWorm"><a href="#EarthWorm" class="headerlink" title="EarthWorm"></a>EarthWorm</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ew_for_Win.exe -s ssocksd -l <span class="number">1080</span>   <span class="comment">//开启正向socks服务 1080端口</span></span><br></pre></td></tr></table></figure><p><img data-src="/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/2.png" alt="2.png"></p><h2 id="Protoplex"><a href="#Protoplex" class="headerlink" title="Protoplex"></a>Protoplex</h2><p>将本地9999端口的流量根据协议类型转到本地的1080和80端口(比如socks协议的流量就走1080端口,http协议流量就走1080端口)。</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">protoplex</span><span class="selector-class">.exe</span> <span class="selector-tag">--socks5</span> 192<span class="selector-class">.168</span><span class="selector-class">.151</span><span class="selector-class">.160</span><span class="selector-pseudo">:1080</span> <span class="selector-tag">--http</span> 127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span><span class="selector-pseudo">:80</span> <span class="selector-tag">-b</span> 192<span class="selector-class">.168</span><span class="selector-class">.151</span><span class="selector-class">.160</span><span class="selector-pseudo">:9999</span></span><br></pre></td></tr></table></figure><p><img data-src="/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/1.png" alt="1.png"><br>linux可以使用proxychains4进行配置,windwos可以使用proxifer进行配置<br><img data-src="/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/3.png" alt="3.png"><br>这里最终效果就是使用socks5连接目标主机9999端口然后将我们传入流量协议进行分流分别从80和1080端口进行传输,但是这里并不是我们想要的效果,毕竟运维人员会把无用端口进行封闭,所以下面就要进行流量重定向.</p><h2 id="流量重定向"><a href="#流量重定向" class="headerlink" title="流量重定向"></a>流量重定向</h2><p>linux<br>将访问80的流量重定向到9999端口</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -t<span class="built_in"> nat </span>-A PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 9999</span><br></pre></td></tr></table></figure><p>windows<br>将本地80流量重定向到9999</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy <span class="builtin-name">add</span> v4tov4 <span class="attribute">listenport</span>=80 <span class="attribute">listenaddress</span>=192.168.151.160 <span class="attribute">connectport</span>=9999 <span class="attribute">connectaddress</span>=192.168.151.160</span><br></pre></td></tr></table></figure><p>相关操作命令：</p><p>显示系统中的转发规则列表：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy show all</span><br></pre></td></tr></table></figure><p>删除指定的端口转发规则：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy delete v4tov4 <span class="attribute">listenport</span>=80 <span class="attribute">listenaddress</span>=192.168.151.160</span><br></pre></td></tr></table></figure><p>清除所有当前的端口转发规则：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy reset</span><br></pre></td></tr></table></figure><h3 id="进行流量重定向"><a href="#进行流量重定向" class="headerlink" title="进行流量重定向"></a>进行流量重定向</h3><p>然后这里把本地80流量重定向到9999,在查看端口转发规则</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy <span class="builtin-name">add</span> v4tov4 <span class="attribute">listenport</span>=80 <span class="attribute">listenaddress</span>=192.168.151.160 <span class="attribute">connectport</span>=9999 <span class="attribute">connectaddress</span>=192.168.151.160</span><br><span class="line">netsh<span class="built_in"> interface </span>portproxy show all</span><br></pre></td></tr></table></figure><p><img data-src="/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/4.png" alt="4.png"><br>这里将原来9999端口改为80端口,测试访问百度,可以看见这个ew这边有传输的流量痕迹<br><img data-src="/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/5.png" alt="5.png"><br><img data-src="/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/6.png" alt="6.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;端口复用目的是为了躲避防火墙或者服务器只对外开放某一端口(80端口或其他任意少量端口)，其他端口全部被封死.最终目的就是躲避waf检测&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="后渗透" scheme="https://www.wafer.org.cn/categories/%E5%90%8E%E6%B8%97%E9%80%8F/"/>
+    
+    
+      <category term="内网" scheme="https://www.wafer.org.cn/tags/%E5%86%85%E7%BD%91/"/>
+    
+  </entry>
   
   <entry>
     <title>内网无密码认证远程直连MSSQL</title>
@@ -465,29 +488,6 @@
     
     
       <category term="ASPX+MSSQL注入" scheme="https://www.wafer.org.cn/tags/ASPX-MSSQL%E6%B3%A8%E5%85%A5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>实战sql注入bypass某狗</title>
-    <link href="https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/"/>
-    <id>https://www.wafer.org.cn/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/</id>
-    <published>2020-03-27T13:27:17.000Z</published>
-    <updated>2020-04-29T03:05:05.866Z</updated>
-    
-    <content type="html"><![CDATA[<p><img data-src="/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7515" target="_blank" rel="noopener">实战sql注入bypass某狗</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/2020/03/27/%E4%B8%80%E6%AC%A1%E5%AE%9E%E6%88%98sql%E6%B3%A8%E5%85%A5%E7%BB%95%E7%8B%97/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/categories/%E6%BC%8F%E6%B4%9E/"/>
-    
-    
-      <category term="漏洞" scheme="https://www.wafer.org.cn/tags/%E6%BC%8F%E6%B4%9E/"/>
     
   </entry>
   
