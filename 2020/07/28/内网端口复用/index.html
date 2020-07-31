@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://www.wafer.org.cn/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/5.png">
 <meta property="og:image" content="https://www.wafer.org.cn/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/6.png">
 <meta property="article:published_time" content="2020-07-28T07:16:31.082Z">
-<meta property="article:modified_time" content="2020-07-28T09:35:27.317Z">
+<meta property="article:modified_time" content="2020-07-31T04:22:46.030Z">
 <meta property="article:author" content="waf&#39;s blog">
 <meta property="article:tag" content="内网">
 <meta name="twitter:card" content="summary">
@@ -309,7 +309,7 @@
 <p>清除所有当前的端口转发规则：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy reset</span><br></pre></td></tr></table></figure>
 
-<h3 id="进行流量重定向"><a href="#进行流量重定向" class="headerlink" title="进行流量重定向"></a>进行流量重定向</h3><p>然后这里把本地80流量重定向到9999,在查看端口转发规则</p>
+<h3 id="进行流量重定向"><a href="#进行流量重定向" class="headerlink" title="进行流量重定向"></a>进行流量重定向</h3><p>流量重定向的时候权限需要为管理员权限才能修改配置,还有就是当不使用流量重定向时一定,一定,一定要将规则清楚掉.<br>然后这里把本地80流量重定向到9999,在查看端口转发规则</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy <span class="builtin-name">add</span> v4tov4 <span class="attribute">listenport</span>=80 <span class="attribute">listenaddress</span>=192.168.151.160 <span class="attribute">connectport</span>=9999 <span class="attribute">connectaddress</span>=192.168.151.160</span><br><span class="line">netsh<span class="built_in"> interface </span>portproxy show all</span><br></pre></td></tr></table></figure>
 <p><img data-src="/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/4.png" alt="4.png"><br>这里将原来9999端口改为80端口,测试访问百度,可以看见这个ew这边有传输的流量痕迹<br><img data-src="/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/5.png" alt="5.png"><br><img data-src="/2020/07/28/%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/6.png" alt="6.png"></p>
 
