@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wafer.org.cn/"/>
-  <updated>2020-07-31T10:06:55.894Z</updated>
+  <updated>2020-08-17T17:14:19.927Z</updated>
   <id>https://www.wafer.org.cn/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深信服 EDR RCE</title>
+    <link href="https://www.wafer.org.cn/2020/08/18/%E6%B7%B1%E4%BF%A1%E6%9C%8DRCE/"/>
+    <id>https://www.wafer.org.cn/2020/08/18/%E6%B7%B1%E4%BF%A1%E6%9C%8DRCE/</id>
+    <published>2020-08-17T17:09:17.913Z</published>
+    <updated>2020-08-17T17:14:19.927Z</updated>
+    
+    <content type="html"><![CDATA[<p><img data-src="/2020/08/18/%E6%B7%B1%E4%BF%A1%E6%9C%8DRCE/rce.png" alt="rce.png"></p><a id="more"></a><p><img data-src="/2020/08/18/%E6%B7%B1%E4%BF%A1%E6%9C%8DRCE/1.png" alt="1.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2020/08/18/%E6%B7%B1%E4%BF%A1%E6%9C%8DRCE/rce.png&quot; alt=&quot;rce.png&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="https://www.wafer.org.cn/categories/web%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="渗透" scheme="https://www.wafer.org.cn/tags/%E6%B8%97%E9%80%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>每日更新笔记</title>
+    <link href="https://www.wafer.org.cn/2020/08/06/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%AF%8F%E6%97%A5%E6%9B%B4%E6%96%B0/"/>
+    <id>https://www.wafer.org.cn/2020/08/06/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%AF%8F%E6%97%A5%E6%9B%B4%E6%96%B0/</id>
+    <published>2020-08-06T12:38:05.142Z</published>
+    <updated>2020-08-07T05:30:43.033Z</updated>
+    
+    <content type="html"><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <div class="hbe-input-container">  <input type="password" id="hbePass" placeholder="" />    <label for="hbePass">Hey, password is required here.</label>    <div class="bottom-line"></div>  </div>  <script id="hbeData" type="hbeData" data-hmacdigest="6570b3d7d2ce5b0b225edfdb32f3ba77c7996cedc76d863cb567443ccbfb863c">a8914bb2759df9e6e801c2f3c972920912517411b0be936985b2762f721fe506504abe3fe4d6fc8e84d97f1356952d1ef273bafae008f210e637d4bbe67423e862dab994d0d8c64a74481c0c3b5c3070904a9f5f60ccc229c7fa3004ef416fc947d1494036844bdcb4c7c58be73652355b3730060ed379e00c25ce0d7706ffdfa5b561ed1c491f77ba754b553d03d6059461632418b3314e976182d45f2d1a35f3c3533486668946ff4a940916374d5833367d0e9534e04e26f1c257b2f8720d3983011389cbceeb07a80e52400e735cf2b9be84c5b7c8967037b47136fe42164ef4824311e49abbc7a46579da621a1f9462692b203b3cae6eac4735a6d57bd973d3eb7cfd82788d81227c3891b48abe733f314143e94740117db926aef3caec4e6dea2d4c16cd1242e7a2c4ec5d7229eb4e60468445e88c300a04e452d693ded3e3b72f447ec79bded9b00fbab0d2a541861d4e4fecb241f9e84be3c1fe7215c680595bc5ad4f20090b4d682952074345b1deedd5856db5550eeb8686f8b719960e8d321b7d626bb19b53b165e908a2c8a70ee56c1de4037fce2405dcc99315e8fbfb41e75a8616376b048d07b9a6c65e348be93ffe40031eac88336c5bda388da649033d742f3e0ee61978f4cd0de75df0e68a2b73e3f1d39359423bf71f77d6abc56181ac5288408b5540a47f6301c8759e06aae11f7d8241a8f6facb41c2d883be20e9a96b7493564f764fd13629f6f84ed35cc51ccbb7e54b5bf9f32ce81f5b739cfe0cd12b753a26e03fe8ef580e2f924d8449794c7f18be4372a89160c8d354ea46ebbcb72a53d205e8f1a581ff369f997b4e8f0bb8983c3c365b1cbf9f9515ea10dc2d748ef8dae6eac2fedf9953bfd868fdb35b049655f3358f895586a7136d52e550acc0f49d56601494b58a823df42f21ad173b21936851170f2200ae1e71cd26836b3bc35e11875aca5b046b74f55bde589ed5054dae11fad1b1add44fbfbaf073f906fe31710c760c6cdbc3dc56bdf5ec68a19897ab6eb69db4</script></div><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+    
+    <summary type="html">
+    
+      Here&#39;s something encrypted, password is required to continue reading.
+    
+    </summary>
+    
+    
+      <category term="笔记" scheme="https://www.wafer.org.cn/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="WEB" scheme="https://www.wafer.org.cn/tags/WEB/"/>
+    
+  </entry>
   
   <entry>
     <title>另类映像劫持后门(IFEO)</title>
@@ -441,52 +487,6 @@
     
     
       <category term="渗透" scheme="https://www.wafer.org.cn/tags/%E6%B8%97%E9%80%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>thinkphp3.23缓存getshell</title>
-    <link href="https://www.wafer.org.cn/2020/05/07/thinkphp3.23%E7%BC%93%E5%AD%98getshell/"/>
-    <id>https://www.wafer.org.cn/2020/05/07/thinkphp3.23%E7%BC%93%E5%AD%98getshell/</id>
-    <published>2020-05-07T03:23:10.463Z</published>
-    <updated>2020-06-16T14:57:03.439Z</updated>
-    
-    <content type="html"><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <div class="hbe-input-container">  <input type="password" id="hbePass" placeholder="" />    <label for="hbePass">Hey, password is required here.</label>    <div class="bottom-line"></div>  </div>  <script id="hbeData" type="hbeData" data-hmacdigest="da9a88c482008f8249b453084a1f017c52928a92f820e159ae891e862e3e87af">f576a9d8ceddc614fe0cee8f7485aa42</script></div><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
-    
-    <summary type="html">
-    
-      Here&#39;s something encrypted, password is required to continue reading.
-    
-    </summary>
-    
-    
-      <category term="代码审计" scheme="https://www.wafer.org.cn/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
-    
-      <category term="WEB" scheme="https://www.wafer.org.cn/tags/WEB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>bypass云锁第二集</title>
-    <link href="https://www.wafer.org.cn/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/"/>
-    <id>https://www.wafer.org.cn/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/</id>
-    <published>2020-04-29T02:57:24.349Z</published>
-    <updated>2020-04-29T03:05:02.647Z</updated>
-    
-    <content type="html"><![CDATA[<p><img data-src="/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/1.png" alt="1.png"></p><a id="more"></a><p>由于首发先知,这里不再重复描述.<br><a href="https://xz.aliyun.com/t/7641" target="_blank" rel="noopener">bypass云锁注入第二集</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/2020/04/29/bypass%E4%BA%91%E9%94%81%E7%AC%AC%E4%BA%8C%E9%9B%86/1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="web安全" scheme="https://www.wafer.org.cn/categories/web%E5%AE%89%E5%85%A8/"/>
-    
-    
-      <category term="bypass" scheme="https://www.wafer.org.cn/tags/bypass/"/>
     
   </entry>
   
