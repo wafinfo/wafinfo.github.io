@@ -1601,8 +1601,6 @@ code {
   overflow-x: auto;
   margin: 1rem 0;
   padding: 10px 15px;
-  border-radius: 4px;
-  background: #212326;
   font-family: "Menlo", "Meslo LG", monospace;
   -webkit-border-radius: 4px;
 }
@@ -1636,6 +1634,7 @@ code {
   opacity: 1;
 }
 .highlight .btn-copy {
+  top: 0.2rem;
   font-size: 1.2rem;
   position: absolute;
   right: 20px;

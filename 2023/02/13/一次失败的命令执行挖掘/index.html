@@ -204,6 +204,24 @@
 
 
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+    <div id="gitalk-container"></div>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '36d8630513c873eafed5',
+            clientSecret: '48ebe20e693552751cac17f33d1fbf5256018354',
+            id: md5(window.location.pathname),
+            repo: 'al-waf',
+            owner: 'wafinfo',
+            admin: 'wafinfo',
+            distractionFreeMode: ''
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+
         
           <div id="footer-post-container">
   <div id="footer-post">
