@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="对学习了CC链的人来说肯定对java反射很了解特别是CC链中InvokerTransformer这个类，这个类的transform方法可以调用任意方法，这是反序列化能执行任意代码的关键。本文命令执行也是围绕着反射进行RCE。 代码分析一个正常的Servlet，这里跟进invoker的execute方法（省略了一些不重要的代码方便阅读）  获取传入obj、method的值，将request对象传入g">
+    <meta name="description" content="对学习了CC链的人来说肯定对java反射很了解特别是CC链中InvokerTransformer这个类，这个类的transform方法可以调用任意方法，这是反序列化能执行任意代码的关键。本文对某互联代码挖掘的命令执行也是围绕着反射进行RCE。 代码分析一个正常的Servlet，这里跟进invoker的execute方法（省略了一些不重要的代码方便阅读）  获取传入obj、method的值，将req">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一次失败的命令执行挖掘">
 <meta property="og:url" content="https://github.com/2023/02/13/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%8C%96%E6%8E%98/index.html">
 <meta property="og:site_name" content="Wafinfo&#39;s Blog">
-<meta property="og:description" content="对学习了CC链的人来说肯定对java反射很了解特别是CC链中InvokerTransformer这个类，这个类的transform方法可以调用任意方法，这是反序列化能执行任意代码的关键。本文命令执行也是围绕着反射进行RCE。 代码分析一个正常的Servlet，这里跟进invoker的execute方法（省略了一些不重要的代码方便阅读）  获取传入obj、method的值，将request对象传入g">
+<meta property="og:description" content="对学习了CC链的人来说肯定对java反射很了解特别是CC链中InvokerTransformer这个类，这个类的transform方法可以调用任意方法，这是反序列化能执行任意代码的关键。本文对某互联代码挖掘的命令执行也是围绕着反射进行RCE。 代码分析一个正常的Servlet，这里跟进invoker的execute方法（省略了一些不重要的代码方便阅读）  获取传入obj、method的值，将req">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://github.com/2023/02/13/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%8C%96%E6%8E%98/image-20230214120940872.png">
 <meta property="og:image" content="https://github.com/2023/02/13/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%8C%96%E6%8E%98/image-20230214115431629.png">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://github.com/2023/02/13/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%8C%96%E6%8E%98/image-20230214120346865.png">
 <meta property="og:image" content="https://github.com/2023/02/13/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%8C%96%E6%8E%98/image-20230214120817792-6353740.png">
 <meta property="article:published_time" content="2023-02-13T12:42:26.606Z">
-<meta property="article:modified_time" content="2023-03-10T07:40:02.710Z">
+<meta property="article:modified_time" content="2023-03-14T07:20:09.449Z">
 <meta property="article:author" content="Wafinfo&#39;s Blog">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/2023/02/13/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%8C%96%E6%8E%98/image-20230214120940872.png">
@@ -162,7 +162,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>对学习了CC链的人来说肯定对java反射很了解特别是CC链中InvokerTransformer这个类，这个类的transform方法可以调用任意方法，这是反序列化能执行任意代码的关键。本文命令执行也是围绕着反射进行RCE。</p>
+    <p>对学习了CC链的人来说肯定对java反射很了解特别是CC链中InvokerTransformer这个类，这个类的transform方法可以调用任意方法，这是反序列化能执行任意代码的关键。本文对某互联代码挖掘的命令执行也是围绕着反射进行RCE。</p>
 <h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><p>一个正常的Servlet，这里跟进invoker的execute方法（省略了一些不重要的代码方便阅读）</p>
 <p><img src="/2023/02/13/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%8C%96%E6%8E%98/image-20230214120940872.png" alt="image-20230214120940872"></p>
 <p>获取传入obj、method的值，将request对象传入getParameters方法，跟进getParameters方法。</p>
