@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前言网上很多上传shell就完事了，昨晚上跟朋友正好遇到了，连夜看了下代码补充下后渗透利用方法。 利用工具：wafinfo&#x2F;Hikvision 后渗透 配置信息1运行管理中心地址：http:&#x2F;&#x2F;xxxxxx:8080&#x2F;center&#x2F;login   1运行管理中心数据库配置文件路径：&#x2F;opt&#x2F;hikvision&#x2F;web&#x2F;opsMgrCenter&#x2F;conf&#x2F;config.properties">
+<meta property="og:type" content="article">
+<meta property="og:title" content="海康威视综合安防后渗透利用技巧">
+<meta property="og:url" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="Wafinfo&#39;s Blog">
+<meta property="og:description" content="前言网上很多上传shell就完事了，昨晚上跟朋友正好遇到了，连夜看了下代码补充下后渗透利用方法。 利用工具：wafinfo&#x2F;Hikvision 后渗透 配置信息1运行管理中心地址：http:&#x2F;&#x2F;xxxxxx:8080&#x2F;center&#x2F;login   1运行管理中心数据库配置文件路径：&#x2F;opt&#x2F;hikvision&#x2F;web&#x2F;opsMgrCenter&#x2F;conf&#x2F;config.properties">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629125348467.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629112127871.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629112000042.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629112655547.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113109466.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113304989.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113339143.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113442749.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113430542.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629124721370.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629124752106.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629125126369.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629112820467.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629124508270.png">
+<meta property="og:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629143040210.png">
+<meta property="article:published_time" content="2023-06-29T03:14:50.015Z">
+<meta property="article:modified_time" content="2023-06-29T06:34:12.910Z">
+<meta property="article:author" content="Wafinfo&#39;s Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629125348467.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>海康威视综合安防后渗透利用技巧</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="https://github.com/wafinfo">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/06/25/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%85%E7%9D%BFCMS%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&text=海康威视综合安防后渗透利用技巧"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&is_video=false&description=海康威视综合安防后渗透利用技巧"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=海康威视综合安防后渗透利用技巧&body=Check out this article: https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&name=海康威视综合安防后渗透利用技巧&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&t=海康威视综合安防后渗透利用技巧"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E6%B8%97%E9%80%8F"><span class="toc-number">2.</span> <span class="toc-text">后渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text">配置信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%A7%A3%E5%AF%86-%E5%90%8E%E5%8F%B0%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0"><span class="toc-number">2.2.</span> <span class="toc-text">配置文件解密+后台用户添加</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        海康威视综合安防后渗透利用技巧
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wafinfo's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-29T03:14:50.015Z" itemprop="datePublished">2023-06-29</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网上很多上传shell就完事了，昨晚上跟朋友正好遇到了，连夜看了下代码补充下后渗透利用方法。</p>
+<p>利用工具：<a href="https://github.com/wafinfo/Hikvision">wafinfo&#x2F;Hikvision</a></p>
+<h2 id="后渗透"><a href="#后渗透" class="headerlink" title="后渗透"></a>后渗透</h2><p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629125348467.png" alt="image-20230629125348467"></p>
+<h3 id="配置信息"><a href="#配置信息" class="headerlink" title="配置信息"></a>配置信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行管理中心地址：http://xxxxxx:8080/center/login</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629112127871.png" alt="image-20230629112127871"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行管理中心数据库配置文件路径：/opt/hikvision/web/opsMgrCenter/conf/config.properties</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629112000042.png" alt="image-20230629112000042"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行管理中心后台登陆用户: 数据库opsmgr_db 用户表:center_user</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629112655547.png" alt="image-20230629112655547"></p>
+<p>其余各种数据库配置文件包括redis等，密码都加密了需要进行解密，需要的自行看。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/opt/hikvision/web/components/ntp<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/activemq514linux64<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/cluster<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/lm<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/ls<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/lsm<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/mps<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/nodejslinux64<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/ntp<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/openjdk11linux64<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/postgresql11linux64<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/redislinux64<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/reportservice<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/svm<span class="number">.1</span>/conf/config.properties</span><br><span class="line">/opt/hikvision/web/components/tomcat85linux64<span class="number">.1</span>/conf/config.properties</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置文件解密-后台用户添加"><a href="#配置文件解密-后台用户添加" class="headerlink" title="配置文件解密+后台用户添加"></a>配置文件解密+后台用户添加</h3><p>可以看到用户登陆的密码是被加密并且附带盐，直接找加密代码位置<code>com.hikvision.center.module.usermanage.service.impl.UserServiceImpl</code>代码很清楚可以看到<code>password</code>构成<code>password=sha256(&quot;password&quot;+md5)</code></p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113109466.png" alt="image-20230629113109466"></p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113304989.png" alt="image-20230629113304989"></p>
+<p>随机数生成。</p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113339143.png" alt="image-20230629113339143"></p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113442749.png" alt="image-20230629113442749"></p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629113430542.png" alt="image-20230629113430542"></p>
+<p><strong>注意：先备份原先用户密码和盐以便后续恢复密码</strong></p>
+<p>然后将生成的密码和盐进行替换登陆就可以了。</p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629124721370.png" alt="image-20230629124721370"></p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629124752106.png" alt="image-20230629124752106"></p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629125126369.png" alt="image-20230629125126369"></p>
+<p>数据库配置文件密码被加密。</p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629112820467.png" alt="image-20230629112820467"></p>
+<p>解密核心代码<code>Identify.dll</code>提供了解密接口直接调用就行了，或者也可以直接dump内存获取数据库密码，尝试了下好像该系统加密都是用的这套加密算法。</p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629124508270.png" alt="image-20230629124508270"></p>
+<p><img src="/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/image-20230629143040210.png" alt="image-20230629143040210"></p>
+
+  </div>
+</article>
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+    <div id="gitalk-container"></div>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '36d8630513c873eafed5',
+            clientSecret: '48ebe20e693552751cac17f33d1fbf5256018354',
+            id: md5(window.location.pathname),
+            repo: 'al-waf',
+            owner: 'wafinfo',
+            admin: 'wafinfo',
+            distractionFreeMode: ''
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/wafinfo">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E6%B8%97%E9%80%8F"><span class="toc-number">2.</span> <span class="toc-text">后渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text">配置信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%A7%A3%E5%AF%86-%E5%90%8E%E5%8F%B0%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0"><span class="toc-number">2.2.</span> <span class="toc-text">配置文件解密+后台用户添加</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&text=海康威视综合安防后渗透利用技巧"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&is_video=false&description=海康威视综合安防后渗透利用技巧"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=海康威视综合安防后渗透利用技巧&body=Check out this article: https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&title=海康威视综合安防后渗透利用技巧"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&name=海康威视综合安防后渗透利用技巧&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/2023/06/29/%E6%B5%B7%E5%BA%B7%E5%A8%81%E8%A7%86%E7%BB%BC%E5%90%88%E5%AE%89%E9%98%B2%E5%90%8E%E6%B8%97%E9%80%8F%E5%88%A9%E7%94%A8%E6%8A%80%E5%B7%A7/&t=海康威视综合安防后渗透利用技巧"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    Wafinfo&#39;s Blog
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="https://github.com/wafinfo">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
